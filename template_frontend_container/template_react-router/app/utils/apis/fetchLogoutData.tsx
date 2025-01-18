@@ -10,8 +10,7 @@ export const fetchLogoutData = async () => {
   // logger.info('[fetchLogoutData] start');
 
   // NOTE: processが使用できないため、API URLを直接指定
-  // const apiUrl = process.env.API_URL || 'http://localhost:5173'; // 環境変数からURLを取得
-  const apiUrl = 'http://localhost:5173'; // API URLを直接指定
+  const apiUrl = process.env.API_URL; // 環境変数からURLを取得
   // logger.debug('[fetchLogoutData] API URL', { apiUrl: apiUrl });
 
   try {
