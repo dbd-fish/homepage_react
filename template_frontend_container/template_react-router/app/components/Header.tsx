@@ -8,7 +8,6 @@ export default function Header() {
   // ローダー関数で取得したユーザー情報を取得
   // NOTE: 共通のLoader関数の戻り値の型定義を使用
   const loaderData = useLoaderData<LoaderDataType>();
-  console.log('Header: user', loaderData);
 
   // 認証状況に応じて表示を切り替える
   if (loaderData.user) {
