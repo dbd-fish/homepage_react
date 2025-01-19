@@ -16,7 +16,7 @@ export const fetchUserData = async (request: Request) => {
   // logger.debug('[fetchUserData] Cookie header', { cookieHeader: cookieHeader });
 
   try {
-    const response = await fetch(`${apiUrl}/api/get/me`, {
+    const response = await fetch(`${apiUrl}/api/auth/me`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

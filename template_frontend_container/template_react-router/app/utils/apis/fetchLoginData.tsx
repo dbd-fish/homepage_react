@@ -15,13 +15,16 @@ export const fetchLoginData = async (email: string, password: string) => {
   // logger.debug('[fetchLoginData] API URL', { apiUrl });
 
   try {
-    const response = await fetch(`${apiUrl}/api/login`, {
+    const response = await fetch(`${apiUrl}/api/auth/login`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }), // フォームデータをJSON形式に変換
+      // NOTE: OAuth2PasswordRequestFormは application/x-www-form-urlencodedを指定
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        username: email, // OAuth2PasswordRequestFormは "username" フィールドを期待
+        password: password,
+      }).toString(),      
       credentials: 'include', // HTTP-only Cookieを送信
     });
-
     if (response.ok) {
       // レスポンスヘッダーからSet-Cookieヘッダーを取得
       // const setCookieHeader = response.headers.get('set-cookie');

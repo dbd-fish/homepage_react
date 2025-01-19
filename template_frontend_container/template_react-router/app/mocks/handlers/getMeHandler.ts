@@ -9,7 +9,7 @@ const MOCK_USER = {
 
 // /api/get/me エンドポイントへのPOSTリクエストを処理するハンドラー
 export const getMeHandler = http.post(
-  'http://localhost:5173/api/get/me',
+  'http://localhost:5173/api/auth/me',
   ({ cookies }) => {
     // logger.info('[getMeHandler] start');
 

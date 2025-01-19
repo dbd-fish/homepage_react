@@ -14,8 +14,11 @@ import { server } from './mocks/server';
 
 const ABORT_DELAY = 5_000;
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.ENV_MODE === 'development') {
+  console.log('[entry.server.tsx] Starting the server in development mode...');
   server.listen();
+} else{
+  console.log('[entry.server.tsx] Starting the server in production mode...');
 }
 
 export default function handleRequest(
