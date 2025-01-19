@@ -9,10 +9,10 @@ router = APIRouter()
 
 if setting.DEV_MODE:
     # 開発用のルーター定義
-    router.include_router(dev_router, prefix="/dev",  tags=["dev"])
+    router.include_router(dev_router, prefix="/api/dev",  tags=["dev"])
 
 # レポート用のルーター定義
-router.include_router(report_router, prefix="/report",  tags=["report"])
+router.include_router(report_router, prefix="/api/report",  tags=["report"])
 
 # 認証用のルーター
-router.include_router(auth_router, prefix="/auth", tags=["auth"])
+router.include_router(auth_router, prefix="/api/auth", tags=["auth"])

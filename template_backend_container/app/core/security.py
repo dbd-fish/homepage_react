@@ -24,7 +24,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES = setting.ACCESS_TOKEN_EXPIRE_MINUTES  # アクセ�
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 # トークンのエンドポイント（FastAPIのOAuth2PasswordBearerを使用）
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/auth/login")
 
 def hash_password(password: str) -> str:
     """パスワードをハッシュ化する。
@@ -80,6 +80,7 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None) -> s
         expire = datetime.now(ZoneInfo("Asia/Tokyo")) + (expires_delta or timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES))
         to_encode.update({"exp": expire})
         encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+        logger.info("create_access_token - success", encoded_jwt=encoded_jwt)
         logger.info("create_access_token - end", expire=expire)
         return encoded_jwt
     finally:

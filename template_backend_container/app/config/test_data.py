@@ -11,7 +11,7 @@ class TestData:
     TEST_USERNAME_2 = "targetuser"
     TEST_USER_EMAIL_1 = "testuser@example.com"
     TEST_USER_EMAIL_2 = "targetuser@example.com"
-    TEST_USER_PASSWORD = "password"
+    TEST_USER_PASSWORD = "password123456+-"
     TEST_USER_CONTACT_1 = "123456789"
     TEST_USER_CONTACT_2 = "987654321"
 
