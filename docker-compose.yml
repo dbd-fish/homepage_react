@@ -15,7 +15,7 @@ services:
       - "3000:3000" # 本番用
       - "5173:5173" # 開発用
     tty: true   # コンテナをデバッグ用に起動状態に保つ場合は設定
-    command: ["/bin/sh", "-c", "cd /app/template_react-router && npm run dev"]
+    # command: ["/bin/sh", "-c", "cd /app/template_react-router && npm run dev"]
 
     networks:
       - frontend-network # フロントエンド専用のネットワーク
