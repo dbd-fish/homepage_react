@@ -22,7 +22,7 @@ export const fetchLoginData = async (email: string, password: string) => {
       body: new URLSearchParams({
         username: email, // OAuth2PasswordRequestFormは "username" フィールドを期待
         password: password,
-      }).toString(),      
+      }).toString(),
       credentials: 'include', // HTTP-only Cookieを送信
     });
     if (response.ok) {

@@ -2,7 +2,7 @@ import { ActionFunction, redirect } from 'react-router';
 import { useActionData } from 'react-router';
 import LoginForm from '~/components/forms/LoginForm';
 import { fetchLoginData } from '~/utils/apis/fetchLoginData';
-import { authCookie } from '~/utils/cookies';
+
 // import logger from '~/utils/logger';
 
 /**
@@ -23,8 +23,10 @@ export const action: ActionFunction = async ({ request }) => {
     // fetchLoginDataを呼び出して認証トークンを取得
     const response = await fetchLoginData(email, password);
     // NOTE: バックエンドのレスポンスヘッダーからCookieを取得する場合、get('Cookie')では取得できない
-    const responseCookieHeader = response.headers.get('set-Cookie'); 
-    console.log('[Login Action] Response Cookie header', { responseCookieHeader: responseCookieHeader });
+    const responseCookieHeader = response.headers.get('set-Cookie');
+    console.log('[Login Action] Response Cookie header', {
+      responseCookieHeader: responseCookieHeader,
+    });
     if (!responseCookieHeader) {
       throw new Error('Cookieが見つかりません');
     }

@@ -18,8 +18,8 @@ export const fetchLogoutData = async (request: Request) => {
     // logger.info('[fetchLogoutData] Cookie header', { cookieHeader: cookieHeader });
     const response = await fetch(`${apiUrl}/api/auth/logout`, {
       method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json', 
+      headers: {
+        'Content-Type': 'application/json',
         Cookie: cookieHeader || '', // 明示的にクッキーを渡す
       },
       credentials: 'include', // HTTP-only Cookieを送信
