@@ -15,10 +15,10 @@ services:
       - "3000:3000" # 本番用
       - "5173:5173" # 開発用
     tty: true   # コンテナをデバッグ用に起動状態に保つ場合は設定
-    # 下記は開発用
-    # command: ["npm", "run", "dev"]
+    # command: ["/bin/sh", "-c", "cd /app/template_react-router && npm run dev"]
+
     networks:
-      - app-network    # この行を追加
+      - frontend-network # フロントエンド専用のネットワーク
 
   backend:
     container_name: template_backend_container
@@ -34,6 +34,9 @@ services:
     tty: true
     depends_on:
       - db
+    networks:
+      - frontend-network # フロントエンドと通信するためのネットワーク
+      - backend-network  # データベースと通信するためのネットワーク
 
   db:
     image: postgres:13
@@ -49,6 +52,8 @@ services:
       - ./init-scripts:/docker-entrypoint-initdb.d
     ports:
       - "5432:5432"
+    networks:
+      - backend-network # バックエンド専用のネットワーク
 
   cypress:
     build:
@@ -64,13 +69,15 @@ services:
     depends_on:
       - frontend
     networks:
-      - app-network
+      - frontend-network # フロントエンドと同じネットワークを使用
     tty: true
     stdin_open: true
 
 networks:
-  app-network:
-    driver: bridge
+  frontend-network:
+    driver: bridge # フロントエンドとバックエンドが通信するためのネットワーク
+  backend-network:
+    driver: bridge # バックエンドとデータベースが通信するためのネットワーク
 
 volumes:
   postgres_data:

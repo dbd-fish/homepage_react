@@ -1,9 +1,9 @@
 import structlog
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core.security import authenticate_user, create_access_token, oauth2_scheme
+from app.core.security import authenticate_user, create_access_token
 from app.database import get_db
 from app.models.user import User
 from app.schemas.user import PasswordReset, UserCreate, UserResponse
@@ -14,21 +14,21 @@ logger = structlog.get_logger()
 
 router = APIRouter()
 
-@router.get("/me", response_model=UserResponse)
-async def get_me(token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)):
+@router.post("/me", response_model=UserResponse)
+async def get_me(request: Request, db: AsyncSession = Depends(get_db)):
     """現在ログインしているユーザーの情報を取得するエンドポイント。
 
     Args:
-        token (str): OAuth2トークン。
+        request (Request): リクエストオブジェクト（クッキーの解析に使用）。
         db (AsyncSession): 非同期データベースセッション。
 
     Returns:
         UserResponse: ログイン中のユーザー情報。
 
     """
-    logger.info("get_me - start", token=token)
+    logger.info("get_me - start")
     try:
-        user = await get_current_user(db, token)
+        user = await get_current_user(request, db)
         logger.info("get_me - success", user_id=user.user_id)
         return user
     finally:
@@ -55,10 +55,11 @@ async def register_user(user: UserCreate, db: AsyncSession = Depends(get_db)):
         logger.info("register_user - end")
 
 @router.post("/login", response_model=dict)
-async def login(form_data: OAuth2PasswordRequestForm = Depends(), db: AsyncSession = Depends(get_db)):
+async def login(response: Response, form_data: OAuth2PasswordRequestForm = Depends(), db: AsyncSession = Depends(get_db)):
     """ログイン処理を行うエンドポイント。
 
     Args:
+        response (Response): レスポンスオブジェクト。
         form_data (OAuth2PasswordRequestForm): ユーザー名とパスワード。
         db (AsyncSession): 非同期データベースセッション。
 
@@ -78,7 +79,20 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends(), db: AsyncSessi
             )
         access_token = create_access_token(data={"sub": user.email})  # アクセストークンを生成
         logger.info("login - success", user_id=user.user_id)
-        return {"access_token": access_token, "token_type": "bearer"}
+
+        # HttpOnlyクッキーとしてトークンを設定
+        response.set_cookie(
+            # TODO: リフレッシュトークンを考慮する
+            key="authToken",
+            value=access_token,
+            httponly=True,  # JavaScriptからアクセスできないようにする
+            # TODO: 現状はアクセストークンであるAuht_tokeの有効期限を長めに設定する
+            max_age=60 * 60 * 60 * 8,  # クッキーの有効期限（秒）
+            secure=True,   # HTTPSのみで送信
+            samesite="lax"  # クロスサイトリクエストに対する制御
+        )
+        logger.info("login - success", extra={"user_id": user.user_id})
+        return {"message": "Login successful"}
     finally:
         logger.info("login - end")
 

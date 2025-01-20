@@ -1,5 +1,5 @@
 {
-    "correctEmail": "user@example.com",
-    "correctPassword": "securepassword",
+    "correctEmail": "testuser@example.com",
+    "correctPassword": "password123456+-",
     "incorrectEmail": "aaaa@example.com"
 }

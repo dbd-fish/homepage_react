@@ -23,7 +23,7 @@ export async function logoutAction(request: Request) {
 
     // ログアウトAPIを呼び出し
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const response = await fetchLogoutData();
+    const response = await fetchLogoutData(request);
 
     // デバッグ用: レスポンスの内容をコンソールに出力
     // const authToken = response.headers.get('set-cookie'); // 仮定: fetchLoginDataがauthTokenを返す

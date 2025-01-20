@@ -9,14 +9,14 @@
 export const fetchUserData = async (request: Request) => {
   // logger.info('[fetchUserData] start');
 
-  const apiUrl = 'http://localhost:5173'; // 環境変数からURLを取得
+  const apiUrl = process.env.API_URL; // 環境変数からURLを取得
   // logger.debug('[fetchUserData] API URL', { apiUrl: apiUrl });
 
   const cookieHeader = request.headers.get('Cookie');
   // logger.debug('[fetchUserData] Cookie header', { cookieHeader: cookieHeader });
 
   try {
-    const response = await fetch(`${apiUrl}/api/get/me`, {
+    const response = await fetch(`${apiUrl}/api/auth/me`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
