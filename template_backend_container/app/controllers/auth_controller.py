@@ -28,28 +28,7 @@ async def get_me(request: Request, db: AsyncSession = Depends(get_db)):
     """
     logger.info("get_me - start")
     try:
-        # リクエストヘッダーからCookieを取得
-        cookie_header = request.headers.get("cookie")
-        logger.info("get_me - cookie_header", cookie_header=cookie_header)
-        if not cookie_header:
-            logger.warning("get_me - no cookie found")
-            raise HTTPException(
-                status_code=401, detail="Authentication credentials were not provided"
-            )
-        
-        # Cookieから`authToken`を抽出
-        cookies = {cookie.split("=")[0].strip(): cookie.split("=")[1].strip() for cookie in cookie_header.split(";")}
-        logger.info("get_me - cookies", cookies=cookies)
-        token = cookies.get("authToken")
-        logger.info("get_me - token", token=token)
-
-        if not token:
-            logger.warning("get_me - authToken not found in cookies")
-            raise HTTPException(
-                status_code=401, detail="Authentication credentials were not provided"
-            )
-        
-        user = await get_current_user(db, token)
+        user = await get_current_user(db, request)
         logger.info("get_me - success", user_id=user.user_id)
         return user
     finally:

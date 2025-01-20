@@ -1,9 +1,9 @@
 
 import structlog
-from fastapi import Depends, HTTPException, status
+from fastapi import Depends, HTTPException, Request, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core.security import decode_access_token, hash_password, oauth2_scheme
+from app.core.security import decode_access_token, hash_password
 from app.database import get_db
 from app.models.user import User
 from app.repositories.auth_repository import UserRepository
@@ -13,7 +13,7 @@ logger = structlog.get_logger()
 
 
 async def get_current_user(
-    db: AsyncSession = Depends(get_db), token: str = Depends(oauth2_scheme),
+    db: AsyncSession = Depends(get_db), request: Request = None
 ) -> UserResponse:
     """トークンから現在のユーザーを取得します。
 
@@ -33,8 +33,30 @@ async def get_current_user(
             - 404: ユーザーが存在しない場合。
 
     """
-    logger.info("get_current_user - start", token=token)
+    logger.info("get_current_user - start")
     try:
+        # リクエストヘッダーからCookieを取得
+        cookie_header = request.headers.get("cookie")
+        logger.info("get_me - cookie_header", cookie_header=cookie_header)
+        if not cookie_header:
+            logger.warning("get_me - no cookie found")
+            raise HTTPException(
+                status_code=401, detail="Authentication credentials were not provided"
+            )
+
+        # Cookieから`authToken`を抽出
+        cookies = {cookie.split("=")[0].strip(): cookie.split("=")[1].strip() for cookie in cookie_header.split(";")}
+        logger.info("get_me - cookies", cookies=cookies)
+        token = cookies.get("authToken")
+        logger.info("get_me - token", token=token)
+
+        if not token:
+            logger.warning("get_me - authToken not found in cookies")
+            raise HTTPException(
+                status_code=401, detail="Authentication credentials were not provided"
+            )
+
+
         # トークンをデコードしてペイロードを取得
         payload = decode_access_token(token)
         email: str = payload.get("sub") or ""
