@@ -17,9 +17,10 @@ async def test_register_user(regist_user_data: UserCreate) -> None:
     """ユーザー登録のテスト。
     """
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://localhost:8000") as client:
-        response = await client.post("/auth/register", json=regist_user_data.model_dump())
+        response = await client.post("/api/auth/register", json=regist_user_data.model_dump())
         assert response.status_code == 200
         assert response.json()["msg"] == "User created successfully"
+
 
         # データベース内のユーザーを確認
         async for db_session in get_db():
@@ -37,11 +38,11 @@ async def test_register_existing_user(regist_user_data: UserCreate) -> None:
     """
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://localhost:8000") as client:
         # 最初の登録は成功する
-        response = await client.post("/auth/register", json=regist_user_data.model_dump())
+        response = await client.post("/api/auth/register", json=regist_user_data.model_dump())
         assert response.status_code == 200
 
         # 同じメールアドレスで再登録を試みる
-        response = await client.post("/auth/register", json=regist_user_data.model_dump())
+        response = await client.post("/api/auth/register", json=regist_user_data.model_dump())
         assert response.status_code == 400
         assert "User already exists" in response.json()["detail"]
 
@@ -51,12 +52,14 @@ async def test_login_user() -> None:
     """
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://localhost:8000/") as client:
         response = await client.post(
-            "/auth/login",
+            "/api/auth/login",
             data={"username": TestData.TEST_USER_EMAIL_1, "password": TestData.TEST_USER_PASSWORD},
             headers={"Content-Type": "application/x-www-form-urlencoded"},
         )
         assert response.status_code == 200
-        assert "access_token" in response.json()
+        response_json = response.json()
+        message = response_json.get("message", "")
+        assert "successful" in message
 
 @pytest.mark.asyncio(loop_scope="session")
 async def test_login_with_invalid_credentials() -> None:
@@ -64,7 +67,7 @@ async def test_login_with_invalid_credentials() -> None:
     """
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://localhost:8000/") as client:
         response = await client.post(
-            "/auth/login",
+            "/api/auth/login",
             data={"username": "wronguser@example.com", "password": "wrongpassword"},
             headers={"Content-Type": "application/x-www-form-urlencoded"},
         )
@@ -77,7 +80,7 @@ async def test_reset_password(authenticated_client: AsyncClient) -> None:
     """
     new_password = "newpassword"
     response = await authenticated_client.post(
-        "/auth/reset-password",
+        "/api/auth/reset-password",
         json={"email": TestData.TEST_USER_EMAIL_1, "new_password": new_password},
     )
     assert response.status_code == 200
@@ -97,7 +100,7 @@ async def test_reset_password_with_invalid_email(authenticated_client: AsyncClie
     """存在しないメールアドレスでパスワードリセットを試みた場合のテスト。
     """
     response = await authenticated_client.post(
-        "/auth/reset-password",
+        "/api/auth/reset-password",
         json={"email": "nonexistent@example.com", "new_password": "newpassword"},
     )
     assert response.status_code == 404

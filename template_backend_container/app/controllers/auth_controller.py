@@ -28,7 +28,7 @@ async def get_me(request: Request, db: AsyncSession = Depends(get_db)):
     """
     logger.info("get_me - start")
     try:
-        user = await get_current_user(db, request)
+        user = await get_current_user(request, db)
         logger.info("get_me - success", user_id=user.user_id)
         return user
     finally:
@@ -89,7 +89,7 @@ async def login(response: Response, form_data: OAuth2PasswordRequestForm = Depen
             # TODO: 現状はアクセストークンであるAuht_tokeの有効期限を長めに設定する
             max_age=60 * 60 * 60 * 8,  # クッキーの有効期限（秒）
             secure=True,   # HTTPSのみで送信
-            samesite="Lax"  # クロスサイトリクエストに対する制御
+            samesite="lax"  # クロスサイトリクエストに対する制御
         )
         logger.info("login - success", extra={"user_id": user.user_id})
         return {"message": "Login successful"}

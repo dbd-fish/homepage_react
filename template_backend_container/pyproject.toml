@@ -28,9 +28,6 @@ rich = "^13.9.4"
 pytest-asyncio = "^0.24.0"
 types-python-jose = "^3.3.4.20240106"
 types-passlib = "^1.7.7.20240819"
-[tool.ruff.lint.per-file-ignores]
-# ファイルごとのエラー除外
-"__init__.py" = ["F401"]
 
 [tool.poetry.group.dev.dependencies]
 httpx = "^0.27.2"
@@ -40,10 +37,12 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
+# Pytestの設定
 asyncio_mode = "strict"
 asyncio_default_fixture_loop_scope = "session"
 
 [tool.ruff]
+# 適用するルールの選択
 # 適用するルールの選択
 # F: Pyflakesによるエラー検出
 # E: pycodestyleのエラー
@@ -51,13 +50,13 @@ asyncio_default_fixture_loop_scope = "session"
 # I: isortによるインポート順序の整理
 # B: flake8-bugbearによる潜在的なバグ検出
 # UP: pyupgradeによる最新のPython構文へのアップグレード
-select = ["F", "E", "W", "I", "B", "UP"]
+lint.select = ["F", "E", "W", "I", "B", "UP"]
 
 # 除外するルールの指定（必要に応じて）
-ignore = ["B008"]
+lint.ignore = ["B008"]
 
 # 自動修正可能なルールの指定
-fixable = ["F", "E", "W", "I", "B", "UP"]
+lint.fixable = ["F", "E", "W", "I", "B", "UP"]
 
 # 最大行長の設定
 line-length = 200
@@ -75,6 +74,9 @@ exclude = [
     "alembic/versions/**"
 ]
 
+[tool.ruff.lint.per-file-ignores]
+# ファイルごとのエラー除外
+"__init__.py" = ["F401"]
 
 # [tool.poetry.packages]
 # include = ["app"]

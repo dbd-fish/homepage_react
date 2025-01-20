@@ -13,7 +13,8 @@ logger = structlog.get_logger()
 
 
 async def get_current_user(
-    db: AsyncSession = Depends(get_db), request: Request = None
+    request: Request,
+    db: AsyncSession = Depends(get_db),
 ) -> UserResponse:
     """トークンから現在のユーザーを取得します。
 

@@ -19,13 +19,13 @@ async def setup_test_db():
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://localhost:8000") as client:
         # データベースの初期化 (clear_data API の呼び出し)
         print("テスト用データのクリアを開始")
-        clear_response = await client.post("/dev/clear_data")
+        clear_response = await client.post("api/dev/clear_data")
         print(clear_response)
         assert clear_response.status_code == 200
 
         # 必要なデータの挿入 (seed_data API の呼び出し)
         print("テスト用シードデータの挿入を開始")
-        seed_response = await client.post("/dev/seed_data")
+        seed_response = await client.post("api/dev/seed_data")
         print(seed_response)
         assert seed_response.status_code == 200
 
