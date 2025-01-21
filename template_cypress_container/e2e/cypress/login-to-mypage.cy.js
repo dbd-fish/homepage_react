@@ -1,6 +1,5 @@
 describe('ログインテスト', () => {
 
-
   let loginData;
   before(() => {
     // テストデータを読み込む
@@ -9,25 +8,9 @@ describe('ログインテスト', () => {
     });
   });
 
-
   it('フォームに正しく入力して送信', () => {
-    cy.visit('/login');
-
-    // NOTE: これがないと以降の操作ができない
-    // ページの読み込みを待つ
-    cy.wait(1000); // または適切な時間
-
-    // NOTE: ここで正しいemailとパスワードの組み合わせは別コンテナを参照する必要がある
-    cy.get('input#email')
-      .should('be.enabled') // 要素が有効になるまで待機
-      .type(loginData.correctEmail);
-
-    cy.get('input#password')
-      .should('be.enabled')
-      .type(loginData.correctPassword);
-
-    cy.get('button[type="submit"]').click();
-    cy.wait(1000); // または適切な時間
+    // ログイン操作
+    cy.login(loginData.correctEmail, loginData.correctPassword);
     // マイページ画面に遷移
     cy.url().should('eq', 'https://frontend:5173/mypage');
   });
@@ -43,37 +26,16 @@ describe('ログインテスト', () => {
   });
 
   it('ホーム画面からログアウト画面へ遷移', () => {
-    cy.visit('/login');
-
-    // NOTE: これがないと以降の操作ができない
-    // ページの読み込みを待つ
-    cy.wait(1000); // または適切な時間
-
-    // NOTE: ここで正しいemailとパスワードの組み合わせは別コンテナを参照する必要がある
-    cy.get('input#email')
-      .should('be.enabled') // 要素が有効になるまで待機
-      .type(loginData.correctEmail);
-
-    cy.get('input#password')
-      .should('be.enabled')
-      .type(loginData.correctPassword);
-
-    cy.get('button[type="submit"]').click();
-    cy.wait(1000); // または適切な時間
+    // ログイン操作
+    cy.login(loginData.correctEmail, loginData.correctPassword);
     // マイページ画面に遷移
     cy.url().should('eq', 'https://frontend:5173/mypage');
 
-    // 2. ユーザーアカウントアイコンをクリックしてメニューを表示
-    cy.get('button:has(img[alt="User Avatar"])').should('be.visible').click();
-
-    // 3. ログアウトボタンをクリック
-    cy.contains('button', 'ログアウト').should('be.visible').click();
-
-
+    // ログアウト操作
+    cy.logout();
     // ログイン画面に遷移
     cy.wait(3000); // または適切な時間
     cy.get('form#login-form').should('be.visible');
-
     cy.url().should('eq', 'https://frontend:5173/login');
   });
 });

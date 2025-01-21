@@ -1,3 +1,4 @@
+// NOTE: 原因不明なエラーで悩まされる場合はこのファイルでスキップするように定義する。
 Cypress.on('uncaught:exception', (err) => {
   // NOTE: CypressとReact(Remixなど)の相性問題？
   // https://github.com/cypress-io/cypress/issues/27204#issuecomment-1927093633
