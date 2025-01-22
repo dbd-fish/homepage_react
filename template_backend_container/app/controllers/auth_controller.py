@@ -87,7 +87,7 @@ async def login(response: Response, form_data: OAuth2PasswordRequestForm = Depen
             value=access_token,
             httponly=True,  # JavaScriptからアクセスできないようにする
             # TODO: 現状はアクセストークンであるAuht_tokeの有効期限を長めに設定する
-            max_age=60 * 60 * 60 * 8,  # クッキーの有効期限（秒）
+            max_age=60 * 60 * 3,  # クッキーの有効期限（秒）　3時間
             secure=True,   # HTTPSのみで送信
             samesite="lax"  # クロスサイトリクエストに対する制御
         )
