@@ -79,6 +79,7 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None) -> s
         to_encode = data.copy()
         expire = datetime.now(ZoneInfo("Asia/Tokyo")) + (expires_delta or timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES))
         to_encode.update({"exp": expire})
+        logger.debug("create_access_token - to_encode", to_encode=to_encode)
         encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
         logger.info("create_access_token - success", encoded_jwt=encoded_jwt)
         logger.info("create_access_token - end", expire=expire)
