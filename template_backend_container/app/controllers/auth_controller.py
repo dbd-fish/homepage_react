@@ -55,7 +55,7 @@ async def register_user(user: UserCreate, db: AsyncSession = Depends(get_db)):
         logger.info("register_user - end")
 
 @router.post("/login", response_model=dict)
-async def login(response: Response, form_data: OAuth2PasswordRequestForm = Depends(), db: AsyncSession = Depends(get_db)):
+async def login(request: Request,response: Response, form_data: OAuth2PasswordRequestForm = Depends(), db: AsyncSession = Depends(get_db)):
     """ログイン処理を行うエンドポイント。
 
     Args:
@@ -77,7 +77,10 @@ async def login(response: Response, form_data: OAuth2PasswordRequestForm = Depen
                 detail="Incorrect username or password",
                 headers={"WWW-Authenticate": "Bearer"},
             )
-        access_token = create_access_token(data={"sub": user.email})  # アクセストークンを生成
+        # NOTE: クライアントのIPの取得方法はプロキシなどに依存する可能性あり
+        # client_host = request.client.host
+        client_host = request.headers.get("X-Forwarded-For", request.client.host)
+        access_token = create_access_token(data={"sub": user.email, "client_ip": client_host})  # アクセストークンを生成
         logger.info("login - success", user_id=user.user_id)
 
         # HttpOnlyクッキーとしてトークンを設定
@@ -87,7 +90,7 @@ async def login(response: Response, form_data: OAuth2PasswordRequestForm = Depen
             value=access_token,
             httponly=True,  # JavaScriptからアクセスできないようにする
             # TODO: 現状はアクセストークンであるAuht_tokeの有効期限を長めに設定する
-            max_age=60 * 60 * 60 * 8,  # クッキーの有効期限（秒）
+            max_age=60 * 60 * 3,  # クッキーの有効期限（秒）　3時間
             secure=True,   # HTTPSのみで送信
             samesite="lax"  # クロスサイトリクエストに対する制御
         )
