@@ -1,5 +1,4 @@
 import configparser
-import os
 from collections.abc import AsyncGenerator
 
 from databases import Database
