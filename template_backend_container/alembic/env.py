@@ -1,5 +1,6 @@
+# ruff: noqa: I001, F401
 from logging.config import fileConfig
-import app.models
+import app.models # Almbericでモデルを読み込ために必要
 
 from sqlalchemy import create_engine, pool
 from sqlalchemy.engine import Engine
