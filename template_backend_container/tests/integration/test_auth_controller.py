@@ -6,14 +6,14 @@ from sqlalchemy import select
 
 from app.config.test_data import TestData
 from app.core.security import verify_password
-from app.database import get_db
 from app.models.user import User
 from app.schemas.user import UserCreate
 from main import app
 
 
+# NOTE: setup_test_dbはfixture(scope="function", autouse=True)だが、戻り値を利用する場合はテスト関数の引数として実装する必要あり。
 @pytest.mark.asyncio(loop_scope="session")
-async def test_register_user(regist_user_data: UserCreate) -> None:
+async def test_register_user(regist_user_data: UserCreate, setup_test_db) -> None:
     """ユーザー登録のテスト。
     """
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://localhost:8000") as client:
@@ -23,7 +23,9 @@ async def test_register_user(regist_user_data: UserCreate) -> None:
 
 
         # データベース内のユーザーを確認
-        async for db_session in get_db():
+        # NOTE: オーバーライドしたget_db()からDB操作をする
+        override_get_db = setup_test_db["override_get_db"]
+        async for db_session in override_get_db():
             result = await db_session.execute(
                 select(User).where(User.email == regist_user_data.email),
             )
@@ -75,7 +77,7 @@ async def test_login_with_invalid_credentials() -> None:
         assert "Invalid email or password" in response.json()["detail"]
 
 @pytest.mark.asyncio(loop_scope="session")
-async def test_reset_password(authenticated_client: AsyncClient) -> None:
+async def test_reset_password(authenticated_client: AsyncClient, setup_test_db) -> None:
     """パスワードリセットのテスト。
     """
     new_password = "newpassword"
@@ -87,7 +89,8 @@ async def test_reset_password(authenticated_client: AsyncClient) -> None:
     assert response.json()["msg"] == "Password reset successful"
 
     # データベース内のユーザーのパスワードを確認
-    async for db_session in get_db():
+    override_get_db = setup_test_db["override_get_db"]  # 関数を取得
+    async for db_session in override_get_db():
         result = await db_session.execute(
             select(User).where(User.email == TestData.TEST_USER_EMAIL_1),
         )

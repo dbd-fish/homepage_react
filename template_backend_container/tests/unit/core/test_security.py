@@ -10,7 +10,6 @@ from app.core.security import (
     hash_password,
     verify_password,
 )
-from app.database import get_db
 from app.models.user import User
 
 
@@ -104,7 +103,7 @@ async def test_decode_access_token_invalid_token():
 
 
 @pytest.mark.asyncio
-async def test_authenticate_user_password_mismatch():
+async def test_authenticate_user_password_mismatch(setup_test_db):
     """authenticate_userでパスワードが一致しなかった場合のテスト。
     """
     test_email = "user@example.com"
@@ -118,7 +117,8 @@ async def test_authenticate_user_password_mismatch():
         user_role=User.ROLE_FREE,
         user_status=User.STATUS_ACTIVE,
     )
-    async for db_session in get_db():
+    override_get_db = setup_test_db["override_get_db"]  # 関数を取得
+    async for db_session in override_get_db():
         db_session.add(user)
         await db_session.commit()
         await db_session.refresh(user)
@@ -129,7 +129,7 @@ async def test_authenticate_user_password_mismatch():
 
 
 @pytest.mark.asyncio
-async def test_authenticate_user_inactive_status():
+async def test_authenticate_user_inactive_status(setup_test_db):
     """authenticate_userで非アクティブなユーザーをテスト。
     """
     test_email = "inactiveuser@example.com"
@@ -143,7 +143,8 @@ async def test_authenticate_user_inactive_status():
         user_role=User.ROLE_FREE,
         user_status=User.STATUS_SUSPENDED,  # 非アクティブなステータス
     )
-    async for db_session in get_db():
+    override_get_db = setup_test_db["override_get_db"]  # 関数を取得
+    async for db_session in override_get_db():
         db_session.add(user)
         await db_session.commit()
         await db_session.refresh(user)
@@ -153,7 +154,7 @@ async def test_authenticate_user_inactive_status():
 
 
 @pytest.mark.asyncio
-async def test_authenticate_user_deleted():
+async def test_authenticate_user_deleted(setup_test_db):
     """authenticate_userで削除済みのユーザーをテスト。
     """
     test_email = "deleteduser@example.com"
@@ -168,7 +169,8 @@ async def test_authenticate_user_deleted():
         user_status=User.STATUS_ACTIVE,
         deleted_at= datetime.strptime("2024-01-01 00:00:00", "%Y-%m-%d %H:%M:%S"),  # 削除されたユーザー
     )
-    async for db_session in get_db():
+    override_get_db = setup_test_db["override_get_db"]  # 関数を取得
+    async for db_session in override_get_db():
         db_session.add(user)
         await db_session.commit()
         await db_session.refresh(user)

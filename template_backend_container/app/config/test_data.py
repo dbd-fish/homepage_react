@@ -14,12 +14,3 @@ class TestData:
     TEST_USER_PASSWORD = "password123456+-"
     TEST_USER_CONTACT_1 = "123456789"
     TEST_USER_CONTACT_2 = "987654321"
-
-    # Group
-    TEST_GROUP_ID = "323e4567-e89b-12d3-a456-426614174002"
-    TEST_GROUP_NAME = "Sample Group"
-
-    # Report
-    TEST_REPORT_ID = "423e4567-e89b-12d3-a456-426614174003"
-    TEST_REPORT_TITLE = "Sample Report"
-    TEST_REPORT_CONTENT = "This is a sample report."

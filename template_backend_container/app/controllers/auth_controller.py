@@ -79,7 +79,10 @@ async def login(request: Request,response: Response, form_data: OAuth2PasswordRe
             )
         # NOTE: クライアントのIPの取得方法はプロキシなどに依存する可能性あり
         # client_host = request.client.host
-        client_host = request.headers.get("X-Forwarded-For", request.client.host)
+        client_host = (
+            request.headers.get("X-Forwarded-For")
+            or (request.client.host if request.client else "unknown")
+        )
         access_token = create_access_token(data={"sub": user.email, "client_ip": client_host})  # アクセストークンを生成
         logger.info("login - success", user_id=user.user_id)
 
