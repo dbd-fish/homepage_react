@@ -7,24 +7,34 @@
 import asyncio
 
 from passlib.context import CryptContext  # type: ignore
+from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession
 from sqlalchemy.future import select
+from sqlalchemy.sql import text
 
 import app.models
 from app.common.common import datetime_now
 from app.config.test_data import TestData
-from app.database import AsyncSessionLocal, Base, engine
+from app.database import AsyncSessionLocal, Base
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-async def clear_data():
+async def clear_data(db: AsyncSession):
     """データベースをクリアします。すべてのテーブルを削除し、再作成します。
     """
+        # db.bind の型を明示的にチェック
+    if not isinstance(db.bind, AsyncEngine):
+        raise TypeError("db.bind is not an AsyncEngine")
+    engine: AsyncEngine = db.bind
     async with engine.begin() as conn:
 
         try:
-            print("データベースURL:", engine.url)  # 接続先DB確認
+            print("データベースURL:", engine.url)
             print("すべてのテーブルを削除中...")
-            await conn.run_sync(Base.metadata.drop_all)  # テーブルを削除
+            # テーブルを CASCADE で削除
+            # スキーマ全体を削除
+            await conn.execute(text('DROP SCHEMA public CASCADE'))
+            # スキーマを再作成
+            await conn.execute(text('CREATE SCHEMA public'))
             print("すべてのテーブルを作成中...")
             await conn.run_sync(Base.metadata.create_all)  # テーブルを作成
             print("データベースのクリアが完了しました。")
@@ -32,15 +42,16 @@ async def clear_data():
             print(f"データベースクリア中にエラーが発生しました: {e}")
 
 
-async def seed_data():
+async def seed_data(db: AsyncSession):
     """テーブルへデータを挿入します。
     """
+    # db.bind の型を明示的にチェック
+    if not isinstance(db.bind, AsyncEngine):
+        raise TypeError("db.bind is not an AsyncEngine")
+    engine: AsyncEngine = db.bind
+
     async with AsyncSessionLocal(bind=engine) as session:
         try:
-            # 固定値のUUIDやIDを定義
-            user1_id = TestData.TEST_USER_ID_1
-            user2_id = TestData.TEST_USER_ID_2
-
             # 1. Userテーブル
             result = await session.execute(
                 select(app.models.User).where(app.models.User.username == TestData.TEST_USERNAME_1),

@@ -27,7 +27,7 @@ async def clear_data_endpoint(
     """
     logger.info("clear_data_endpoint - start")
     try:
-        await clear_data()
+        await clear_data(db)
         logger.info("clear_data_endpoint - success")
         return   {"msg": "clear_data API successfully"}
     finally:
@@ -48,8 +48,9 @@ async def seed_data_endpoint(
     """
     logger.info("seed_data_endpoint - start")
     try:
-        await seed_data()
+        await seed_data(db)
         logger.info("seed_data_endpoint - success")
         return  {"msg": "seed_data API successfully"}
     finally:
         logger.info("seed_data_endpoint - end")
+

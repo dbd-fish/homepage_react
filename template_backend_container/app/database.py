@@ -1,4 +1,5 @@
 import configparser
+import os
 from collections.abc import AsyncGenerator
 
 from databases import Database
@@ -66,6 +67,13 @@ def configure_database(test_env: int = 0):
 
 
 # 本番環境のデフォルト設定
+# NOTE: 本番環境用DBとPytest用DBの使い分けをするために、engineとget_dbは外部ファイルから直接読み取らない。
+#       engineについて、
+#           本番環境であればAPIのdb: AsyncSession = Depends(get_db)からdb.bindでengineを取得して使用する。
+#           pytestではフィクスチャ関数であるsetup_test_dbで前処理をしているため読み取る必要はないはず。
+#       get_db()について、
+#           本番環境ではAPIのdb: AsyncSession = Depends(get_db)からDB操作をする。
+#           Pytestのテスト関数ではオーバーライドしたoverride_get_dbからDB操作をする。
 db_config = configure_database()
 database = db_config["database"]
 engine = db_config["engine"]

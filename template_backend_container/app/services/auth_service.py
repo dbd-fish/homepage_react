@@ -68,7 +68,7 @@ async def get_current_user(
                 detail="Invalid token",
                 headers={"WWW-Authenticate": "Bearer"},
             )
-        
+
         # TODO: クライアントのIPチェックはプロキシなどの環境に依存するため保留
         client_ip: str = payload.get("client_ip") or ""
         logger.debug("get_current_user - client_ip", client_ip=client_ip)
