@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 import pytest
 from jose import JWTError
 
-from app.feature_auth.security import (
+from app.features.feature_auth.security import (
     authenticate_user,
     create_access_token,
     decode_access_token,

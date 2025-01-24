@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.common.database import get_db
-from app.feature_dev.seed_data import clear_data, seed_data
+from app.features.feature_dev.seed_data import clear_data, seed_data
 
 # ロガーの設定
 logger = structlog.get_logger()
