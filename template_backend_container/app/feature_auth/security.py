@@ -9,7 +9,7 @@ from passlib.context import CryptContext
 from sqlalchemy.future import select
 
 from app.config.setting import setting
-from app.database import AsyncSession
+from app.common.database import AsyncSession
 from app.models.user import User
 
 # ログの設定

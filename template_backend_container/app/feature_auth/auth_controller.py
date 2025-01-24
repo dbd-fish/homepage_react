@@ -3,11 +3,11 @@ from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core.security import authenticate_user, create_access_token
-from app.database import get_db
+from app.feature_auth.security import authenticate_user, create_access_token
+from app.common.database import get_db
 from app.models.user import User
-from app.schemas.user import PasswordReset, UserCreate, UserResponse
-from app.services.auth_service import create_user, get_current_user, reset_password
+from app.feature_auth.schemas.user import PasswordReset, UserCreate, UserResponse
+from app.feature_auth.auth_service import create_user, get_current_user, reset_password
 
 # ログの設定
 logger = structlog.get_logger()

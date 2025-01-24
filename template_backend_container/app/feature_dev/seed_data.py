@@ -14,7 +14,7 @@ from sqlalchemy.sql import text
 import app.models
 from app.common.common import datetime_now
 from app.config.test_data import TestData
-from app.database import AsyncSessionLocal, Base
+from app.common.database import AsyncSessionLocal, Base
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 

@@ -3,11 +3,11 @@ import structlog
 from fastapi import Depends, HTTPException, Request, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core.security import decode_access_token, hash_password
-from app.database import get_db
+from app.feature_auth.security import decode_access_token, hash_password
+from app.common.database import get_db
 from app.models.user import User
-from app.repositories.auth_repository import UserRepository
-from app.schemas.user import UserResponse
+from app.feature_auth.auth_repository import UserRepository
+from app.feature_auth.schemas.user import UserResponse
 
 logger = structlog.get_logger()
 
