@@ -8,7 +8,7 @@ from sqlalchemy.sql import text
 import app.models
 from app.common.common import datetime_now
 from app.common.database import AsyncSessionLocal, Base
-from app.config.test_data import TestData
+from app.common.test_data import TestData
 
 # パスワードハッシュ用のコンテキスト
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")

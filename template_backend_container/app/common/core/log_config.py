@@ -6,7 +6,7 @@ from zoneinfo import ZoneInfo
 import structlog
 from structlog.processors import CallsiteParameter
 
-from app.config.setting import setting
+from app.common.setting import setting
 
 
 def create_log_directory(directory: str) -> None:

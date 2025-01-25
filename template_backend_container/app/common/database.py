@@ -7,7 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
 from sqlalchemy.pool import AsyncAdaptedQueuePool
 
-from app.config.setting import setting
+from app.common.setting import setting
 
 Base = declarative_base()
 
