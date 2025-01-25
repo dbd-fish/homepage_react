@@ -5,12 +5,12 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException
 from fastapi.exceptions import RequestValidationError
 
-from app.config.setting import setting
 from app.common.core.http_exception_handler import http_exception_handler
 from app.common.core.log_config import logger
 from app.common.core.request_validation_error import validation_exception_handler
 from app.common.database import database
 from app.common.middleware import AddUserIPMiddleware, ErrorHandlerMiddleware
+from app.config.setting import setting
 from app.routes import router
 
 # タイムゾーンをJST（日本標準時）に設定

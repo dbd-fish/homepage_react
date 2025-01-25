@@ -47,7 +47,7 @@ async def seed_user(session: AsyncSession):
                     user_id=user_data["user_id"],
                     username=user_data["username"],
                     email=user_data["email"],
-                    hashed_password=pwd_context.hash(user_data["password"]),
+                    hashed_password=pwd_context.hash(str(user_data["password"])),
                     contact_number=user_data["contact_number"],
                     user_role=user_data["user_role"],
                     user_status=1,

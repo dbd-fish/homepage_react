@@ -12,8 +12,6 @@ from sqlalchemy.sql import text
 from app.common.database import AsyncSessionLocal, Base
 from app.features.feature_dev.seed_user import seed_user
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
 async def clear_data(db: AsyncSession):
     """データベースをクリアします。すべてのテーブルを削除し、再作成します。
     """
