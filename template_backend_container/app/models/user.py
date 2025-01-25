@@ -6,7 +6,7 @@ from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.common.common import datetime_now
-from app.database import Base
+from app.common.database import Base
 
 
 class User(Base):

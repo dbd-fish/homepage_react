@@ -4,10 +4,10 @@ import pytest
 from httpx import ASGITransport, AsyncClient
 from sqlalchemy import select
 
-from app.config.test_data import TestData
-from app.core.security import verify_password
+from app.common.test_data import TestData
+from app.features.feature_auth.schemas.user import UserCreate
+from app.features.feature_auth.security import verify_password
 from app.models.user import User
-from app.schemas.user import UserCreate
 from main import app
 
 

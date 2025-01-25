@@ -1,7 +1,7 @@
 from fastapi import Request
 from starlette.middleware.base import BaseHTTPMiddleware
 
-from app.core.log_config import logger, structlog
+from app.common.core.log_config import logger, structlog
 
 
 class AddUserIPMiddleware(BaseHTTPMiddleware):

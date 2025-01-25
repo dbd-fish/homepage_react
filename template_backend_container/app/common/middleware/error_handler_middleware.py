@@ -7,7 +7,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.responses import JSONResponse
 
-from app.core.log_config import logger
+from app.common.core.log_config import logger
 
 
 class ErrorHandlerMiddleware(BaseHTTPMiddleware):

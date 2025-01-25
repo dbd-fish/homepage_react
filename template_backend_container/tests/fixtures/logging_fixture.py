@@ -1,6 +1,6 @@
 import pytest_asyncio
 
-from app.core.log_config import configure_logging
+from app.common.core.log_config import configure_logging
 
 
 @pytest_asyncio.fixture(scope="function", autouse=True)

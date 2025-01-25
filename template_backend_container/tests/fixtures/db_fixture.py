@@ -4,7 +4,7 @@ from collections.abc import AsyncGenerator
 import pytest_asyncio
 from httpx import ASGITransport, AsyncClient
 
-from app.database import Base, configure_database, get_db
+from app.common.database import Base, configure_database, get_db
 from main import app
 
 
