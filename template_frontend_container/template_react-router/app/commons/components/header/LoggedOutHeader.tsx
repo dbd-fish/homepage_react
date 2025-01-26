@@ -1,5 +1,4 @@
-import SiteTitle from '~/components/SiteTitle';
-import SearchForm from '~/components/forms/SearchForm';
+import SiteTitle from '~/commons/components/SiteTitle';
 
 export default function Header() {
   return (
@@ -9,8 +8,6 @@ export default function Header() {
         <SiteTitle />
         <nav className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4">
           <ul className="flex flex-row items-center space-x-4">
-            {/* 分割したSearchFormコンポーネントを使用 */}
-            <SearchForm />
             {/* ログイン・サインアップボタン */}
             <li>
               <a

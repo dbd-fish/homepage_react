@@ -1,4 +1,4 @@
-// import logger from '~/utils/logger';
+// import logger from '~/commons/utils/logger';
 
 /**
  * ユーザーのログアウトを処理する非同期関数

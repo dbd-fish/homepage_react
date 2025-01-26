@@ -1,14 +1,13 @@
 import { LoaderFunction, ActionFunction, redirect } from 'react-router';
 import { useLoaderData } from 'react-router';
-import Header from '~/components/Header';
-import Footer from '~/components/Footer';
-import ProfileCard from '~/components/mypage/ProfileCard';
-import { userDataLoader } from '~/loaders/userDataLoader';
-import { authTokenLoader } from '~/loaders/authTokenLoader';
-import { AuthenticationError } from '~/utils/errors/AuthenticationError';
-import { logoutAction } from '~/actions/logoutAction';
-// import logger from '~/utils/logger';
-import { LoaderDataType } from '~/utils/types';
+import Header from '~/commons/components/Header';
+import Footer from '~/commons/components/Footer';
+import ProfileCard from '~/features/auth_user/components/ProfileCard';
+import { userDataLoader } from '~/features/auth_user/loaders/userDataLoader';
+import { authTokenLoader } from '~/features/auth_user/loaders/authTokenLoader';
+import { AuthenticationError } from '~/commons/utils/errors/AuthenticationError';
+import { logoutAction } from '~/features/auth_user/actions/logoutAction';
+import { LoaderDataType } from '~/commons/utils/types';
 
 /**
  * ローダー関数:

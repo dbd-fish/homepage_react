@@ -1,9 +1,8 @@
 import { useState, useRef, useCallback } from 'react';
-import SearchForm from '~/components/forms/SearchForm'; // 検索フォームのコンポーネントをインポート
-import SiteTitle from '~/components/SiteTitle'; // サイトタイトル用のコンポーネントをインポート
-import useClickOutside from '~/hooks/useClickOutside'; // 外部クリック検知用のカスタムフックをインポート
+import SiteTitle from '~/commons/components/SiteTitle'; // サイトタイトル用のコンポーネントをインポート
+import useClickOutside from '~/commons/hooks/useClickOutside'; // 外部クリック検知用のカスタムフックをインポート
 import { useLoaderData, useSubmit } from 'react-router';
-import { LoaderDataType } from '~/utils/types';
+import { LoaderDataType } from '~/commons/utils/types';
 
 /**
  * ヘッダーコンポーネント
@@ -60,8 +59,6 @@ export default function Header() {
         <span>こんにちは、{user?.username}さん</span>
 
         <nav className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4">
-          {/* 検索フォーム */}
-          <SearchForm />
 
           <ul className="flex flex-row items-center space-x-4">
             {/* 通知アイコン */}

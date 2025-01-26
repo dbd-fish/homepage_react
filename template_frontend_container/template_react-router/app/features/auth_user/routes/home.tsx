@@ -1,10 +1,10 @@
-import Header from '~/components/Header';
-import Footer from '~/components/Footer';
+import Header from '~/commons/components/Header';
+import Footer from '~/commons/components/Footer';
 import { LoaderFunction, redirect, ActionFunction } from 'react-router';
-import { userDataLoader } from '~/loaders/userDataLoader';
-import { AuthenticationError } from '~/utils/errors/AuthenticationError';
-import { logoutAction } from '~/actions/logoutAction';
-// import logger from '~/utils/logger';
+import { userDataLoader } from '~/features/auth_user/loaders/userDataLoader';
+import { AuthenticationError } from '~/commons/utils/errors/AuthenticationError';
+import { logoutAction } from '~/features/auth_user/actions/logoutAction';
+// import logger from '~/commons/utils/logger';
 
 /**
  * ローダー関数:
