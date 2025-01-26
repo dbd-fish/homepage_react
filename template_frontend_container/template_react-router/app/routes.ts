@@ -8,6 +8,12 @@ export default [
   route('login', './features/auth_user/routes/login.tsx'),
   route('mypage', './features/auth_user/routes/mypage.tsx'),
 
+  route('signup', './features/auth_user/routes/signup.tsx'),
+  route('signup-complete', './features/auth_user/routes/signup-complete.tsx'),
+  route('reset-password', './features/auth_user/routes/reset-password.tsx'),
+  route('reset-password-complete', './features/auth_user/routes/reset-password-complete.tsx'),
+
+
   // フッター情報
   route('privacy-policy', './commons/routes/privacyPolicy.tsx'), // プライバシーポリシー
   route('terms-of-service', './commons/routes/termsOfService.tsx'), // 利用規約
