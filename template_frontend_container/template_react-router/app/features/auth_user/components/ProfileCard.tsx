@@ -1,4 +1,4 @@
-import { LoaderDataType } from '~/utils/types';
+import { LoaderDataType } from '~/commons/utils/types';
 import { useLoaderData } from 'react-router';
 
 export default function ProfileCard() {

@@ -1,8 +1,8 @@
 // NOTE: バックエンド連携するときに見直す必要あり
-import LoggedInHeader from '~/components/header/LoggedInHeade';
-import LoggedOutHeader from '~/components/header/LoggedOutHeader';
+import LoggedInHeader from '~/commons/components/header/LoggedInHeade';
+import LoggedOutHeader from '~/commons/components/header/LoggedOutHeader';
 import { useLoaderData } from 'react-router';
-import { LoaderDataType } from '~/utils/types';
+import { LoaderDataType } from '~/commons/utils/types';
 
 export default function Header() {
   // ローダー関数で取得したユーザー情報を取得
