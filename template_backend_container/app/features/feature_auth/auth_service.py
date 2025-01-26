@@ -174,6 +174,7 @@ async def reset_password(email: str, new_password: str, db: AsyncSession):
     hashed_password = hash_password(new_password)
 
     try:
+        # TODO: メールによるユーザ認証後にパスワード変更を完了するべきでは？
         updated_user = await UserRepository.update_user_password(db, user, hashed_password)
         logger.info("reset_password - success", user_id=updated_user.user_id)
         return updated_user

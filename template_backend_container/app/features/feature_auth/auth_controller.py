@@ -34,7 +34,7 @@ async def get_me(request: Request, db: AsyncSession = Depends(get_db)):
     finally:
         logger.info("get_me - end")
 
-@router.post("/register", response_model=dict)
+@router.post("/signup", response_model=dict)
 async def register_user(user: UserCreate, db: AsyncSession = Depends(get_db)):
     """新しいユーザーを登録するエンドポイント。
 
@@ -48,6 +48,7 @@ async def register_user(user: UserCreate, db: AsyncSession = Depends(get_db)):
     """
     logger.info("register_user - start", email=user.email, username=user.username)
     try:
+        # TODO: メールアドレス認証が確認できたユーザだけ会員登録するようにしたい
         new_user = await create_user(user.email, user.username, user.password, db)
         logger.info("register_user - success", user_id=new_user.user_id)
         return {"msg": "User created successfully", "user_id": new_user.user_id}
