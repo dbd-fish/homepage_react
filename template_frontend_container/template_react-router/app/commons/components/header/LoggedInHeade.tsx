@@ -63,15 +63,6 @@ export default function Header() {
           <ul className="flex flex-row items-center space-x-4">
             {/* 通知アイコン */}
             <li className="relative" ref={notificationRef}>
-              <button
-                onClick={toggleNotification}
-                className="relative w-10 h-10 rounded-full bg-white flex justify-center items-center hover:bg-gray-200"
-              >
-                🔔
-                <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full px-1">
-                  3
-                </span>
-              </button>
               {showNotification && (
                 <div className="absolute top-12 left-0 bg-white text-black rounded shadow-md w-64 p-4">
                   <p className="text-sm font-bold">新しい通知:</p>
