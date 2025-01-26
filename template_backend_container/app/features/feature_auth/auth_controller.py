@@ -123,7 +123,7 @@ async def logout(current_user: User = Depends(get_current_user)):
         logger.info("logout - end")
 
 @router.post("/reset-password", response_model=dict)
-async def reset_password_endpoint(data: PasswordReset, db: AsyncSession = Depends(get_db), current_user: User = Depends(get_current_user)):
+async def reset_password_endpoint(data: PasswordReset, db: AsyncSession = Depends(get_db)):
     """パスワードリセット処理を行うエンドポイント。
 
     Args:
