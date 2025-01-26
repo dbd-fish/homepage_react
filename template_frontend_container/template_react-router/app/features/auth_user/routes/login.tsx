@@ -24,9 +24,9 @@ export const action: ActionFunction = async ({ request }) => {
     const response = await fetchLoginData(email, password);
     // NOTE: バックエンドのレスポンスヘッダーからCookieを取得する場合、get('Cookie')では取得できない
     const responseCookieHeader = response.headers.get('set-Cookie');
-    console.log('[Login Action] Response Cookie header', {
-      responseCookieHeader: responseCookieHeader,
-    });
+    // console.log('[Login Action] Response Cookie header', {
+    //   responseCookieHeader: responseCookieHeader,
+    // });
     if (!responseCookieHeader) {
       throw new Error('Cookieが見つかりません');
     }
