@@ -1,4 +1,4 @@
-import { ActionFunction, redirect } from 'react-router';
+import { ActionFunction, redirect, Link } from 'react-router';
 import { useActionData } from 'react-router';
 import LoginForm from '~/features/auth_user/components/LoginForm';
 import { fetchLoginData } from '~/features/auth_user/apis/fetchLoginData';
@@ -75,6 +75,20 @@ export default function LoginPage() {
         )}
         {/* LoginFormコンポーネントを利用 */}
         <LoginForm />
+        <div className="mt-6 text-center">
+          <Link
+            to="/reset-password"
+            className="text-blue-600 hover:underline text-sm block"
+          >
+            パスワードを忘れた場合はこちら
+          </Link>
+          <Link
+            to="/signup"
+            className="text-blue-600 hover:underline text-sm block mt-2"
+          >
+            新規会員登録はこちら
+          </Link>
+        </div>
       </div>
     </div>
   );
