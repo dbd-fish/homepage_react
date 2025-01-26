@@ -26,11 +26,11 @@ export const fetchLogoutData = async (request: Request) => {
     });
 
     if (response.ok) {
-      console.log('[fetchLogoutData] Logout successful');
+      // console.log('[fetchLogoutData] Logout successful');
       return response; // 必要に応じてデータを返す
     } else {
       const errorData = await response.json();
-      console.log('[fetchLogoutData] Logout failed', { errorData: errorData });
+      // console.log('[fetchLogoutData] Logout failed', { errorData: errorData });
 
       throw new Error(errorData.message || 'ログアウトに失敗しました');
     }
