@@ -8,7 +8,7 @@ export default function Header() {
         <SiteTitle />
         <nav className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4">
           <ul className="flex flex-row items-center space-x-4">
-            {/* ログイン・サインアップボタン */}
+            {/* ログイン・会員登録ボタン */}
             <li>
               <a
                 href="/login"
@@ -22,7 +22,7 @@ export default function Header() {
                 href="/signup"
                 className="px-4 py-2 bg-yellow-500 text-blue-800 rounded hover:bg-yellow-400 text-sm"
               >
-                サインアップ
+                会員登録
               </a>
             </li>
           </ul>

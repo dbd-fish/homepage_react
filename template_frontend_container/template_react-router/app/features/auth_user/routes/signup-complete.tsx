@@ -5,7 +5,7 @@ export default function SignupCompletePage() {
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="w-full max-w-md bg-white rounded-lg shadow-md p-8">
         <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">
-          サインアップが完了しました！
+          会員登録が完了しました！
         </h1>
         <p className="text-gray-600 text-center mb-6">
           ご登録ありがとうございます。ログインページからログインしてください。

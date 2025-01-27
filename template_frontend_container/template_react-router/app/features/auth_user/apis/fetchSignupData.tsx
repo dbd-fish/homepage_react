@@ -2,7 +2,7 @@ export const fetchSignupData = async (email: string, password: string, username:
     const apiUrl = process.env.API_URL;
   
     try {
-      // サインアップデータをオブジェクトとして構築
+      // 会員登録データをオブジェクトとして構築
       const signupData = {
         email: email.trim(), // 空白を削除
         password: password.trim(),
@@ -26,7 +26,7 @@ export const fetchSignupData = async (email: string, password: string, username:
   
       if (!response.ok) {
         const errorResponse = await response.json();
-        throw new Error(errorResponse.message || "サインアップに失敗しました");
+        throw new Error(errorResponse.message || "会員登録に失敗しました");
       }
   
       return response.json();

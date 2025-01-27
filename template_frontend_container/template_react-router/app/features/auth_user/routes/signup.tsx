@@ -24,12 +24,12 @@ export const action: ActionFunction = async ({ request }) => {
       );
     }
 
-    // サインアップ処理
+    // 会員登録処理
     await fetchSignupData(email, password, username);
     return redirect('/signup-complete');
   } catch (error) {
     return new Response(
-      JSON.stringify({ error: 'サインアップに失敗しました。再度お試しください。' }),
+      JSON.stringify({ error: '会員登録に失敗しました。再度お試しください。' }),
       {
         status: 400,
         headers: { 'Content-Type': 'application/json' },
@@ -45,7 +45,7 @@ export default function SignupPage() {
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="w-full max-w-md bg-white rounded-lg shadow-md p-8">
         <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">
-          サインアップ
+          会員登録
         </h1>
         {actionData?.error && (
           <div

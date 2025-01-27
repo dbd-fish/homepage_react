@@ -75,13 +75,13 @@ export default function SignupForm() {
         />
       </div>
 
-      {/* サインアップボタン */}
+      {/* 会員登録ボタン */}
       <div>
         <button
           type="submit"
           className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
         >
-          サインアップ
+          会員登録
         </button>
       </div>
     </Form>
