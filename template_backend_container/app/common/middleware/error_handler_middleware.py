@@ -1,4 +1,5 @@
 import traceback
+import structlog
 
 from fastapi import HTTPException, Request
 from jose import JWTError
@@ -7,7 +8,8 @@ from sqlalchemy.exc import SQLAlchemyError
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.responses import JSONResponse
 
-from app.common.core.log_config import logger
+# ログの設定
+logger = structlog.get_logger()
 
 
 class ErrorHandlerMiddleware(BaseHTTPMiddleware):
