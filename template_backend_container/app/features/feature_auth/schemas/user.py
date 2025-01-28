@@ -4,7 +4,7 @@ from pydantic import BaseModel, ConfigDict, EmailStr, Field
 
 
 class UserCreate(BaseModel):
-    """ユーザー作成時のリクエストデータを表すモデル。
+    """ユーザー作成時に必要なデータを表すモデル。
     """
 
     email: EmailStr = Field(..., description="ユーザーのメールアドレス")
@@ -13,6 +13,11 @@ class UserCreate(BaseModel):
 
     user_role: int = Field(1, description="ユーザー権限 (1: guest, 2: free, 3: regular, 4: admin, 5: owner)")
     user_status: int = Field(1, description="アカウント状態 (1: active, 2: suspended)")
+
+class TokenData(BaseModel):
+    """ユーザー作成時に使用するリクエストデータを表すモデル。
+    """
+    token: str = Field(..., description="ユーザー情報が格納されるているJWT")
 
 
 class PasswordReset(BaseModel):

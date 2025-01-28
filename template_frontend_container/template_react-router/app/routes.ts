@@ -9,7 +9,9 @@ export default [
   route('mypage', './features/auth_user/routes/mypage.tsx'),
 
   route('signup', './features/auth_user/routes/signup.tsx'),
-  route('signup-complete', './features/auth_user/routes/signup-complete.tsx'),
+  // TODO: このページを描画するのに時間がかかる
+  route('send-signup-email', './features/auth_user/routes/send-signup-email.tsx'),
+  route('signup-vertify-complete', './features/auth_user/routes/signup-vertify-complete.tsx'),
   route('reset-password', './features/auth_user/routes/reset-password.tsx'),
   route('reset-password-complete', './features/auth_user/routes/reset-password-complete.tsx'),
 

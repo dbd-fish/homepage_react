@@ -1,6 +1,6 @@
 import { useActionData, redirect, ActionFunction } from 'react-router';
 import SignupForm from '~/features/auth_user/components/SignupForm';
-import { fetchSignupData } from '~/features/auth_user/apis/fetchSignupData';
+import { fetchSendVerifyEmailData } from '~/features/auth_user/apis/fetchSendVerifyEmailData';
 import { isPasswordValid, getAllowedSymbols } from '~/features/auth_user/passwordValidation';
 
 export const action: ActionFunction = async ({ request }) => {
@@ -24,9 +24,9 @@ export const action: ActionFunction = async ({ request }) => {
       );
     }
 
-    // 会員登録処理
-    await fetchSignupData(email, password, username);
-    return redirect('/signup-complete');
+    // 会員登録用の確認メール送信
+    await fetchSendVerifyEmailData(email, password, username);
+    return redirect('/send-signup-email');
   } catch (error) {
     return new Response(
       JSON.stringify({ error: '会員登録に失敗しました。再度お試しください。' }),

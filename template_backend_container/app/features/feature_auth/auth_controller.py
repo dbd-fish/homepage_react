@@ -1,11 +1,11 @@
 import structlog
-from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
+from fastapi import APIRouter, Depends, HTTPException, Request, Response, status, BackgroundTasks, Query
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.common.database import get_db
-from app.features.feature_auth.auth_service import create_user, get_current_user, reset_password
-from app.features.feature_auth.schemas.user import PasswordReset, UserCreate, UserResponse
+from app.features.feature_auth.auth_service import create_user, get_current_user, reset_password, temporary_create_user, verify_email_token
+from app.features.feature_auth.schemas.user import PasswordReset, TokenData, UserCreate, UserResponse
 from app.features.feature_auth.security import authenticate_user, create_access_token
 from app.models.user import User
 
@@ -35,8 +35,32 @@ async def get_me(request: Request, db: AsyncSession = Depends(get_db)):
         logger.info("get_me - end")
 
 @router.post("/signup", response_model=dict)
-async def register_user(user: UserCreate, db: AsyncSession = Depends(get_db)):
+async def register_user(tokenData: TokenData, db: AsyncSession = Depends(get_db)):
     """新しいユーザーを登録するエンドポイント。
+
+    Args:
+        token (str): メール認証トークン。
+        db (AsyncSession): 非同期データベースセッション。
+
+    Returns:
+        dict: 登録成功メッセージと新規ユーザーID。
+
+    """
+    logger.info("register_user - start",)
+    try:
+        # tokenからuser情報を取得
+        user_info = await verify_email_token(tokenData.token)
+        logger.info("register_user - user_info", user_info=user_info)
+        # トークンから取得したユーザー情報でユーザー登録
+        new_user = await create_user(user_info.email, user_info.username, user_info.password, db)
+        logger.info("register_user - success", user_id=new_user.user_id)
+        return {"msg": "User created successfully", "user_id": new_user.user_id}
+    finally:
+        logger.info("register_user - end")
+
+@router.post("/send-verify-email", response_model=dict)
+async def send_verify_email(user: UserCreate, background_tasks: BackgroundTasks, db: AsyncSession = Depends(get_db)):
+    """新しいユーザーの仮登録用メールを送信するするエンドポイント。
 
     Args:
         user (UserCreate): 新規ユーザーの情報（メール、ユーザー名、パスワード）。
@@ -46,14 +70,13 @@ async def register_user(user: UserCreate, db: AsyncSession = Depends(get_db)):
         dict: 登録成功メッセージと新規ユーザーID。
 
     """
-    logger.info("register_user - start", email=user.email, username=user.username)
+    logger.info("temporary_register_user - start", email=user.email, username=user.username)
     try:
-        # TODO: メールアドレス認証が確認できたユーザだけ会員登録するようにしたい
-        new_user = await create_user(user.email, user.username, user.password, db)
-        logger.info("register_user - success", user_id=new_user.user_id)
-        return {"msg": "User created successfully", "user_id": new_user.user_id}
+        await temporary_create_user(user=user, background_tasks=background_tasks, db=db)
+        logger.info("temporary_register_user - success")
+        return {"msg": "User created successfully"}
     finally:
-        logger.info("register_user - end")
+        logger.info("temporary_register_user - end")
 
 @router.post("/login", response_model=dict)
 async def login(request: Request,response: Response, form_data: OAuth2PasswordRequestForm = Depends(), db: AsyncSession = Depends(get_db)):
