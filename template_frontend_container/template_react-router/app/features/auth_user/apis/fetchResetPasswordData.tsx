@@ -1,7 +1,7 @@
-export const fetchResetPasswordData = async (email: string, newPassword: string) => {
+export const fetchResetPasswordData = async (token: string, newPassword: string) => {
     const apiUrl = process.env.API_URL;
     const resetPasswordData = {
-      email: email.trim(), // 空白を削除
+      token: token, // 空白を削除
       new_password: newPassword.trim(),
     };
 

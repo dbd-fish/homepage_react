@@ -95,7 +95,7 @@ export default function LoginPage() {
         <LoginForm />
         <div className="mt-6 text-center">
           <Link
-            to="/reset-password"
+            to="/send-reset-password-email"
             className="text-blue-600 hover:underline text-sm block"
           >
             パスワードを忘れた場合はこちら

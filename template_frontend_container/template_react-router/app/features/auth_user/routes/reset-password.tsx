@@ -1,13 +1,28 @@
-import { useActionData, redirect, ActionFunction } from 'react-router';
+import { useActionData, redirect, ActionFunction, LoaderFunction  } from 'react-router';
 import ResetPasswordForm from '~/features/auth_user/components/ResetPasswordForm';
 import { fetchResetPasswordData } from '~/features/auth_user/apis/fetchResetPasswordData';
 import { isPasswordValid, getAllowedSymbols } from '~/features/auth_user/passwordValidation';
 
+// ローダー関数: URLクエリからトークンを取得
+export const loader: LoaderFunction = async ({ request }) => {
+    const url = new URL(request.url);
+    const token = url.searchParams.get('token');
+    if (!token) {
+      throw new Response('Token is missing.', { status: 400 });
+    }
+    return { token };
+  };
+
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
-  const email = formData.get('email') as string;
   const newPassword = formData.get('newPassword') as string;
-
+  
+  // URLクエリからトークンを取得
+  const url = new URL(request.url);
+  const token = url.searchParams.get('token');
+  if (!token) {
+    return new Response('Token is missing.', { status: 400 });
+  }
   try {
     // パスワードバリデーション
     const allowedSymbols = getAllowedSymbols();
@@ -24,7 +39,7 @@ export const action: ActionFunction = async ({ request }) => {
     }
 
     // パスワードリセット処理
-    await fetchResetPasswordData(email, newPassword);
+    await fetchResetPasswordData(token, newPassword);
     return redirect('/reset-password-complete');
   } catch {
     return new Response(

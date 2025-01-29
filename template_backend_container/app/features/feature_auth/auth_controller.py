@@ -4,8 +4,8 @@ from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.common.database import get_db
-from app.features.feature_auth.auth_service import create_user, get_current_user, reset_password, temporary_create_user, verify_email_token
-from app.features.feature_auth.schemas.user import PasswordReset, TokenData, UserCreate, UserResponse
+from app.features.feature_auth.auth_service import create_user, get_current_user, reset_password, temporary_create_user, verify_email_token, reset_password_email, decode_password_reset_token
+from app.features.feature_auth.schemas.user import PasswordResetData, SendPasswordResetEmailData, TokenData, UserCreate, UserResponse
 from app.features.feature_auth.security import authenticate_user, create_access_token
 from app.models.user import User
 
@@ -145,23 +145,47 @@ async def logout(current_user: User = Depends(get_current_user)):
     finally:
         logger.info("logout - end")
 
-@router.post("/reset-password", response_model=dict)
-async def reset_password_endpoint(data: PasswordReset, db: AsyncSession = Depends(get_db)):
-    """パスワードリセット処理を行うエンドポイント。
+@router.post("/send-password-reset-email", response_model=dict)
+async def send_reset_password_email_endpoint(SendPasswordResetEmailData: SendPasswordResetEmailData, background_tasks: BackgroundTasks, db: AsyncSession = Depends(get_db)):
+    """パスワードリセットメール送信処理を行うエンドポイント。
 
     Args:
-        data (PasswordReset): パスワードリセットの情報（メールと新しいパスワード）。
+        email (str): パスワードリセット対象のメールアドレス
         db (AsyncSession): 非同期データベースセッション。
-        current_user (User): 現在ログイン中のユーザー。
 
     Returns:
         dict: パスワードリセット成功メッセージ。
 
     """
-    logger.info("reset_password - start", email=data.email)
+    logger.info("send_reset_password_email_endpoint - start", email=SendPasswordResetEmailData.email)
     try:
-        await reset_password(data.email, data.new_password, db)
-        logger.info("reset_password - success", email=data.email)
-        return {"msg": "Password reset successful"}
+        await reset_password_email(email=SendPasswordResetEmailData.email, background_tasks=background_tasks, db=db)
+        logger.info("send_reset_password_email_endpoint - success", email=SendPasswordResetEmailData.email)
+        return {"msg": "Password reset email send successful"}
     finally:
-        logger.info("reset_password - end")
+        logger.info("send_reset_password_email_endpoint - end")
+
+
+
+
+@router.post("/reset-password", response_model=dict)
+async def reset_password_endpoint(reset_data: PasswordResetData, background_tasks: BackgroundTasks, db: AsyncSession = Depends(get_db)):
+    """新しいユーザーの仮登録用メールを送信するするエンドポイント。
+
+    Args:
+        reset_data (PasswordResetData): パスワード変更ユーザの情報（トークン、新しいパスワード）。
+        db (AsyncSession): 非同期データベースセッション。
+
+    Returns:
+        dict: 登録成功メッセージと新規ユーザーID。
+
+    """
+    logger.info("reset_password_endpoint - start", reset_data=reset_data)
+    try:
+        # tokenからemailを取得
+        email = await decode_password_reset_token(reset_data.token)
+        await reset_password(email, reset_data.new_password, db)
+        logger.info("reset_password_endpoint - success")
+        return {"msg": "Password reset successfully"}
+    finally:
+        logger.info("reset_password_endpoint - end")

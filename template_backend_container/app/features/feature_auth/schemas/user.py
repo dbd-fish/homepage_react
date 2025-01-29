@@ -20,11 +20,17 @@ class TokenData(BaseModel):
     token: str = Field(..., description="ユーザー情報が格納されるているJWT")
 
 
-class PasswordReset(BaseModel):
+class SendPasswordResetEmailData(BaseModel):
+    """パスワードリセットメール送信時のモデル。
+    """
+    email: EmailStr = Field(..., description="ユーザーのメールアドレス")
+
+
+
+class PasswordResetData(BaseModel):
     """パスワードリセット時のリクエストデータを表すモデル。
     """
-
-    email: EmailStr = Field(..., description="パスワードをリセットする対象のメールアドレス")
+    token: str = Field(..., description="ユーザー情報が格納されるているJWT")
     new_password: str = Field(..., min_length=8, description="新しいパスワード (8文字以上)")
 
 

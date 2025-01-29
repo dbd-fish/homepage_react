@@ -1,14 +1,15 @@
 import { Link } from 'react-router';
 
-export default function ResetPasswordCompletePage() {
-  return (
+export default function SendResetPasswordEmailComplete() {
+    return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="w-full max-w-md bg-white rounded-lg shadow-md p-8">
         <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">
-          パスワードリセットが完了しました！
+          パスワードリセット用メールを送信しました！
         </h1>
         <p className="text-gray-600 text-center mb-6">
-          新しいパスワードでログインできるかご確認ください。
+        ご入力いただいたメールアドレス宛にパスワード再設定用のURLを送信しました。
+        メールをご確認のうえ、本登録を完了してください。
         </p>
         <div className="text-center">
           <Link

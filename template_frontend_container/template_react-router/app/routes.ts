@@ -14,7 +14,8 @@ export default [
   route('signup-vertify-complete', './features/auth_user/routes/signup-vertify-complete.tsx'),
 
   // パスワードリセット
-  route('send-reset-password-mail', './features/auth_user/routes/send-reset-password-mail.tsx'),
+  route('send-reset-password-email', './features/auth_user/routes/send-reset-password-email.tsx'),
+  route('send-reset-password-email-complete', './features/auth_user/routes/send-reset-password-email-complete.tsx'),
   route('reset-password', './features/auth_user/routes/reset-password.tsx'),
   route('reset-password-complete', './features/auth_user/routes/reset-password-complete.tsx'),
 
