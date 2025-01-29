@@ -8,13 +8,15 @@ export default [
   route('login', './features/auth_user/routes/login.tsx'),
   route('mypage', './features/auth_user/routes/mypage.tsx'),
 
+  // 会員登録
   route('signup', './features/auth_user/routes/signup.tsx'),
-  // TODO: このページを描画するのに時間がかかる
   route('send-signup-email', './features/auth_user/routes/send-signup-email.tsx'),
   route('signup-vertify-complete', './features/auth_user/routes/signup-vertify-complete.tsx'),
+
+  // パスワードリセット
+  route('send-reset-password-mail', './features/auth_user/routes/send-reset-password-mail.tsx'),
   route('reset-password', './features/auth_user/routes/reset-password.tsx'),
   route('reset-password-complete', './features/auth_user/routes/reset-password-complete.tsx'),
-
 
   // フッター情報
   route('privacy-policy', './commons/routes/privacyPolicy.tsx'), // プライバシーポリシー

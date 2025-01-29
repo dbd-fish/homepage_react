@@ -83,7 +83,7 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None) -> s
         logger.debug("create_access_token - to_encode", to_encode=to_encode)
         encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
         logger.info("create_access_token - success", encoded_jwt=encoded_jwt)
-        logger.info("create_access_token - end", expire=expire)
+        logger.info("create_access_token - expire", expire=expire)
         return encoded_jwt
     finally:
         logger.info("create_access_token - end")

@@ -19,7 +19,7 @@ async def send_verification_email(email: str, verification_url: str):
     Returns:
         None
     """
-    logger.info("create_user - start", email=email)
+    logger.info("send_verification_email - start", email=email)
     try:
         # メールの内容
         subject = "メールアドレス認証のお願い"
@@ -52,4 +52,4 @@ async def send_verification_email(email: str, verification_url: str):
         logger.info(f"Failed to send verification email",email=email)
         raise e
     finally:
-        logger.info("create_user - end")
+        logger.info("send_verification_email - end")
