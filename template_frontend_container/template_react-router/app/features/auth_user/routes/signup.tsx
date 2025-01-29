@@ -25,7 +25,10 @@ export const action: ActionFunction = async ({ request }) => {
     }
 
     // 会員登録用の確認メール送信
-    await fetchSendVerifyEmailData(email, password, username);
+    // 確認メール送信をバックグラウンドで処理
+    Promise.resolve(fetchSendVerifyEmailData(email, password, username)).catch((error) => {
+      console.error("Error sending verification email:", error);
+    });
     return redirect('/send-signup-email');
   } catch (error) {
     return new Response(
