@@ -12,18 +12,6 @@ from main import app
 
 
 @pytest_asyncio.fixture(scope="function")
-def regist_user_data() -> UserCreate:
-    """テスト用の登録ユーザーデータの準備。
-    """
-    return UserCreate(
-        email="registuser@example.com",
-        username="registuser",
-        password="password",
-        user_role=2,
-        user_status=1,
-    )
-
-@pytest_asyncio.fixture(scope="function")
 def login_user_data() -> User:
     """テスト用のログイン中ユーザーデータ。
     NOTE: 本来はJWTトークンからユーザー情報を復元するべきだが、テスト対象の処理が狭めるため、本メソッドからログイン情報を取得する。
