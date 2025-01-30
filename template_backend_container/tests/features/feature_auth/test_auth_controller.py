@@ -160,3 +160,82 @@ async def test_logout_user(authenticated_client: AsyncClient) -> None:
     
     assert response.status_code == 200, response.text
     assert response.json()["msg"] == "Logged out successfully"
+
+
+    
+@pytest.mark.asyncio(loop_scope="session")
+async def test_register_existing_user(setup_test_db) -> None:
+    """既に登録されているユーザーで仮登録を試みる（異常系）"""
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://localhost:8000") as client:
+        user_data = {
+            "email": TestData.TEST_USER_EMAIL_1,
+            "username": "testuser",
+            "password": "password123!",
+        }
+
+        token = create_access_token(data=user_data, expires_delta=timedelta(minutes=60))
+
+        response = await client.post(
+            "/api/auth/signup",
+            json={"token": token},
+            headers={"Content-Type": "application/json"},
+        )
+        assert response.status_code == 400, response.text
+        assert "User already exists" in response.json()["detail"]
+
+
+@pytest.mark.asyncio(loop_scope="session")
+async def test_register_with_invalid_token() -> None:
+    """無効なトークンでユーザー登録を試みる（異常系）"""
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://localhost:8000") as client:
+        invalid_token = "invalid.jwt.token"
+
+        response = await client.post(
+            "/api/auth/signup",
+            json={"token": invalid_token},
+            headers={"Content-Type": "application/json"},
+        )
+        assert response.status_code == 401, response.text
+
+
+@pytest.mark.asyncio(loop_scope="session")
+async def test_reset_password_with_invalid_email() -> None:
+    """存在しないメールアドレスでパスワードリセット（異常系）"""
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://localhost:8000") as client:
+        response = await client.post(
+            "/api/auth/send-password-reset-email",
+            json={"email": "nonexistent@example.com"},
+        )
+        assert response.status_code == 400, response.text
+
+
+@pytest.mark.asyncio(loop_scope="session")
+async def test_reset_password_with_invalid_token(authenticated_client: AsyncClient) -> None:
+    """無効なトークンでパスワードリセット（異常系）"""
+    new_password = "newpassword123!"
+
+    response = await authenticated_client.post(
+        "/api/auth/reset-password",
+        json={"token": "invalid_token", "new_password": new_password},
+        headers={"Content-Type": "application/json"},
+    )
+    assert response.status_code == 401, response.text
+
+
+@pytest.mark.asyncio(loop_scope="session")
+async def test_logout_with_invalid_token() -> None:
+    """誤ったトークンでログアウトを試みる（異常系）"""
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://localhost:8000") as client:
+        response = await client.post(
+            "/api/auth/logout",
+            headers={"Authorization": "Bearer invalid_token"},
+        )
+        assert response.status_code == 401, response.text
+
+
+@pytest.mark.asyncio(loop_scope="session")
+async def test_logout_without_authentication() -> None:
+    """認証なしでログアウトを試みる（異常系）"""
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://localhost:8000") as client:
+        response = await client.post("/api/auth/logout")
+        assert response.status_code == 401, response.text
