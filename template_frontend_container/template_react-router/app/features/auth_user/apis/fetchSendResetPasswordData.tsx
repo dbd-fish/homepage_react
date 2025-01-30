@@ -1,6 +1,6 @@
 export const fetchSendResetPasswordData = async (email: string) => {
   const apiUrl = process.env.API_URL;
-  
+
   try {
     // 会員登録データをオブジェクトとして構築
     const sendResetEmailData = {
@@ -14,24 +14,28 @@ export const fetchSendResetPasswordData = async (email: string) => {
       }
     });
 
-    const response = await fetch(`${apiUrl}/api/auth/send-password-reset-email`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    const response = await fetch(
+      `${apiUrl}/api/auth/send-password-reset-email`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(sendResetEmailData),
       },
-      body: JSON.stringify(sendResetEmailData),
-    });
+    );
 
-
-    console.log("res",response)
+    console.log('res', response);
     if (!response.ok) {
       const errorResponse = await response.json();
-      throw new Error(errorResponse.message || "パスワード再設定に失敗しました");
+      throw new Error(
+        errorResponse.message || 'パスワード再設定に失敗しました',
+      );
     }
 
     return response.json();
   } catch (error) {
-    console.error("[fetchSendResetPasswordData] Error:", error);
+    console.error('[fetchSendResetPasswordData] Error:', error);
     throw error;
   }
 };

@@ -1,10 +1,10 @@
 import structlog
-from fastapi import APIRouter, Depends, HTTPException, Request, Response, status, BackgroundTasks, Query
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request, Response, status
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.common.database import get_db
-from app.features.feature_auth.auth_service import create_user, get_current_user, reset_password, temporary_create_user, verify_email_token, reset_password_email, decode_password_reset_token
+from app.features.feature_auth.auth_service import create_user, decode_password_reset_token, get_current_user, reset_password, reset_password_email, temporary_create_user, verify_email_token
 from app.features.feature_auth.schemas.user import PasswordResetData, SendPasswordResetEmailData, TokenData, UserCreate, UserResponse
 from app.features.feature_auth.security import authenticate_user, create_access_token
 from app.models.user import User

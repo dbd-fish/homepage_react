@@ -1,8 +1,10 @@
 import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
 from email.header import Header
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
 import structlog
+
 from app.common.setting import setting
 
 # ログの設定
@@ -37,7 +39,7 @@ async def send_verification_email(email: str, verification_url: str):
         msg = MIMEMultipart()
         msg["From"] = setting.SMTP_USERNAME
         msg["To"] = email
-        msg["Subject"] = Header(subject, "utf-8")
+        msg["Subject"] = str(Header(subject, "utf-8"))
 
         # メール本文を設定
         msg.attach(MIMEText(body, "plain", "utf-8"))
@@ -47,9 +49,9 @@ async def send_verification_email(email: str, verification_url: str):
             server.starttls()  # TLSで暗号化
             server.login(setting.SMTP_USERNAME, setting.SMTP_PASSWORD)  # ログイン
             server.sendmail(setting.SMTP_USERNAME, email, msg.as_string())  # メール送信
-        logger.info(f"Verification email sent", email=email)
+        logger.info("Verification email sent", email=email)
     except Exception as e:
-        logger.info(f"Failed to send verification email",email=email)
+        logger.info("Failed to send verification email",email=email)
         raise e
     finally:
         logger.info("send_verification_email - end")

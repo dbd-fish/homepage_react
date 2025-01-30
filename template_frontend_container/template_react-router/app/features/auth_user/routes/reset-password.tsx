@@ -1,22 +1,30 @@
-import { useActionData, redirect, ActionFunction, LoaderFunction  } from 'react-router';
+import {
+  useActionData,
+  redirect,
+  ActionFunction,
+  LoaderFunction,
+} from 'react-router';
 import ResetPasswordForm from '~/features/auth_user/components/ResetPasswordForm';
 import { fetchResetPasswordData } from '~/features/auth_user/apis/fetchResetPasswordData';
-import { isPasswordValid, getAllowedSymbols } from '~/features/auth_user/passwordValidation';
+import {
+  isPasswordValid,
+  getAllowedSymbols,
+} from '~/features/auth_user/passwordValidation';
 
 // ローダー関数: URLクエリからトークンを取得
 export const loader: LoaderFunction = async ({ request }) => {
-    const url = new URL(request.url);
-    const token = url.searchParams.get('token');
-    if (!token) {
-      throw new Response('Token is missing.', { status: 400 });
-    }
-    return { token };
-  };
+  const url = new URL(request.url);
+  const token = url.searchParams.get('token');
+  if (!token) {
+    throw new Response('Token is missing.', { status: 400 });
+  }
+  return { token };
+};
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
   const newPassword = formData.get('newPassword') as string;
-  
+
   // URLクエリからトークンを取得
   const url = new URL(request.url);
   const token = url.searchParams.get('token');
@@ -34,7 +42,7 @@ export const action: ActionFunction = async ({ request }) => {
         {
           status: 400,
           headers: { 'Content-Type': 'application/json' },
-        }
+        },
       );
     }
 
@@ -43,11 +51,13 @@ export const action: ActionFunction = async ({ request }) => {
     return redirect('/reset-password-complete');
   } catch {
     return new Response(
-      JSON.stringify({ error: 'パスワードリセットに失敗しました。再度お試しください。' }),
+      JSON.stringify({
+        error: 'パスワードリセットに失敗しました。再度お試しください。',
+      }),
       {
         status: 400,
         headers: { 'Content-Type': 'application/json' },
-      }
+      },
     );
   }
 };

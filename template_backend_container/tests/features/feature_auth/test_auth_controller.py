@@ -1,16 +1,15 @@
 
 
 from datetime import timedelta
+
 import pytest
 from httpx import ASGITransport, AsyncClient
 from sqlalchemy import select
 
 from app.common.test_data import TestData
-from app.features.feature_auth.schemas.user import UserCreate
 from app.features.feature_auth.security import create_access_token, verify_password
 from app.models.user import User
 from main import app
-
 
 # NOTE: setup_test_dbはfixture(scope="function", autouse=True)だが、戻り値を利用する場合はテスト関数の引数として実装する必要あり。
 
@@ -157,12 +156,12 @@ async def test_logout_user(authenticated_client: AsyncClient) -> None:
         "/api/auth/logout",
         json={"email": TestData.TEST_USER_EMAIL_1},
     )
-    
+
     assert response.status_code == 200, response.text
     assert response.json()["msg"] == "Logged out successfully"
 
 
-    
+
 @pytest.mark.asyncio(loop_scope="session")
 async def test_register_existing_user(setup_test_db) -> None:
     """既に登録されているユーザーで仮登録を試みる（異常系）"""

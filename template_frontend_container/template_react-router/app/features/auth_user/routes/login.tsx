@@ -3,7 +3,10 @@ import { useActionData } from 'react-router';
 import LoginForm from '~/features/auth_user/components/LoginForm';
 import { fetchLoginData } from '~/features/auth_user/apis/fetchLoginData';
 import SiteTitle from '~/commons/components/SiteTitle'; // サイトタイトル用のコンポーネントをインポート
-import { getAllowedSymbols, isPasswordValid } from '~/features/auth_user/passwordValidation';
+import {
+  getAllowedSymbols,
+  isPasswordValid,
+} from '~/features/auth_user/passwordValidation';
 
 // import logger from '~/commons/utils/logger';
 
@@ -16,8 +19,8 @@ import { getAllowedSymbols, isPasswordValid } from '~/features/auth_user/passwor
  */
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
-  const email = formData.get("email") as string;
-  const password = formData.get("password") as string;
+  const email = formData.get('email') as string;
+  const password = formData.get('password') as string;
 
   try {
     // パスワードバリデーション
@@ -29,8 +32,8 @@ export const action: ActionFunction = async ({ request }) => {
         }),
         {
           status: 400,
-          headers: { "Content-Type": "application/json" },
-        }
+          headers: { 'Content-Type': 'application/json' },
+        },
       );
     }
 
@@ -42,12 +45,12 @@ export const action: ActionFunction = async ({ request }) => {
     //   responseCookieHeader: responseCookieHeader,
     // });
     if (!responseCookieHeader) {
-      throw new Error("Cookieが見つかりません");
+      throw new Error('Cookieが見つかりません');
     }
 
-    return redirect("/mypage", {
+    return redirect('/mypage', {
       headers: {
-        "Set-Cookie": responseCookieHeader,
+        'Set-Cookie': responseCookieHeader,
       },
     });
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -56,9 +59,9 @@ export const action: ActionFunction = async ({ request }) => {
     //   error: error
     // });
 
-    return new Response(JSON.stringify({ error: "ログインに失敗しました" }), {
+    return new Response(JSON.stringify({ error: 'ログインに失敗しました' }), {
       status: 400,
-      headers: { "Content-Type": "application/json" },
+      headers: { 'Content-Type': 'application/json' },
     });
   } finally {
     // logger.info('[Login Action] end');
@@ -76,7 +79,7 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="w-full max-w-md bg-white rounded-lg shadow-md p-8">
-      <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">
+        <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">
           <SiteTitle />
         </h1>
         <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">
@@ -86,7 +89,7 @@ export default function LoginPage() {
           <div
             id="error-message"
             className="mb-4 text-sm text-red-500 border border-red-400 bg-red-100 px-4 py-2 rounded whitespace-pre-wrap"
-            style={{ whiteSpace: "pre-wrap" }}
+            style={{ whiteSpace: 'pre-wrap' }}
           >
             {actionData.error}
           </div>

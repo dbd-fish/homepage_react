@@ -1,6 +1,6 @@
 import traceback
-import structlog
 
+import structlog
 from fastapi import HTTPException, Request
 from jose import JWTError
 from pydantic import ValidationError

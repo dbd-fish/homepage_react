@@ -2,27 +2,26 @@ import { useActionData, redirect, ActionFunction } from 'react-router';
 import SendResetPasswordForm from '~/features/auth_user/components/SendResetPasswordForm';
 import { fetchSendResetPasswordData } from '~/features/auth_user/apis/fetchSendResetPasswordData';
 
-
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
   const email = formData.get('email') as string;
-  const newPassword = formData.get('newPassword') as string;
 
   try {
-
     // パスワードリセットメール送信処理
     Promise.resolve(fetchSendResetPasswordData(email)).catch((error) => {
-      console.error("Error sending password-reset email:", error);
+      console.error('Error sending password-reset email:', error);
     });
 
     return redirect('/send-reset-password-email-complete');
   } catch {
     return new Response(
-      JSON.stringify({ error: 'パスワードリセットに失敗しました。再度お試しください。' }),
+      JSON.stringify({
+        error: 'パスワードリセットに失敗しました。再度お試しください。',
+      }),
       {
         status: 400,
         headers: { 'Content-Type': 'application/json' },
-      }
+      },
     );
   }
 };

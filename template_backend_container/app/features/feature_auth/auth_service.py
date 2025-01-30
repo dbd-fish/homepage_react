@@ -1,18 +1,18 @@
 
 from datetime import timedelta
+
 import structlog
-from fastapi import Depends, HTTPException, Request, status, BackgroundTasks
+from fastapi import BackgroundTasks, Depends, HTTPException, Request, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.common.database import get_db
+from app.common.setting import setting
 from app.features.feature_auth.auth_repository import UserRepository
 from app.features.feature_auth.schemas.user import UserCreate, UserResponse
-from app.features.feature_auth.security import decode_access_token, hash_password
-from app.models.user import User
-from app.features.feature_auth.security import create_access_token
-from app.common.setting import setting
-from app.features.feature_auth.send_verification_email import send_verification_email
+from app.features.feature_auth.security import create_access_token, decode_access_token, hash_password
 from app.features.feature_auth.send_reset_password_email import send_reset_password_email
+from app.features.feature_auth.send_verification_email import send_verification_email
+from app.models.user import User
 
 logger = structlog.get_logger()
 
@@ -296,6 +296,8 @@ async def verify_email_token(token: str) -> UserCreate:
             email=email,
             username=username,
             password=password,
+            user_role=User.ROLE_FREE,
+            user_status=User.STATUS_ACTIVE
         )
         return user_info
     finally:

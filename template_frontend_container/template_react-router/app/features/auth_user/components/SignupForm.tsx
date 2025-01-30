@@ -1,4 +1,4 @@
-import { Form } from "react-router";
+import { Form } from 'react-router';
 
 export default function SignupForm() {
   return (

@@ -98,9 +98,7 @@ export default function eCommerceLaw() {
               <h2 className="text-xl font-semibold text-gray-700 mb-4">
                 販売事業者
               </h2>
-              <p className="text-gray-600 leading-relaxed">
-                株式会社〇〇
-              </p>
+              <p className="text-gray-600 leading-relaxed">株式会社〇〇</p>
             </section>
             <section>
               <h2 className="text-xl font-semibold text-gray-700 mb-4">
@@ -122,9 +120,7 @@ export default function eCommerceLaw() {
               <h2 className="text-xl font-semibold text-gray-700 mb-4">
                 電話番号
               </h2>
-              <p className="text-gray-600 leading-relaxed">
-                03-1234-5678
-              </p>
+              <p className="text-gray-600 leading-relaxed">03-1234-5678</p>
             </section>
             <section>
               <h2 className="text-xl font-semibold text-gray-700 mb-4">

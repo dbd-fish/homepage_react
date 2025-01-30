@@ -1,7 +1,10 @@
 import { useActionData, redirect, ActionFunction } from 'react-router';
 import SignupForm from '~/features/auth_user/components/SignupForm';
 import { fetchSendVerifyEmailData } from '~/features/auth_user/apis/fetchSendVerifyEmailData';
-import { isPasswordValid, getAllowedSymbols } from '~/features/auth_user/passwordValidation';
+import {
+  isPasswordValid,
+  getAllowedSymbols,
+} from '~/features/auth_user/passwordValidation';
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
@@ -20,23 +23,26 @@ export const action: ActionFunction = async ({ request }) => {
         {
           status: 400,
           headers: { 'Content-Type': 'application/json' },
-        }
+        },
       );
     }
 
     // 会員登録用の確認メール送信
     // 確認メール送信をバックグラウンドで処理
-    Promise.resolve(fetchSendVerifyEmailData(email, password, username)).catch((error) => {
-      console.error("Error sending verification email:", error);
-    });
+    Promise.resolve(fetchSendVerifyEmailData(email, password, username)).catch(
+      (error) => {
+        console.error('Error sending verification email:', error);
+      },
+    );
     return redirect('/send-signup-email');
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     return new Response(
       JSON.stringify({ error: '会員登録に失敗しました。再度お試しください。' }),
       {
         status: 400,
         headers: { 'Content-Type': 'application/json' },
-      }
+      },
     );
   }
 };

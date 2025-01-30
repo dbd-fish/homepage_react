@@ -47,9 +47,6 @@ export default function Header() {
   // ユーザーメニューの開閉を切り替える
   const toggleUserMenu = () => setShowUserMenu(!showUserMenu);
 
-  // 通知メニューの開閉を切り替える
-  const toggleNotification = () => setShowNotification(!showNotification);
-
   return (
     <header className="bg-blue-600 text-white py-4 shadow-md">
       <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
@@ -59,7 +56,6 @@ export default function Header() {
         <span>こんにちは、{user?.username}さん</span>
 
         <nav className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4">
-
           <ul className="flex flex-row items-center space-x-4">
             {/* 通知アイコン */}
             <li className="relative" ref={notificationRef}>

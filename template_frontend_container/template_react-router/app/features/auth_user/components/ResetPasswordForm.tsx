@@ -1,9 +1,8 @@
-import { Form } from "react-router";
+import { Form } from 'react-router';
 
 export default function ResetPasswordForm() {
   return (
     <Form method="post" className="space-y-6">
-
       {/* 新しいパスワード入力フィールド */}
       <div>
         <label
