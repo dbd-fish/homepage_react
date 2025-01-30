@@ -1,12 +1,17 @@
 
+from datetime import timedelta
+
 import structlog
-from fastapi import Depends, HTTPException, Request, status
+from fastapi import BackgroundTasks, Depends, HTTPException, Request, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.common.database import get_db
+from app.common.setting import setting
 from app.features.feature_auth.auth_repository import UserRepository
-from app.features.feature_auth.schemas.user import UserResponse
-from app.features.feature_auth.security import decode_access_token, hash_password
+from app.features.feature_auth.schemas.user import UserCreate, UserResponse
+from app.features.feature_auth.security import create_access_token, decode_access_token, hash_password
+from app.features.feature_auth.send_reset_password_email import send_reset_password_email
+from app.features.feature_auth.send_verification_email import send_verification_email
 from app.models.user import User
 
 logger = structlog.get_logger()
@@ -115,7 +120,7 @@ async def create_user(
         HTTPException: ユーザー作成中に発生したエラー。
 
     """
-    logger.info("create_user - start", email=email, username=username)
+    logger.info("create_user - start", email=email, username=username, password=password)
     try:
         # パスワードをハッシュ化
         hashed_password = hash_password(password)
@@ -144,6 +149,80 @@ async def create_user(
         return saved_user
     finally:
         logger.info("create_user - end")
+
+async def temporary_create_user(user: UserCreate, background_tasks: BackgroundTasks, db: AsyncSession,):
+    """
+    仮登録処理用のJWTトークンを生成してメールuserを送信する。
+
+    Args:
+        data: ユーザーのサインアップデータ（email, username, password を含む）。
+        background_tasks: 非同期タスクのためのFastAPI BackgroundTasksオブジェクト。
+        db (AsyncSession): 非同期データベースセッション。
+    """
+    logger.info("temporary_create_user - start", user=user)
+    try:
+        # 既存のメールアドレスをチェック
+        existing_user = await UserRepository.get_user_by_email(db, user.email)
+        if existing_user:
+            logger.warning("temporary_create_user - user already exists", email=user.email)
+            raise HTTPException(
+                status_code=400,
+                detail="User already exists",
+            )
+
+        # 仮登録用JWTトークンを生成
+        token_data = {
+            "email": user.email,
+            "username": user.username,
+            "password": user.password,  # トークンにパスワードは含めない方が安全
+        }
+        token = create_access_token(data=token_data, expires_delta=timedelta(minutes=60))
+        logger.info("temporary_create_user - token", token=token)
+
+        # 認証用メールを送信
+        base_url = setting.APP_URL
+        verification_url = f"{base_url}/signup-vertify-complete?token={token}"
+        background_tasks.add_task(send_verification_email, user.email, verification_url)
+        logger.info("temporary_create_user - background_tasks,add", email=user.email, verification_url=verification_url)
+    finally:
+        logger.info("temporary_create_user - end")
+
+
+async def reset_password_email(email: str, background_tasks: BackgroundTasks, db: AsyncSession,):
+    """l
+    パスワード再設定用のJWTトークンを生成してメールを送信する。
+
+    Args:
+        email: パスワード再設定対象のメールアドレス。
+        background_tasks: 非同期タスクのためのFastAPI BackgroundTasksオブジェクト。
+        db (AsyncSession): 非同期データベースセッション。
+    """
+    logger.info("reset_password_email - start", email=email)
+    try:
+        # 既存のメールアドレスをチェック
+        existing_user = await UserRepository.get_user_by_email(db, email)
+        if not existing_user:
+            logger.warning("reset_password_email - user does not exist", email=email)
+            raise HTTPException(
+                status_code=400,
+                detail="User does not exist",
+            )
+
+        # 仮登録用JWTトークンを生成
+        token_data = {
+            "email": email,
+        }
+        token = create_access_token(data=token_data, expires_delta=timedelta(minutes=60))
+        logger.info("reset_password_email - token", token=token)
+
+        # 認証用メールを送信
+        base_url = setting.APP_URL
+        reset_password_url = f"{base_url}/reset-password?token={token}"
+        background_tasks.add_task(send_reset_password_email, email, reset_password_url)
+        logger.info("reset_password_email - background_tasks,add", email=email, reset_password_url=reset_password_url)
+    finally:
+        logger.info("reset_password_email - end")
+
 
 
 async def reset_password(email: str, new_password: str, db: AsyncSession):
@@ -174,6 +253,7 @@ async def reset_password(email: str, new_password: str, db: AsyncSession):
     hashed_password = hash_password(new_password)
 
     try:
+        # TODO: メールによるユーザ認証後にパスワード変更を完了するべきでは？
         updated_user = await UserRepository.update_user_password(db, user, hashed_password)
         logger.info("reset_password - success", user_id=updated_user.user_id)
         return updated_user
@@ -183,3 +263,69 @@ async def reset_password(email: str, new_password: str, db: AsyncSession):
         raise e
     finally:
         logger.info("reset_password - end")
+
+
+async def verify_email_token(token: str) -> UserCreate:
+    """トークンを検証し、ユーザー情報を返す。
+
+    Args:
+        token (str): メール認証トークン。
+        db (AsyncSession): 非同期データベースセッション。
+
+    Returns:
+        UserCreate: トークンに対応するユーザー情報。
+    """
+    logger.info("verify_email_token - start", token=token)
+
+    try:
+        # トークンをデコードしてemailを取得
+        payload = decode_access_token(token)
+        email: str = payload.get("email") or ""
+        password: str = payload.get("password") or ""
+        username: str = payload.get("username") or ""
+        logger.info("verify_email_token - payload", payload=payload)
+        if not email or not password or not username:
+            logger.warning("verify_email_token - token missing", email=email, password=password, username=username)
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid token",
+                headers={"WWW-Authenticate": "Bearer"},
+            )
+
+        user_info = UserCreate(
+            email=email,
+            username=username,
+            password=password,
+            user_role=User.ROLE_FREE,
+            user_status=User.STATUS_ACTIVE
+        )
+        return user_info
+    finally:
+        logger.info("verify_email_token - end")
+
+async def decode_password_reset_token(token: str) -> str:
+    """パスワードリセット用トークンからemailを取得
+
+    Args:
+        token (str): メール認証トークン。
+    Returns:
+        str: メールアドレス。
+    """
+    logger.info("decode_password_reset_token - start", token=token)
+
+    try:
+        # トークンをデコードしてemailを取得
+        payload = decode_access_token(token)
+        email: str = payload.get("email") or ""
+
+        if not email:
+            logger.warning("decode_password_reset_token - token missing", email=email)
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid token",
+                headers={"WWW-Authenticate": "Bearer"},
+            )
+
+        return email
+    finally:
+        logger.info("decode_password_reset_token - end")

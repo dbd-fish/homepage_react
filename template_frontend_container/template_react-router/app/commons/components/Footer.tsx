@@ -13,7 +13,7 @@ export default function Footer() {
           <a href="/terms-of-service" className="hover:underline">
             利用規約
           </a>
-          <a href="/legal-notice" className="hover:underline">
+          <a href="/e-commerce-law" className="hover:underline">
             特定商取引法に基づく表記
           </a>
           <a href="/about-us" className="hover:underline">

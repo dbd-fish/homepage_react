@@ -6,22 +6,9 @@ from passlib.context import CryptContext
 
 from app.common.test_data import TestData
 from app.features.feature_auth.auth_service import get_current_user
-from app.features.feature_auth.schemas.user import UserCreate
 from app.models.user import User
 from main import app
 
-
-@pytest_asyncio.fixture(scope="function")
-def regist_user_data() -> UserCreate:
-    """テスト用の登録ユーザーデータの準備。
-    """
-    return UserCreate(
-        email="registuser@example.com",
-        username="registuser",
-        password="password",
-        user_role=2,
-        user_status=1,
-    )
 
 @pytest_asyncio.fixture(scope="function")
 def login_user_data() -> User:

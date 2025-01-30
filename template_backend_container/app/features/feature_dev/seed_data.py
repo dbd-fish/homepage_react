@@ -1,16 +1,10 @@
-# seed_data.py
-# 動作確認用の初期データを投入する。実行コマンドの引数は必要に応じて精査する。
-# 実行コマンド:
-# export PYTHONPATH=/app
-# poetry run python app/seeders/seed_data.py
 
-
-from passlib.context import CryptContext  # type: ignore
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession
 from sqlalchemy.sql import text
 
 from app.common.database import AsyncSessionLocal, Base
 from app.features.feature_dev.seed_user import seed_user
+
 
 async def clear_data(db: AsyncSession):
     """データベースをクリアします。すべてのテーブルを削除し、再作成します。

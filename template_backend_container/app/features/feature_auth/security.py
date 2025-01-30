@@ -63,12 +63,13 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
     finally:
         logger.info("verify_password - end")
 
+# TODO: 関数名を汎用的なものに変更する
 def create_access_token(data: dict, expires_delta: timedelta | None = None) -> str:
-    """アクセストークンを作成する。
+    """アクセストークンを作成する。また仮登録時のトークンも作成する。
 
     Args:
         data (dict): トークンに含めるデータ。
-        expires_delta (timedelta, optional): トークンの有効期限（デフォルトは30分）。
+        expires_delta (timedelta, optional): トークンの有効期限。
 
     Returns:
         str: 作成されたJWTアクセストークン。
@@ -82,13 +83,14 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None) -> s
         logger.debug("create_access_token - to_encode", to_encode=to_encode)
         encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
         logger.info("create_access_token - success", encoded_jwt=encoded_jwt)
-        logger.info("create_access_token - end", expire=expire)
+        logger.info("create_access_token - expire", expire=expire)
         return encoded_jwt
     finally:
         logger.info("create_access_token - end")
 
+# TODO: 関数名を汎用的なものに変更する
 def decode_access_token(token: str) -> dict:
-    """アクセストークンをデコードしてペイロードを取得する。
+    """アクセストークンをデコードしてペイロードを取得する。また仮登録時のトークンもデコードする。
 
     Args:
         token (str): デコード対象のJWTアクセストークン。
