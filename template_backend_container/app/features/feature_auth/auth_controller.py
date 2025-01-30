@@ -137,7 +137,7 @@ async def logout(current_user: User = Depends(get_current_user)):
         dict: ログアウト成功メッセージ。
 
     """
-    logger.info("logout - start", current_user=current_user.user_id)
+    logger.info("logout - start", current_user=current_user.email)
     try:
         # クライアント側でトークンを削除するシンプルな処理
         logger.info("logout - success")
