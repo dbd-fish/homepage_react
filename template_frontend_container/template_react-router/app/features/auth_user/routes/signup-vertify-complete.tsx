@@ -17,7 +17,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     const url = new URL(request.url);
     const token = url.searchParams.get('token');
     if (!token) {
-      throw new Response('Token is missing', { status: 400 });
+      throw new Response('トークンが見つかりません', { status: 400 });
     }
 
     const response = await fetchSignupData(token);

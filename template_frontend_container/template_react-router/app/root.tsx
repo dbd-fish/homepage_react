@@ -22,7 +22,12 @@ export function ErrorBoundary() {
   let errorMessage = '予期しないエラーが発生しました。';
   // NOTE: isRouteErrorResponseを使用してエラーレスポンスを確認
   if (isRouteErrorResponse(error)) {
-    errorMessage = error.data || 'サーバーエラーが発生しました。';
+    if (error.status === 404) {
+      errorMessage =
+        'お探しのページが見つかりませんでした。URLをご確認ください。';
+    } else {
+      errorMessage = error.data || 'サーバーエラーが発生しました。';
+    }
   }
 
   return (
@@ -36,9 +41,7 @@ export function ErrorBoundary() {
           <h2 className="text-xl font-semibold text-gray-700 mb-4">
             エラーが発生しました
           </h2>
-          <p className="text-gray-600">
-            {errorMessage || '予期しないエラーが発生しました。'}
-          </p>
+          <p className="text-gray-600">{errorMessage}</p>
         </div>
       </main>
       <Footer />
