@@ -5,6 +5,7 @@ import { userDataLoader } from '~/features/auth_user/loaders/userDataLoader';
 import { AuthenticationError } from '~/commons/utils/errors/AuthenticationError';
 import { logoutAction } from '~/features/auth_user/actions/logoutAction';
 // import logger from '~/commons/utils/logger';
+import { Button } from "~/components/ui/button"
 
 /**
  * ローダー関数:
@@ -92,6 +93,9 @@ export default function Home() {
               <h2 className="text-xl font-semibold text-gray-700 mb-4">
                 ホーム画面
               </h2>
+              <div>
+                <Button>Click me</Button>
+              </div>
             </div>
           </div>
         </div>

@@ -7,6 +7,8 @@ import {
   getAllowedSymbols,
   isPasswordValid,
 } from '~/features/auth_user/passwordValidation';
+import Header from '~/commons/components/header/LoggedOutHeader';;
+import Footer from '~/commons/components/Footer';
 
 // import logger from '~/commons/utils/logger';
 
@@ -77,40 +79,33 @@ export default function LoginPage() {
   const actionData = useActionData<{ error?: string }>();
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-md p-8">
-        <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">
-          <SiteTitle />
-        </h1>
-        <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">
-          ログイン
-        </h1>
-        {actionData?.error && (
-          <div
-            id="error-message"
-            className="mb-4 text-sm text-red-500 border border-red-400 bg-red-100 px-4 py-2 rounded whitespace-pre-wrap"
-            style={{ whiteSpace: 'pre-wrap' }}
-          >
-            {actionData.error}
+    <div className="min-h-screen flex flex-col bg-background">
+      {/* ヘッダー */}
+      <Header />
+
+      {/* ログインフォーム */}
+      <main className="flex-grow flex items-center justify-center">
+        <div className="w-full max-w-md bg-card rounded-lg shadow p-6">
+          <h1 className="text-2xl font-bold text-center mb-4">ログイン</h1>
+          {actionData?.error && (
+            <div className="mb-4 text-sm text-destructive border border-destructive bg-destructive/10 px-4 py-2 rounded">
+              {actionData.error}
+            </div>
+          )}
+          <LoginForm />
+          <div className="mt-4 text-center">
+            <Link to="/send-reset-password-email" className="text-muted-foreground hover:underline">
+              パスワードを忘れた場合はこちら
+            </Link>
+            <Link to="/signup" className="text-muted-foreground hover:underline block mt-2">
+              新規会員登録はこちら
+            </Link>
           </div>
-        )}
-        {/* LoginFormコンポーネントを利用 */}
-        <LoginForm />
-        <div className="mt-6 text-center">
-          <Link
-            to="/send-reset-password-email"
-            className="text-blue-600 hover:underline text-sm block"
-          >
-            パスワードを忘れた場合はこちら
-          </Link>
-          <Link
-            to="/signup"
-            className="text-blue-600 hover:underline text-sm block mt-2"
-          >
-            新規会員登録はこちら
-          </Link>
         </div>
-      </div>
+      </main>
+
+      {/* フッター */}
+      <Footer />
     </div>
   );
 }

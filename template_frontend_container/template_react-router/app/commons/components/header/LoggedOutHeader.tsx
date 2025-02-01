@@ -1,31 +1,32 @@
-import SiteTitle from '~/commons/components/SiteTitle';
+import { Button } from "~/components/ui/button";
+import SiteTitle from "~/commons/components/SiteTitle";
 
 export default function Header() {
   return (
-    <header className="bg-blue-600 text-white py-4 shadow-md">
-      <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
-        {/* サンプルサイト (SiteTitle コンポーネント) */}
+    <header className="bg-gray-600 text-gray-100 py-3 shadow-md">
+      <div className="container mx-auto px-4 flex justify-between items-center">
+        {/* サイトタイトル */}
         <SiteTitle />
-        <nav className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4">
-          <ul className="flex flex-row items-center space-x-4">
-            {/* ログイン・会員登録ボタン */}
-            <li>
-              <a
-                href="/login"
-                className="px-4 py-2 bg-white text-blue-600 rounded hover:bg-gray-200 text-sm"
-              >
-                ログイン
-              </a>
-            </li>
-            <li>
-              <a
-                href="/signup"
-                className="px-4 py-2 bg-yellow-500 text-blue-800 rounded hover:bg-yellow-400 text-sm"
-              >
-                会員登録
-              </a>
-            </li>
-          </ul>
+
+        {/* レスポンシブなナビゲーション */}
+        <nav className="flex items-center space-x-2 sm:space-x-4">
+          {/* ログインボタン */}
+          <Button
+            variant="ghost"
+            asChild
+            className="text-xs sm:text-sm text-gray-300 hover:text-white border border-gray-700 bg-gray-800 px-3 py-2"
+          >
+            <a href="/login">ログイン</a>
+          </Button>
+
+          {/* 会員登録ボタン */}
+          <Button
+            variant="default"
+            asChild
+            className="text-xs sm:text-sm bg-gray-700 text-white hover:bg-gray-600 border border-gray-600 px-3 py-2"
+          >
+            <a href="/signup">会員登録</a>
+          </Button>
         </nav>
       </div>
     </header>
