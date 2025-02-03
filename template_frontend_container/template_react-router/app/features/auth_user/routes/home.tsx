@@ -1,10 +1,32 @@
-import Header from '~/commons/components/Header';
-import Footer from '~/commons/components/Footer';
 import { LoaderFunction, redirect, ActionFunction } from 'react-router';
 import { userDataLoader } from '~/features/auth_user/loaders/userDataLoader';
 import { AuthenticationError } from '~/commons/utils/errors/AuthenticationError';
 import { logoutAction } from '~/features/auth_user/actions/logoutAction';
 // import logger from '~/commons/utils/logger';
+import { Button } from '~/components/ui/button';
+import Layout from '~/commons/components/Layout';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '~/components/ui/tabs';
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from '~/components/ui/accordion';
+import { Badge } from '~/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
+import { Input } from '~/components/ui/input';
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from '~/components/ui/select';
+import { Switch } from '~/components/ui/switch';
+import { RadioGroup, RadioGroupItem } from '~/components/ui/radio-group';
+import { Checkbox } from '~/components/ui/checkbox';
+import { Textarea } from '~/components/ui/textarea';
+import Main from '~/commons/components/Main';
 
 /**
  * ローダー関数:
@@ -80,23 +102,214 @@ export const action: ActionFunction = async ({ request }) => {
     // logger.info('[Home Action] end');
   }
 };
-
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      <main className="flex-grow bg-gray-100 flex items-center justify-center">
-        <div className="w-full max-w-4xl bg-white rounded-lg shadow-md p-8">
-          <div className="flex flex-col md:flex-row items-center justify-center space-y-6 md:space-y-0 md:space-x-6">
-            <div className="w-full md:w-2/3 bg-gray-50 rounded-lg p-6 shadow-sm">
+    <Layout>
+      <Main>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 w-full max-w-screen-xl px-4">
+          {/* 左サイドバー */}
+          <aside className="hidden lg:block col-span-2 bg-gray-50 rounded-lg shadow p-4">
+            <h2 className="text-lg font-semibold text-gray-700 mb-4">
+              サイドバー1
+            </h2>
+            <p className="text-gray-600 mb-4">
+              ここに左サイドバーの内容を記述します。
+            </p>
+            <img
+              src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400"
+              alt="サンプル画像"
+              className="rounded-lg shadow-md"
+            />
+          </aside>
+
+          {/* メインコンテンツ */}
+          <section className="col-span-12 lg:col-span-8 bg-white rounded-lg shadow p-6 space-y-6">
+            <h1 className="text-2xl font-bold text-gray-800 mb-4">
+              メインコンテンツ
+            </h1>
+            <p className="text-gray-600">
+              ホーム画面
+            </p>
+            <p className="text-gray-600">
+              ここにフォームやUIコンポーネントの例を含めます。
+            </p>
+
+            {/* フォームエリア */}
+            <form className="space-y-6">
+              {/* テキスト入力 */}
+              <div>
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
+                  名前
+                </label>
+                <Input id="name" placeholder="名前を入力" />
+              </div>
+
+              {/* セレクトボックス */}
+              <div>
+                <label
+                  htmlFor="category"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
+                  カテゴリ
+                </label>
+                <Select>
+                  <SelectTrigger id="category">
+                    <SelectValue placeholder="カテゴリを選択" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="option1">オプション1</SelectItem>
+                    <SelectItem value="option2">オプション2</SelectItem>
+                    <SelectItem value="option3">オプション3</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* トグルスイッチ */}
+              <div className="flex items-center space-x-4">
+                <label
+                  htmlFor="toggle"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  トグルスイッチ
+                </label>
+                <Switch id="toggle" />
+              </div>
+
+              {/* ラジオボタン */}
+              <div>
+              <label htmlFor="radio-group" className="block text-sm font-medium text-gray-700 mb-2">
+                ラジオボタン
+              </label>
+              <RadioGroup id="radio-group" defaultValue="option1">
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="option1" id="option1" />
+                  <label htmlFor="option1">オプション1</label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="option2" id="option2" />
+                  <label htmlFor="option2">オプション2</label>
+                </div>
+              </RadioGroup>
+              </div>
+
+              {/* チェックボックス */}
+              <label htmlFor="checkbox-group" className="block text-sm font-medium text-gray-700 mb-2">
+                チェックボックス
+              </label>
+              <div id="checkbox-group">
+                <div className="flex items-center space-x-2">
+                  <Checkbox id="check1" />
+                  <label htmlFor="check1">チェックボックス1</label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Checkbox id="check2" />
+                  <label htmlFor="check2">チェックボックス2</label>
+                </div>
+              </div>
+
+              {/* テキストエリア */}
+              <div>
+                <label
+                  htmlFor="message"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
+                  メッセージ
+                </label>
+                <Textarea id="message" placeholder="メッセージを入力" />
+              </div>
+
+              {/* 送信ボタン */}
+              <Button type="submit" className="w-full">
+                送信
+              </Button>
+            </form>
+
+            {/* Tabs コンポーネント */}
+            <div>
               <h2 className="text-xl font-semibold text-gray-700 mb-4">
-                ホーム画面
+                Tabsのサンプル
               </h2>
+              <Tabs defaultValue="tab1">
+                <TabsList>
+                  <TabsTrigger value="tab1">タブ1</TabsTrigger>
+                  <TabsTrigger value="tab2">タブ2</TabsTrigger>
+                  <TabsTrigger value="tab3">タブ3</TabsTrigger>
+                </TabsList>
+                <TabsContent value="tab1">タブ1の内容です。</TabsContent>
+                <TabsContent value="tab2">タブ2の内容です。</TabsContent>
+                <TabsContent value="tab3">タブ3の内容です。</TabsContent>
+              </Tabs>
             </div>
-          </div>
+
+            {/* Accordion コンポーネント */}
+            <div>
+              <h2 className="text-xl font-semibold text-gray-700 mb-4">
+                アコーディオンのサンプル
+              </h2>
+              <Accordion type="single" collapsible>
+                <AccordionItem value="item1">
+                  <AccordionTrigger>項目1</AccordionTrigger>
+                  <AccordionContent>
+                    項目1の内容です。詳細な情報をここに記述します。
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item2">
+                  <AccordionTrigger>項目2</AccordionTrigger>
+                  <AccordionContent>
+                    項目2の内容です。詳細な情報をここに記述します。
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </div>
+
+            {/* Badge コンポーネント */}
+            <div>
+              <h2 className="text-xl font-semibold text-gray-700 mb-4">
+                Badgeのサンプル
+              </h2>
+              <div className="space-x-2">
+                <Badge>デフォルト</Badge>
+                <Badge variant="secondary">セカンダリ</Badge>
+                <Badge variant="outline">アウトライン</Badge>
+              </div>
+            </div>
+
+            {/* Card コンポーネント */}
+            <div>
+              <h2 className="text-xl font-semibold text-gray-700 mb-4">
+                Cardのサンプル
+              </h2>
+              <Card>
+                <CardHeader>
+                  <CardTitle>カードのタイトル</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  カードの内容をここに記述します。UIコンポーネントとして簡単な表示を行えます。
+                </CardContent>
+              </Card>
+            </div>
+          </section>
+
+          {/* 右サイドバー */}
+          <aside className="hidden lg:block col-span-2 bg-gray-50 rounded-lg shadow p-4">
+            <h2 className="text-lg font-semibold text-gray-700 mb-4">
+              サイドバー2
+            </h2>
+            <p className="text-gray-600 mb-4">
+              ここに右サイドバーの内容を記述します。
+            </p>
+            {/* フリー素材のGIF */}
+            <img
+              src="https://media.giphy.com/media/xUPGcxpCV81ebKh7Vu/giphy.gif"
+              alt="サンプルGIF"
+              className="rounded-lg shadow-md"
+            />
+          </aside>
         </div>
-      </main>
-      <Footer />
-    </div>
+      </Main>
+    </Layout>
   );
 }

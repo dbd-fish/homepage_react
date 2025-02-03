@@ -1,22 +1,22 @@
 import { Form } from 'react-router';
+import { Input } from '~/components/ui/input';
+import { Button } from '~/components/ui/button';
 
 export default function ResetPasswordForm() {
   return (
-    <Form method="post" className="space-y-6">
+    <Form method="post" className="space-y-4">
       {/* 新しいパスワード入力フィールド */}
       <div>
-        <label
-          htmlFor="newPassword"
-          className="block text-sm font-medium text-gray-700"
-        >
+        <label htmlFor="newPassword" className="block text-sm font-medium mb-1">
           新しいパスワード
         </label>
-        <input
+        <Input
           type="password"
           id="newPassword"
           name="newPassword"
+          placeholder="********"
           required
-          className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+          className="bg-gray-100 focus:bg-white"
         />
       </div>
 
@@ -24,27 +24,25 @@ export default function ResetPasswordForm() {
       <div>
         <label
           htmlFor="confirmPassword"
-          className="block text-sm font-medium text-gray-700"
+          className="block text-sm font-medium mb-1"
         >
           新しいパスワード（確認用）
         </label>
-        <input
+        <Input
           type="password"
           id="confirmPassword"
           name="confirmPassword"
+          placeholder="********"
           required
-          className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+          className="bg-gray-100 focus:bg-white"
         />
       </div>
 
       {/* パスワードリセットボタン */}
       <div>
-        <button
-          type="submit"
-          className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-        >
+        <Button type="submit" className="w-full">
           パスワードをリセット
-        </button>
+        </Button>
       </div>
     </Form>
   );

@@ -10,7 +10,7 @@ export default function Header() {
   const loaderData = useLoaderData<LoaderDataType>();
 
   // 認証状況に応じて表示を切り替える
-  if (loaderData.user) {
+  if (loaderData?.user) {
     return <LoggedInHeader />;
   } else {
     return <LoggedOutHeader />;

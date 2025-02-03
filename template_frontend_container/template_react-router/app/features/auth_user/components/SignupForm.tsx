@@ -1,88 +1,65 @@
 import { Form } from 'react-router';
+import { Input } from '~/components/ui/input';
+import { Button } from '~/components/ui/button';
 
 export default function SignupForm() {
   return (
     <Form id="signup-form" method="post" action="/signup" className="space-y-6">
       {/* ユーザー名入力フィールド */}
       <div>
-        <label
-          htmlFor="username"
-          className="block text-sm font-medium text-gray-700"
-        >
+        <label htmlFor="username" className="block text-sm font-medium">
           ユーザー名
         </label>
-        <input
+        <Input
           type="text"
           id="username"
           name="username"
-          className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-          placeholder="ユーザー名"
           required
+          className="mt-1"
         />
       </div>
 
       {/* メールアドレス入力フィールド */}
       <div>
-        <label
-          htmlFor="email"
-          className="block text-sm font-medium text-gray-700"
-        >
+        <label htmlFor="email" className="block text-sm font-medium">
           メールアドレス
         </label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-          placeholder="example@example.com"
-          required
-        />
+        <Input type="email" id="email" name="email" required className="mt-1" />
       </div>
 
       {/* パスワード入力フィールド */}
       <div>
-        <label
-          htmlFor="password"
-          className="block text-sm font-medium text-gray-700"
-        >
+        <label htmlFor="password" className="block text-sm font-medium">
           パスワード
         </label>
-        <input
+        <Input
           type="password"
           id="password"
           name="password"
-          className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-          placeholder="********"
           required
+          className="mt-1"
         />
       </div>
 
       {/* パスワード確認用フィールド */}
       <div>
-        <label
-          htmlFor="confirmPassword"
-          className="block text-sm font-medium text-gray-700"
-        >
+        <label htmlFor="confirmPassword" className="block text-sm font-medium">
           パスワード（確認用）
         </label>
-        <input
+        <Input
           type="password"
           id="confirmPassword"
           name="confirmPassword"
-          className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-          placeholder="********"
           required
+          className="mt-1"
         />
       </div>
 
       {/* 会員登録ボタン */}
       <div>
-        <button
-          type="submit"
-          className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-        >
+        <Button type="submit" variant="default" className="w-full">
           会員登録
-        </button>
+        </Button>
       </div>
     </Form>
   );

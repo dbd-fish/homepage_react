@@ -10,6 +10,9 @@ import {
   isPasswordValid,
   getAllowedSymbols,
 } from '~/features/auth_user/passwordValidation';
+import Layout from '~/commons/components/Layout';
+import Main from '~/commons/components/Main';
+import SimpleCard from '~/commons/components/SimpleCard';
 
 // ローダー関数: URLクエリからトークンを取得
 export const loader: LoaderFunction = async ({ request }) => {
@@ -66,21 +69,20 @@ export default function ResetPasswordPage() {
   const actionData = useActionData<{ error?: string }>();
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-md p-8">
-        <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">
-          パスワードリセット
-        </h1>
-        {actionData?.error && (
-          <div
-            className="mb-4 text-sm text-red-500 border border-red-400 bg-red-100 px-4 py-2 rounded whitespace-pre-wrap"
-            style={{ whiteSpace: 'pre-wrap' }}
-          >
-            {actionData.error}
-          </div>
-        )}
-        <ResetPasswordForm />
-      </div>
-    </div>
+    <Layout>
+      <Main>
+        <SimpleCard>
+          <h1 className="text-2xl font-bold text-center mb-4">
+            パスワードリセット
+          </h1>
+          {actionData?.error && (
+            <div className="mb-4 text-sm text-red-500 border border-red-400 bg-red-100 px-4 py-2 rounded">
+              {actionData.error}
+            </div>
+          )}
+          <ResetPasswordForm />
+        </SimpleCard>
+      </Main>
+    </Layout>
   );
 }

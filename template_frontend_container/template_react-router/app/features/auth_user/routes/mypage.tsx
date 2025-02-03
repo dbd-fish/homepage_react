@@ -1,13 +1,13 @@
 import { LoaderFunction, ActionFunction, redirect } from 'react-router';
 import { useLoaderData } from 'react-router';
-import Header from '~/commons/components/Header';
-import Footer from '~/commons/components/Footer';
 import ProfileCard from '~/features/auth_user/components/ProfileCard';
 import { userDataLoader } from '~/features/auth_user/loaders/userDataLoader';
 import { authTokenLoader } from '~/features/auth_user/loaders/authTokenLoader';
 import { AuthenticationError } from '~/commons/utils/errors/AuthenticationError';
 import { logoutAction } from '~/features/auth_user/actions/logoutAction';
 import { LoaderDataType } from '~/commons/utils/types';
+import Layout from '~/commons/components/Layout';
+import Main from '~/commons/components/Main';
 
 /**
  * ローダー関数:
@@ -96,10 +96,8 @@ export default function MyPage() {
   const loaderData = useLoaderData<LoaderDataType>();
 
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* ユーザー情報がヘッダーで使用可能 */}
-      <Header />
-      <main className="flex-grow bg-gray-100 flex items-center justify-center">
+    <Layout>
+      <Main>
         <div className="w-full max-w-4xl bg-white rounded-lg shadow-md p-8">
           <div className="flex flex-col md:flex-row items-center justify-center space-y-6 md:space-y-0 md:space-x-6">
             <ProfileCard />
@@ -116,8 +114,7 @@ export default function MyPage() {
             </div>
           </div>
         </div>
-      </main>
-      <Footer />
-    </div>
+      </Main>
+    </Layout>
   );
 }

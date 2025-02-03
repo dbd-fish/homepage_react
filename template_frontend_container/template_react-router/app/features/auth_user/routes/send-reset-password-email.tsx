@@ -1,6 +1,9 @@
 import { useActionData, redirect, ActionFunction } from 'react-router';
 import SendResetPasswordForm from '~/features/auth_user/components/SendResetPasswordForm';
 import { fetchSendResetPasswordData } from '~/features/auth_user/apis/fetchSendResetPasswordData';
+import Layout from '~/commons/components/Layout';
+import Main from '~/commons/components/Main';
+import SimpleCard from '~/commons/components/SimpleCard';
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
@@ -30,21 +33,23 @@ export default function SendResetPasswordEmail() {
   const actionData = useActionData<{ error?: string }>();
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-md p-8">
-        <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">
-          パスワードリセット
-        </h1>
-        {actionData?.error && (
-          <div
-            className="mb-4 text-sm text-red-500 border border-red-400 bg-red-100 px-4 py-2 rounded whitespace-pre-wrap"
-            style={{ whiteSpace: 'pre-wrap' }}
-          >
-            {actionData.error}
-          </div>
-        )}
-        <SendResetPasswordForm />
-      </div>
-    </div>
+    <Layout>
+      <Main>
+        <SimpleCard>
+          <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">
+            パスワードリセット
+          </h1>
+          {actionData?.error && (
+            <div
+              className="mb-4 text-sm text-red-500 border border-red-400 bg-red-100 px-4 py-2 rounded whitespace-pre-wrap"
+              style={{ whiteSpace: 'pre-wrap' }}
+            >
+              {actionData.error}
+            </div>
+          )}
+          <SendResetPasswordForm />
+        </SimpleCard>
+      </Main>
+    </Layout>
   );
 }
