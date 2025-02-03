@@ -1,17 +1,16 @@
-import { Form } from 'react-router';
-import { Input } from '~/components/ui/input';
-import { Button } from '~/components/ui/button';
+import { Form } from "react-router";
+import { Input } from "~/components/ui/input";
+import { Button } from "~/components/ui/button";
 
 /**
- * LoginFormコンポーネント
- * - ユーザーがメールアドレスとパスワードを入力して送信するフォーム
+ * LoginForm コンポーネント
  */
 export default function LoginForm() {
   return (
-    <Form id="login-form" method="post" className="space-y-6">
+    <Form id="login-form" method="post" className="space-y-4">
       {/* メールアドレス入力フィールド */}
       <div>
-        <label htmlFor="email" className="block text-sm font-medium text-muted-foreground mb-1">
+        <label htmlFor="email" className="block text-sm font-medium mb-1">
           メールアドレス
         </label>
         <Input
@@ -25,7 +24,7 @@ export default function LoginForm() {
 
       {/* パスワード入力フィールド */}
       <div>
-        <label htmlFor="password" className="block text-sm font-medium text-muted-foreground mb-1">
+        <label htmlFor="password" className="block text-sm font-medium mb-1">
           パスワード
         </label>
         <Input

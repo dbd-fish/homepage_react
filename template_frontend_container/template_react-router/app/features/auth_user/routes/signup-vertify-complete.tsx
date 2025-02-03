@@ -3,6 +3,12 @@ import { LoaderFunction } from 'react-router';
 import { fetchSignupData } from '~/features/auth_user/apis/fetchSignupData';
 import { useLoaderData } from 'react-router';
 import { LoaderDataType } from '~/commons/utils/types';
+import Header from '~/commons/components/header/LoggedOutHeader';;
+import Footer from '~/commons/components/Footer';
+import Layout from "~/commons/components/Layout";
+import Main from "~/commons/components/Main";
+import SimpleCard from "~/commons/components/SimpleCard";
+
 
 /**
  * ローダー関数:
@@ -59,23 +65,23 @@ export default function SignupVerifyCompete() {
   // ローダーデータから success と message を取得
   const loaderData = useLoaderData<LoaderDataType>();
 
-  console.log('loaderData', loaderData);
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-md p-8">
-        <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">
+    <Layout>
+      <Main>
+      <SimpleCard>
+        <h1 className="text-2xl font-bold text-center mb-6">
           {loaderData.signupData?.success
             ? '本登録が完了しました。'
             : '本登録に失敗しました。'}
         </h1>
         {loaderData.signupData?.success ? (
-          <p className="text-gray-600 text-center mb-6">
+          <p className="text-center mb-6">
             ご登録ありがとうございます。本登録が正常に完了しました。
             <br />
             早速ログインしてサービスをご利用ください。
           </p>
         ) : (
-          <div className="text-gray-600 text-center mb-6">
+          <div className="text-center mb-6">
             <p>本登録に失敗しました。</p>
             <p>仮登録からやり直してください。</p>
             <p>それでも登録できない場合は別メールアドレスで試してください。</p>
@@ -83,22 +89,23 @@ export default function SignupVerifyCompete() {
         )}
         <div className="text-center">
           {loaderData.signupData?.success ? (
-            <Link
-              to="/login"
-              className="inline-block bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
-            >
-              ログインページへ
-            </Link>
+          <Link
+          to="/login"
+          className="inline-block bg-primary text-primary-foreground px-4 py-2 rounded-md"
+          >
+          ログインページへ
+        </Link>
           ) : (
             <Link
               to="/signup"
-              className="inline-block bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700"
-            >
+              className="inline-block bg-primary text-primary-foreground px-4 py-2 rounded-md"
+              >
               仮登録ページへ戻る
             </Link>
           )}
         </div>
-      </div>
-    </div>
+      </SimpleCard>
+      </Main>
+    </Layout>
   );
 }

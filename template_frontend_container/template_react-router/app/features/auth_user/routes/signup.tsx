@@ -5,6 +5,11 @@ import {
   isPasswordValid,
   getAllowedSymbols,
 } from '~/features/auth_user/passwordValidation';
+import Header from '~/commons/components/header/LoggedOutHeader';;
+import Footer from '~/commons/components/Footer';
+import Layout from "~/commons/components/Layout";
+import Main from "~/commons/components/Main";
+import SimpleCard from "~/commons/components/SimpleCard";
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
@@ -51,8 +56,9 @@ export default function SignupPage() {
   const actionData = useActionData<{ error?: string }>();
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-md p-8">
+    <Layout>
+      <Main>
+      <SimpleCard>
         <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">
           会員登録
         </h1>
@@ -65,7 +71,8 @@ export default function SignupPage() {
           </div>
         )}
         <SignupForm />
-      </div>
-    </div>
+      </SimpleCard>
+      </Main>
+    </Layout>
   );
 }

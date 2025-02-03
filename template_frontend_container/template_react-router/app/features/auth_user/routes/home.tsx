@@ -17,6 +17,7 @@ import { Switch } from "~/components/ui/switch";
 import { RadioGroup, RadioGroupItem } from "~/components/ui/radio-group";
 import { Checkbox } from "~/components/ui/checkbox";
 import { Textarea } from "~/components/ui/textarea";
+import Main from "~/commons/components/Main";
 
 /**
  * ローダー関数:
@@ -95,7 +96,7 @@ export const action: ActionFunction = async ({ request }) => {
 export default function Home() {
   return (
     <Layout>
-      <main className="flex-grow flex items-center justify-center">
+      <Main>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 w-full max-w-screen-xl px-4">
           {/* 左サイドバー */}
           <aside className="hidden lg:block col-span-2 bg-gray-50 rounded-lg shadow p-4">
@@ -272,7 +273,7 @@ export default function Home() {
             />
           </aside>
         </div>
-      </main>
+      </Main>
     </Layout>
   );
 }

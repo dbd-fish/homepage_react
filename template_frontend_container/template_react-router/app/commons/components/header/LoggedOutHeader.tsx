@@ -12,9 +12,9 @@ export default function Header() {
         <nav className="flex items-center space-x-2 sm:space-x-4">
           {/* ログインボタン */}
           <Button
-            variant="ghost"
+            variant="default"
             asChild
-            className="text-xs sm:text-sm text-gray-300 hover:text-white border border-gray-700 bg-gray-800 px-3 py-2"
+            className="text-xs sm:text-sm bg-gray-800 px-3 py-2"
           >
             <a href="/login">ログイン</a>
           </Button>
@@ -23,7 +23,7 @@ export default function Header() {
           <Button
             variant="default"
             asChild
-            className="text-xs sm:text-sm bg-gray-700 text-white hover:bg-gray-600 border border-gray-600 px-3 py-2"
+            className="text-xs sm:text-sm border border-gray-600 px-3 py-2"
           >
             <a href="/signup">会員登録</a>
           </Button>
