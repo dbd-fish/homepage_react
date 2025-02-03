@@ -128,6 +128,9 @@ export default function Home() {
               メインコンテンツ
             </h1>
             <p className="text-gray-600">
+              ホーム画面
+            </p>
+            <p className="text-gray-600">
               ここにフォームやUIコンポーネントの例を含めます。
             </p>
 
