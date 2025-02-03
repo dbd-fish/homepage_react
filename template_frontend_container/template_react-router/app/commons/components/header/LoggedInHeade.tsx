@@ -1,9 +1,8 @@
-import { Button } from "~/components/ui/button";
-import SiteTitle from "~/commons/components/SiteTitle";
-import { useState, useRef, useCallback } from "react";
-import { useLoaderData, useSubmit } from "react-router";
-import { LoaderDataType } from "~/commons/utils/types";
-import useClickOutside from "~/commons/hooks/useClickOutside";
+import SiteTitle from '~/commons/components/SiteTitle';
+import { useState, useRef, useCallback } from 'react';
+import { useLoaderData, useSubmit } from 'react-router';
+import { LoaderDataType } from '~/commons/utils/types';
+import useClickOutside from '~/commons/hooks/useClickOutside';
 
 export default function Header() {
   const loaderData = useLoaderData<LoaderDataType>();
@@ -12,8 +11,8 @@ export default function Header() {
   const submit = useSubmit();
   const handleLogout = useCallback(async () => {
     const formData = new FormData();
-    formData.append("_action", "logout");
-    submit(formData, { method: "post" });
+    formData.append('_action', 'logout');
+    submit(formData, { method: 'post' });
   }, [submit]);
 
   const [showUserMenu, setShowUserMenu] = useState(false);
@@ -77,7 +76,7 @@ export default function Header() {
                 className="w-6 h-6 sm:w-8 sm:h-8 rounded-full"
               />
               <span className="hidden sm:block">
-                {user?.username || "ゲスト"}
+                {user?.username || 'ゲスト'}
               </span>
             </button>
             {showUserMenu && (

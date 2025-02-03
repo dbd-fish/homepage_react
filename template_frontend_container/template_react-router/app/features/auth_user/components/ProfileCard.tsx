@@ -1,7 +1,7 @@
-import { LoaderDataType } from "~/commons/utils/types";
-import { useLoaderData } from "react-router";
-import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
-import { Button } from "~/components/ui/button";
+import { LoaderDataType } from '~/commons/utils/types';
+import { useLoaderData } from 'react-router';
+import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
+import { Button } from '~/components/ui/button';
 
 export default function ProfileCard() {
   const loaderData = useLoaderData<LoaderDataType>();
@@ -15,7 +15,9 @@ export default function ProfileCard() {
           alt="Profile"
           className="w-24 h-24 rounded-full shadow-md mb-4 border-2 border-gray-500"
         />
-        <CardTitle className="text-lg font-semibold">{user?.username}</CardTitle>
+        <CardTitle className="text-lg font-semibold">
+          {user?.username}
+        </CardTitle>
       </CardHeader>
       <CardContent className="text-center">
         <p className="text-sm text-gray-800">メールアドレス: {user?.email}</p>

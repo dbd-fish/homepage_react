@@ -1,31 +1,31 @@
-import { ActionFunction, redirect, Link } from "react-router";
-import { useActionData } from "react-router";
-import LoginForm from "~/features/auth_user/components/LoginForm";
-import { fetchLoginData } from "~/features/auth_user/apis/fetchLoginData";
-import Layout from "~/commons/components/Layout";
-import Main from "~/commons/components/Main";
-import SimpleCard from "~/commons/components/SimpleCard";
+import { ActionFunction, redirect, Link } from 'react-router';
+import { useActionData } from 'react-router';
+import LoginForm from '~/features/auth_user/components/LoginForm';
+import { fetchLoginData } from '~/features/auth_user/apis/fetchLoginData';
+import Layout from '~/commons/components/Layout';
+import Main from '~/commons/components/Main';
+import SimpleCard from '~/commons/components/SimpleCard';
 
 // アクション関数
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
-  const email = formData.get("email") as string;
-  const password = formData.get("password") as string;
+  const email = formData.get('email') as string;
+  const password = formData.get('password') as string;
 
   try {
     // fetchLoginDataを呼び出して認証処理
     const response = await fetchLoginData(email, password);
-    const responseCookieHeader = response.headers.get("set-Cookie");
+    const responseCookieHeader = response.headers.get('set-Cookie');
     if (!responseCookieHeader) {
-      throw new Error("Cookieが見つかりません");
+      throw new Error('Cookieが見つかりません');
     }
-    return redirect("/mypage", {
-      headers: { "Set-Cookie": responseCookieHeader },
+    return redirect('/mypage', {
+      headers: { 'Set-Cookie': responseCookieHeader },
     });
   } catch {
-    return new Response(JSON.stringify({ error: "ログインに失敗しました" }), {
+    return new Response(JSON.stringify({ error: 'ログインに失敗しました' }), {
       status: 400,
-      headers: { "Content-Type": "application/json" },
+      headers: { 'Content-Type': 'application/json' },
     });
   }
 };

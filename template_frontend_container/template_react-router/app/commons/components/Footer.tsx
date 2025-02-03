@@ -1,5 +1,3 @@
-import { Card, CardContent } from "~/components/ui/card";
-
 export default function Footer() {
   return (
     <footer className="bg-gray-600 text-gray-100 py-8">

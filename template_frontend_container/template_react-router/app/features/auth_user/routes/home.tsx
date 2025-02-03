@@ -1,23 +1,32 @@
-import Header from '~/commons/components/Header';
-import Footer from '~/commons/components/Footer';
 import { LoaderFunction, redirect, ActionFunction } from 'react-router';
 import { userDataLoader } from '~/features/auth_user/loaders/userDataLoader';
 import { AuthenticationError } from '~/commons/utils/errors/AuthenticationError';
 import { logoutAction } from '~/features/auth_user/actions/logoutAction';
 // import logger from '~/commons/utils/logger';
-import { Button } from "~/components/ui/button";
-import Layout from "~/commons/components/Layout";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "~/components/ui/tabs";
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "~/components/ui/accordion";
-import { Badge } from "~/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
-import { Input } from "~/components/ui/input";
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "~/components/ui/select";
-import { Switch } from "~/components/ui/switch";
-import { RadioGroup, RadioGroupItem } from "~/components/ui/radio-group";
-import { Checkbox } from "~/components/ui/checkbox";
-import { Textarea } from "~/components/ui/textarea";
-import Main from "~/commons/components/Main";
+import { Button } from '~/components/ui/button';
+import Layout from '~/commons/components/Layout';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '~/components/ui/tabs';
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from '~/components/ui/accordion';
+import { Badge } from '~/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
+import { Input } from '~/components/ui/input';
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from '~/components/ui/select';
+import { Switch } from '~/components/ui/switch';
+import { RadioGroup, RadioGroupItem } from '~/components/ui/radio-group';
+import { Checkbox } from '~/components/ui/checkbox';
+import { Textarea } from '~/components/ui/textarea';
+import Main from '~/commons/components/Main';
 
 /**
  * ローダー関数:
@@ -103,7 +112,9 @@ export default function Home() {
             <h2 className="text-lg font-semibold text-gray-700 mb-4">
               サイドバー1
             </h2>
-            <p className="text-gray-600 mb-4">ここに左サイドバーの内容を記述します。</p>
+            <p className="text-gray-600 mb-4">
+              ここに左サイドバーの内容を記述します。
+            </p>
             <img
               src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400"
               alt="サンプル画像"
@@ -113,7 +124,9 @@ export default function Home() {
 
           {/* メインコンテンツ */}
           <section className="col-span-12 lg:col-span-8 bg-white rounded-lg shadow p-6 space-y-6">
-            <h1 className="text-2xl font-bold text-gray-800 mb-4">メインコンテンツ</h1>
+            <h1 className="text-2xl font-bold text-gray-800 mb-4">
+              メインコンテンツ
+            </h1>
             <p className="text-gray-600">
               ここにフォームやUIコンポーネントの例を含めます。
             </p>
@@ -122,7 +135,10 @@ export default function Home() {
             <form className="space-y-6">
               {/* テキスト入力 */}
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
                   名前
                 </label>
                 <Input id="name" placeholder="名前を入力" />
@@ -130,7 +146,10 @@ export default function Home() {
 
               {/* セレクトボックス */}
               <div>
-                <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  htmlFor="category"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
                   カテゴリ
                 </label>
                 <Select>
@@ -147,7 +166,10 @@ export default function Home() {
 
               {/* トグルスイッチ */}
               <div className="flex items-center space-x-4">
-                <label htmlFor="toggle" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="toggle"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   トグルスイッチ
                 </label>
                 <Switch id="toggle" />
@@ -155,26 +177,26 @@ export default function Home() {
 
               {/* ラジオボタン */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  ラジオボタン
-                </label>
-                <RadioGroup defaultValue="option1">
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="option1" id="option1" />
-                    <label htmlFor="option1">オプション1</label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="option2" id="option2" />
-                    <label htmlFor="option2">オプション2</label>
-                  </div>
-                </RadioGroup>
+              <label htmlFor="radio-group" className="block text-sm font-medium text-gray-700 mb-2">
+                ラジオボタン
+              </label>
+              <RadioGroup id="radio-group" defaultValue="option1">
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="option1" id="option1" />
+                  <label htmlFor="option1">オプション1</label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="option2" id="option2" />
+                  <label htmlFor="option2">オプション2</label>
+                </div>
+              </RadioGroup>
               </div>
 
               {/* チェックボックス */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  チェックボックス
-                </label>
+              <label htmlFor="checkbox-group" className="block text-sm font-medium text-gray-700 mb-2">
+                チェックボックス
+              </label>
+              <div id="checkbox-group">
                 <div className="flex items-center space-x-2">
                   <Checkbox id="check1" />
                   <label htmlFor="check1">チェックボックス1</label>
@@ -187,7 +209,10 @@ export default function Home() {
 
               {/* テキストエリア */}
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  htmlFor="message"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
                   メッセージ
                 </label>
                 <Textarea id="message" placeholder="メッセージを入力" />
@@ -201,7 +226,9 @@ export default function Home() {
 
             {/* Tabs コンポーネント */}
             <div>
-              <h2 className="text-xl font-semibold text-gray-700 mb-4">Tabsのサンプル</h2>
+              <h2 className="text-xl font-semibold text-gray-700 mb-4">
+                Tabsのサンプル
+              </h2>
               <Tabs defaultValue="tab1">
                 <TabsList>
                   <TabsTrigger value="tab1">タブ1</TabsTrigger>
@@ -237,7 +264,9 @@ export default function Home() {
 
             {/* Badge コンポーネント */}
             <div>
-              <h2 className="text-xl font-semibold text-gray-700 mb-4">Badgeのサンプル</h2>
+              <h2 className="text-xl font-semibold text-gray-700 mb-4">
+                Badgeのサンプル
+              </h2>
               <div className="space-x-2">
                 <Badge>デフォルト</Badge>
                 <Badge variant="secondary">セカンダリ</Badge>
@@ -247,7 +276,9 @@ export default function Home() {
 
             {/* Card コンポーネント */}
             <div>
-              <h2 className="text-xl font-semibold text-gray-700 mb-4">Cardのサンプル</h2>
+              <h2 className="text-xl font-semibold text-gray-700 mb-4">
+                Cardのサンプル
+              </h2>
               <Card>
                 <CardHeader>
                   <CardTitle>カードのタイトル</CardTitle>
@@ -264,7 +295,9 @@ export default function Home() {
             <h2 className="text-lg font-semibold text-gray-700 mb-4">
               サイドバー2
             </h2>
-            <p className="text-gray-600 mb-4">ここに右サイドバーの内容を記述します。</p>
+            <p className="text-gray-600 mb-4">
+              ここに右サイドバーの内容を記述します。
+            </p>
             {/* フリー素材のGIF */}
             <img
               src="https://media.giphy.com/media/xUPGcxpCV81ebKh7Vu/giphy.gif"

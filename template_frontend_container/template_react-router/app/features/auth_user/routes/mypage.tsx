@@ -6,8 +6,8 @@ import { authTokenLoader } from '~/features/auth_user/loaders/authTokenLoader';
 import { AuthenticationError } from '~/commons/utils/errors/AuthenticationError';
 import { logoutAction } from '~/features/auth_user/actions/logoutAction';
 import { LoaderDataType } from '~/commons/utils/types';
-import Layout from "~/commons/components/Layout";
-import Main from "~/commons/components/Main";
+import Layout from '~/commons/components/Layout';
+import Main from '~/commons/components/Main';
 
 /**
  * ローダー関数:

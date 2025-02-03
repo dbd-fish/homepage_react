@@ -1,6 +1,6 @@
-import { Form } from "react-router";
-import { Input } from "~/components/ui/input";
-import { Button } from "~/components/ui/button";
+import { Form } from 'react-router';
+import { Input } from '~/components/ui/input';
+import { Button } from '~/components/ui/button';
 
 /**
  * LoginForm コンポーネント
