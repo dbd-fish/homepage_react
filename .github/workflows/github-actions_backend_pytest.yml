@@ -43,3 +43,4 @@ jobs:
         run: |
           docker exec template_backend_container poetry run pytest -k "not test_send_verify_email and not test_send_reset_password_email"
         # backendコンテナ内でpytestを実行
+        # NOTE: メール送信系のテストはメールサーバーに依存するためスキップ
