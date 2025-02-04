@@ -127,9 +127,7 @@ export default function Home() {
             <h1 className="text-2xl font-bold text-gray-800 mb-4">
               メインコンテンツ
             </h1>
-            <p className="text-gray-600">
-              ホーム画面
-            </p>
+            <p className="text-gray-600">ホーム画面</p>
             <p className="text-gray-600">
               ここにフォームやUIコンポーネントの例を含めます。
             </p>
@@ -180,23 +178,29 @@ export default function Home() {
 
               {/* ラジオボタン */}
               <div>
-              <label htmlFor="radio-group" className="block text-sm font-medium text-gray-700 mb-2">
-                ラジオボタン
-              </label>
-              <RadioGroup id="radio-group" defaultValue="option1">
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="option1" id="option1" />
-                  <label htmlFor="option1">オプション1</label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="option2" id="option2" />
-                  <label htmlFor="option2">オプション2</label>
-                </div>
-              </RadioGroup>
+                <label
+                  htmlFor="radio-group"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
+                  ラジオボタン
+                </label>
+                <RadioGroup id="radio-group" defaultValue="option1">
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="option1" id="option1" />
+                    <label htmlFor="option1">オプション1</label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="option2" id="option2" />
+                    <label htmlFor="option2">オプション2</label>
+                  </div>
+                </RadioGroup>
               </div>
 
               {/* チェックボックス */}
-              <label htmlFor="checkbox-group" className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="checkbox-group"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 チェックボックス
               </label>
               <div id="checkbox-group">
