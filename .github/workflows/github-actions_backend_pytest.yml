@@ -40,5 +40,5 @@ jobs:
 
       - name: Run Pytest in Backend Container
         run: |
-          docker exec sample_backend_container poetry run pytest
+          docker exec template_backend_container poetry run pytest
         # backendコンテナ内でpytestを実行

@@ -41,10 +41,10 @@ jobs:
 
       - name: Run Ruff in Backend Container
         run: |
-          docker exec sample_backend_container poetry run ruff check
+          docker exec template_backend_container poetry run ruff check
         # backendコンテナ内でruffを実行
 
       - name: Run Mypy in Backend Container
         run: |
-          docker exec sample_backend_container poetry run mypy .
+          docker exec template_backend_container poetry run mypy .
         # backendコンテナ内でmypyを実行
