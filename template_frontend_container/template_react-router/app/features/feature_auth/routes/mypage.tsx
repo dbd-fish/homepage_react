@@ -1,10 +1,10 @@
 import { LoaderFunction, ActionFunction, redirect } from 'react-router';
 import { useLoaderData } from 'react-router';
-import ProfileCard from '~/features/auth_user/components/ProfileCard';
-import { userDataLoader } from '~/features/auth_user/loaders/userDataLoader';
-import { authTokenLoader } from '~/features/auth_user/loaders/authTokenLoader';
+import ProfileCard from '~/features/feature_auth/components/ProfileCard';
+import { userDataLoader } from '~/features/feature_auth/loaders/userDataLoader';
+import { authTokenLoader } from '~/features/feature_auth/loaders/authTokenLoader';
 import { AuthenticationError } from '~/commons/utils/errors/AuthenticationError';
-import { logoutAction } from '~/features/auth_user/actions/logoutAction';
+import { logoutAction } from '~/features/feature_auth/actions/logoutAction';
 import { LoaderDataType } from '~/commons/utils/types';
 import Layout from '~/commons/components/Layout';
 import Main from '~/commons/components/Main';

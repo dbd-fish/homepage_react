@@ -1,7 +1,7 @@
 import { LoaderFunction, redirect, ActionFunction } from 'react-router';
-import { userDataLoader } from '~/features/auth_user/loaders/userDataLoader';
+import { userDataLoader } from '~/features/feature_auth/loaders/userDataLoader';
 import { AuthenticationError } from '~/commons/utils/errors/AuthenticationError';
-import { logoutAction } from '~/features/auth_user/actions/logoutAction';
+import { logoutAction } from '~/features/feature_auth/actions/logoutAction';
 // import logger from '~/commons/utils/logger';
 import { Button } from '~/components/ui/button';
 import Layout from '~/commons/components/Layout';

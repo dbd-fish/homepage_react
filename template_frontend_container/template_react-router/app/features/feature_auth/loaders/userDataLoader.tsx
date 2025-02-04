@@ -1,5 +1,5 @@
 import { AuthenticationError } from '~/commons/utils/errors/AuthenticationError';
-import { fetchUserData } from '~/features/auth_user/apis/fetchUserData';
+import { fetchUserData } from '~/features/feature_auth/apis/fetchUserData';
 // import logger from '~/commons/utils/logger';
 
 /**
