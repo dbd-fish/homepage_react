@@ -1,5 +1,9 @@
 # リポジトリ概要
 Docker + React(React Router7) + FastAPIで認証機能を作成。Cypressによるテスト環境も構築。
+- ログイン機能
+- ユーザー登録機能
+- パスワードリセット機能
+- メール認証機能
 
 ## ポイント
 - cert.pemとkey.pemを準備すればHTTPSでLocalhostを起動して、HttpOnlyCookieに認証情報を格納してAPIに送信する。
