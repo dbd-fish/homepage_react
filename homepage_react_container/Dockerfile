@@ -12,7 +12,7 @@ WORKDIR /app
 COPY . .
 
 # 作業ディレクトリを作成済みのReactRouterプロジェクトに変更して、依存関係をインストール
-WORKDIR /app/template_react-router
+WORKDIR /app/homepage_react-router
 RUN npm install
 
 # デフォルトのCMDをbashにしておく（デバッグや後の変更用）

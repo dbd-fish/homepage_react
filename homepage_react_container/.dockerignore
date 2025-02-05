@@ -1,2 +1,2 @@
 # NOTE: node.jsのコンテナを作成する場合下記をdockerignoreに登録しないとエラーが発生する
-template_react-router/node_modules
+homepage_react-router/node_modules

@@ -1,11 +1,11 @@
 やること.md
-template_frontend_container/template_react-router/certs/cert.pem
-template_frontend_container/template_react-router/certs/key.pem
-template_frontend_container/template_react-router/app/logs/*
-template_frontend_container/template_react-router/.react-router/
+homepage_frontend_container/homepage_react-router/certs/cert.pem
+homepage_frontend_container/homepage_react-router/certs/key.pem
+homepage_frontend_container/homepage_react-router/app/logs/*
+homepage_frontend_container/homepage_react-router/.react-router/
 
-template_cypress_container/cypress/screenshots/*
-template_backend_container/logs/*
+homepage_cypress_container/cypress/screenshots/*
+homepage_backend_container/logs/*
 
 
 # Byte-compiled / optimized / DLL files
@@ -36,7 +36,7 @@ share/python-wheels/
 MANIFEST
 
 # PyInstaller
-#  Usually these files are written by a python script from a template
+#  Usually these files are written by a python script from a homepage
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
 *.manifest
 *.spec
