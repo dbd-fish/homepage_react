@@ -1,7 +1,7 @@
 import { ActionFunction, redirect, Link } from 'react-router';
 import { useActionData } from 'react-router';
-import LoginForm from '~/features/auth_user/components/LoginForm';
-import { fetchLoginData } from '~/features/auth_user/apis/fetchLoginData';
+import LoginForm from '~/features/feature_auth/components/LoginForm';
+import { fetchLoginData } from '~/features/feature_auth/apis/fetchLoginData';
 import Layout from '~/commons/components/Layout';
 import Main from '~/commons/components/Main';
 import SimpleCard from '~/commons/components/SimpleCard';

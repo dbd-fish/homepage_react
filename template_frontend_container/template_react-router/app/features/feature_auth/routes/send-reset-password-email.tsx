@@ -1,6 +1,6 @@
 import { useActionData, redirect, ActionFunction } from 'react-router';
-import SendResetPasswordForm from '~/features/auth_user/components/SendResetPasswordForm';
-import { fetchSendResetPasswordData } from '~/features/auth_user/apis/fetchSendResetPasswordData';
+import SendResetPasswordForm from '~/features/feature_auth/components/SendResetPasswordForm';
+import { fetchSendResetPasswordData } from '~/features/feature_auth/apis/fetchSendResetPasswordData';
 import Layout from '~/commons/components/Layout';
 import Main from '~/commons/components/Main';
 import SimpleCard from '~/commons/components/SimpleCard';

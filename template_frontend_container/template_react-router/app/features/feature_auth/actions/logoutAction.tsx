@@ -1,6 +1,6 @@
 import { redirect } from 'react-router';
-import { fetchLogoutData } from '~/features/auth_user/apis/fetchLogoutData';
-import { authTokenCookie } from '~/features/auth_user/cookies';
+import { fetchLogoutData } from '~/features/feature_auth/apis/fetchLogoutData';
+import { authTokenCookie } from '~/features/feature_auth/cookies';
 // NOTE: ReactRouterのバックエンドで上手く動作するロガーがないためコメントしておく
 // import logger from '~/commons/utils/logger';
 
