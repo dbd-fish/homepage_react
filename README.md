@@ -7,7 +7,29 @@ Docker + React(React Router7) + FastAPIで認証機能を作成。Cypressによ�
 
 ## ポイント
 - cert.pemとkey.pemを準備すればHTTPSでLocalhostを起動して、HttpOnlyCookieに認証情報を格納してAPIに送信する。
-- CypressによるE2Eテストが可能
+- レスポンシブ対応
+- リフレッシュトークンは使用せずアクセストークンをHttpOnlyCookieに格納することでセキュリティを向上させる。
+- ユーザー登録ではメールアドレスとユーザー名とパスワードを含むJWTを付随したメール認証用URLを送信する。
+- パスワードリセットではメールアドレス宛にパスワードリセット対象のメールアドレスを含むJWTを付随したパスワードリセット画面へのURLを送信して、対象アカウントのパスワードリセットを可能にする。
+
+## 画面例
+### PC画面
+
+![image](https://github.com/user-attachments/assets/5b360a3d-91a9-4141-b055-0ee41d709f00)
+
+![image](https://github.com/user-attachments/assets/df3dbdfa-616d-46d2-84d8-2fdcf9c7e197)
+
+![image](https://github.com/user-attachments/assets/3662d523-2833-46e1-9b9b-6ba543b806ab)
+
+![image](https://github.com/user-attachments/assets/debfbb41-574a-43c5-bd33-3625bbf48726)
+
+### スマホ画面
+![image](https://github.com/user-attachments/assets/9738579f-fee8-4008-ba1d-04c49e8ccee5)
+
+![image](https://github.com/user-attachments/assets/27ee53c2-f509-4a7c-b304-b91a73c0ebbc)
+
+![image](https://github.com/user-attachments/assets/0cb63c76-c64f-43dc-bdf0-765c9503617f)
+
 
 # 主な技術スタック
 - 環境構築: 
