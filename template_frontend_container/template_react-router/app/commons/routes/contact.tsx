@@ -5,6 +5,10 @@ import { userDataLoader } from '~/features/feature_auth/loaders/userDataLoader';
 import { AuthenticationError } from '~/commons/utils/errors/AuthenticationError';
 import { logoutAction } from '~/features/feature_auth/actions/logoutAction';
 // import logger from '~/commons/utils/logger';
+import { Form } from 'react-router';
+import { Input } from '~/components/ui/input';
+import { Button } from '~/components/ui/button';
+import { Textarea } from '~/components/ui/textarea';
 
 /**
  * ローダー関数:
@@ -95,7 +99,7 @@ export default function Contact() {
             <br />
             お問い合わせ内容を確認後、担当者よりご連絡させていただきます。
           </p>
-          <form method="post" className="space-y-10">
+          <Form method="post" className="space-y-10">
             <div>
               <label
                 htmlFor="name"
@@ -103,7 +107,7 @@ export default function Contact() {
               >
                 お名前 <span className="text-red-500">*</span>
               </label>
-              <input
+              <Input
                 type="text"
                 id="name"
                 name="name"
@@ -119,7 +123,7 @@ export default function Contact() {
               >
                 メールアドレス <span className="text-red-500">*</span>
               </label>
-              <input
+              <Input
                 type="email"
                 id="email"
                 name="email"
@@ -135,24 +139,24 @@ export default function Contact() {
               >
                 メッセージ <span className="text-red-500">*</span>
               </label>
-              <textarea
+              <Textarea
                 id="message"
                 name="message"
                 rows={6}
                 required
                 className="block w-full rounded-lg border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg p-4"
                 placeholder="お問い合わせ内容をご記入ください"
-              ></textarea>
+              ></Textarea>
             </div>
             <div className="text-center">
-              <button
+              <Button
                 type="submit"
-                className="inline-flex justify-center px-8 py-4 text-white bg-blue-600 hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none text-lg font-medium rounded-lg shadow-lg"
+                className="w-full"
               >
                 送信する
-              </button>
+              </Button>
             </div>
-          </form>
+          </Form>
         </div>
       </main>
       <Footer />
