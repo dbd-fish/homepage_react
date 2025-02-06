@@ -9,7 +9,7 @@ export default function Services() {
       <SectionHeader title="サービス" subtitle="事業紹介" />
 
       {/* コンテンツ部分 */}
-      <Main className="pt-12">
+      <Main>
         <div className="mx-auto px-4 py-12 max-w-screen-xl">
           {/* 受託開発セクション */}
           <section className="mb-16">
@@ -34,6 +34,7 @@ export default function Services() {
                   <p className="text-gray-700 text-xl md:text-2xl leading-loose">
                     システム稼働後の保守運用についても柔軟に対応し、長期的なサポートを提供します。
                   </p>
+                  {/* TODO: ここにバッチ形式などで作成可能なシステムが具体的に述べたい */}
                 </div>
               </div>
               <div className="flex flex-col md:flex-row items-stretch rounded-lg overflow-hidden bg-white w-full mt-24">
