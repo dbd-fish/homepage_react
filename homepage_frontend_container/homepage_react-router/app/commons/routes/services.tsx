@@ -1,6 +1,7 @@
 import Layout from '~/commons/components/Layout';
 import Main from '~/commons/components/Main';
 import SectionHeader from '~/commons/components/SectionHeader';
+import { Link } from 'react-router';
 
 export default function Services() {
   return (
@@ -48,7 +49,7 @@ export default function Services() {
                     既存システムの改修
                   </h3>
                   <p className="text-gray-700 text-xl md:text-2xl leading-loose mb-6">
-                    他社が開発した既存のWebシステムについて、解析から改善まで対応します。
+                    他社が開発した既存システムについて、解析から改善まで対応します。
                     パフォーマンスの向上や新機能の追加などをご相談ください。
                   </p>
                   <p className="text-gray-700 text-xl md:text-2xl leading-loose">
@@ -79,10 +80,17 @@ export default function Services() {
                     Python、Java、PHPなどのバックエンド開発を中心に、
                     フロントエンドなども含めた総合的な支援を提供します。
                   </p>
-                  <p className="text-gray-700 text-xl md:text-2xl leading-loose">
+                  <p className="text-gray-700 text-xl md:text-2xl leading-loose mb-6">
                     チームの一員としてプロジェクトを円滑に進めるため、コミュニケーションを重視し、
                     成果物の品質向上に努めます。
                   </p>
+                  <p className="text-gray-700 text-xl md:text-2xl leading-loose">
+                    詳細なスキルや実績については
+                    <Link to="/about" className="text-blue-500 hover:underline">
+                      私について
+                    </Link>
+                    をご覧ください
+                  </p>     
                 </div>
               </div>
               <div className="flex flex-col md:flex-row items-stretch rounded-lg overflow-hidden bg-white w-full mt-24">
@@ -93,13 +101,16 @@ export default function Services() {
                 />
                 <div className="p-6 flex flex-col">
                   <h3 className="text-3xl md:text-4xl font-extrabold mb-6 text-gray-800">
-                    IT講師
+                    インストラクター
                   </h3>
                   <p className="text-gray-700 text-xl md:text-2xl leading-loose mb-6">
-                    大手会社様向けの研修講師として登壇可能です。
+                    大手会社様向けの研修講師やプログラミングスクールのメンターとして活躍できます。
+                  </p>
+                  <p className="text-gray-700 text-xl md:text-2xl leading-loose mb-6">
+                    ITの基礎的な内容やJavaやPythonなどプログラミングスキルだけでなく、要件定義～テストまでの作法やマネジメント方法の指導なども可能です。
                   </p>
                   <p className="text-gray-700 text-xl md:text-2xl leading-loose">
-                    JavaやPythonを中心に、クラウドやインフラに関する基礎的な知識やSpringを用いたチーム開発など研修に従事した実績があります。
+                    教材開発や研修スケジュールの作成なども担当していました。
                   </p>
                 </div>
               </div>

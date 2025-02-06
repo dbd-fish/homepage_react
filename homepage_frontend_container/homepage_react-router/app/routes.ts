@@ -8,7 +8,7 @@ export default [
   route('test', './commons/routes/test.tsx'), 
 
   // メインページ
-  route('works', './commons/routes/works.tsx'),  // 制作実績
+  route('works', './commons/routes/works.tsx'),  // 実績
   route('portfolios', './commons/routes/portfolios.tsx'),  // ポートフォリオ
   route('about', './commons/routes/about.tsx'), // 私について
   route('services', './commons/routes/services.tsx'),  // サービス

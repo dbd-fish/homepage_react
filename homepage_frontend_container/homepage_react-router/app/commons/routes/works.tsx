@@ -5,70 +5,66 @@ import SectionHeader from '~/commons/components/SectionHeader';
 import { Card, CardContent, CardTitle } from '~/components/ui/card';
 import { Modal } from '~/commons/components/Modal';
 
-// プロジェクトデータの型を定義
+// プロジェクトデータの型を定義（id 削除, details を配列に変更）
 type Project = {
-  id: number;
   section: string;
   title: string;
-  description: string;
-  details: string;
-  images: string[]; 
+  details: (string | JSX.Element)[]; // 文字列またはJSX要素
+  images: string[];
 };
 
 const projects: Project[] = [
   {
-    id: 1,
-    section: '受託開発',
-    title: 'Webシステム開発',
-    description:
-      'クラウドインフラを活用した高度なWebシステムをゼロから構築します。要件定義から設計、開発、テスト、リリースまで一貫して対応します。',
-    details:
-      'システム稼働後の保守運用についても柔軟に対応し、長期的なサポートを提供します。',
-    images: ['/テスト画像.webp', '/テスト画像2.webp', '/テスト画像.webp'], // 複数画像
+    section: '開発支援(SES)',
+    title: 'Webエンジニアとして開発支援',
+    details: [
+      'Python、PHPなどのバックエンドを中心にWebシステムの開発に従事。',
+      'フロントエンド業務やAWS環境などの調査も兼任して、様々な面でクライアント様をサポート。',
+      <>
+        具体的なスキルなどは{' '}
+        <a href="/about" className="text-blue-500 hover:underline">
+          私について
+        </a>{' '}
+        を参照。
+      </>,
+    ],
+    images: ['/テスト画像.webp'],
   },
   {
-    id: 2,
-    section: '受託開発',
-    title: '既存システムの改修',
-    description:
-      '他社が開発した既存のWebシステムについて、解析から改善まで対応します。',
-    details:
-      'パフォーマンス向上や新機能追加、コードレビューなど幅広いサポートを行います。',
-    images: ['/テスト画像2.webp', '/テスト画像.webp'], // 複数画像
+    section: 'インストラクター',
+    title: '新人研修向けIT講師',
+    details: [
+      '大手企業向け新人研修講師として登壇。',
+      '基本情報技術者試験レベルの基礎的な内容からWebシステム構築するために必要なプログラミングスキルを指導。',
+      '具体的なスキルとしてはJava, Spring boot, HTML, JavaScript, CSS, MySQLなどを指導。',
+    ],
+    images: ['/テスト画像.webp', '/テスト画像.webp'],
   },
   {
-    id: 3,
-    section: 'SES',
-    title: 'エンジニアとして開発支援',
-    description:
-      'Python、Java、PHPなどのバックエンド開発を中心に、フロントエンド開発も対応可能です。',
-    details:
-      'チームの一員として成果物の品質向上に努め、プロジェクト成功を支援します。',
-    images: ['/テスト画像.webp'], // 単一画像も許容
-  },
-  {
-    id: 4,
-    section: 'SES',
-    title: 'IT講師',
-    description:
-      '大手企業向け研修講師として、実践的なプログラミングやインフラ技術を指導します。',
-    details:
-      'JavaやPythonを中心に、クラウドやセキュリティに関するトレーニングを提供します。',
-    images: ['/テスト画像.webp', '/テスト画像.webp'], // 複数画像
+    section: 'インストラクター',
+    title: 'プログラミングスクールのテクニカルメンター',
+    details: [
+      '社会人向けプログラミングスクールにおいて、メンター業務を担当。',
+      '進捗管理やテクニカル面のサポートにより受講者の成長を支える。',
+      '具体的なスキルとしてはPHP, Laravel, HTML, JavaScript, CSS, MySQLなどを指導。',
+    ],
+    images: ['/テスト画像.webp', '/テスト画像.webp'],
   },
 ];
 
 export default function Works() {
-  // 型を Project | null に設定
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+
+  // projects 配列から section のユニークな値を抽出
+  const sections = Array.from(new Set(projects.map((project) => project.section)));
 
   return (
     <Layout>
-      <SectionHeader title="制作実績" subtitle="これまでの成果" />
+      <SectionHeader title="実績" subtitle="主な実績" />
 
       <Main>
         <div className="mx-auto px-4 py-12 max-w-screen-xl">
-          {['受託開発', 'SES'].map((section) => (
+          {sections.map((section) => (
             <section key={section} className="mb-16">
               <h2 className="text-4xl md:text-5xl font-bold text-gray-800 text-center mb-10">
                 {section}
@@ -76,9 +72,9 @@ export default function Works() {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 {projects
                   .filter((project) => project.section === section)
-                  .map((project) => (
+                  .map((project, index) => (
                     <Card
-                      key={project.id}
+                      key={index}
                       className="cursor-pointer"
                       onClick={() => setSelectedProject(project)}
                     >
@@ -102,17 +98,21 @@ export default function Works() {
 
       {/* モーダル */}
       {selectedProject && (
-      <Modal
-        open={!!selectedProject}
-        onOpenChange={() => setSelectedProject(null)}
-        images={selectedProject.images}
-      >
-        <div>
-          <h3 className="text-2xl font-bold mb-4">{selectedProject.title}</h3>
-          <p className="text-lg text-gray-700">{selectedProject.details}</p>
-        </div>
-      </Modal>
-    )}
+        <Modal
+          open={!!selectedProject}
+          onOpenChange={() => setSelectedProject(null)}
+          images={selectedProject.images}
+        >
+          <div>
+            <h3 className="text-2xl font-bold mb-4">{selectedProject.title}</h3>
+            <div className="text-lg text-gray-700 space-y-2">
+              {selectedProject.details.map((detail, i) => (
+                <p key={i}>{detail}</p> // 配列の各要素をリスト化
+              ))}
+            </div>
+          </div>
+        </Modal>
+      )}
     </Layout>
   );
 }
