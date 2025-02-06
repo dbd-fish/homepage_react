@@ -9,6 +9,7 @@ export default [
 
   // メインページ
   route('works', './commons/routes/works.tsx'),  // 制作実績
+  route('portfolios', './commons/routes/portfolios.tsx'),  // ポートフォリオ
   route('about', './commons/routes/about.tsx'), // 私について
   route('services', './commons/routes/services.tsx'),  // サービス
   route('contact', './commons/routes/contact.tsx'),  // お問い合わせ

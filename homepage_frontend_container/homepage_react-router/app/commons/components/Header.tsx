@@ -13,7 +13,7 @@ export default function HomeHeader() {
     { label: "ホーム", href: "/" },
     { label: "サービス", href: "/services" },
     { label: "制作実績", href: "/works" },
-    { label: "ポートフォリオ", href: "/Portfolios" },
+    { label: "ポートフォリオ", href: "/portfolios" },
     { label: "私について", href: "/about" },
     { label: "お問い合わせ", href: "/contact" },
   ];

@@ -1,24 +1,69 @@
-import Header from '~/commons/components/Header';
-import Footer from '~/commons/components/Footer';
-// import logger from '~/commons/utils/logger';
+import React from 'react';
+import Layout from '~/commons/components/Layout';
+import Main from '~/commons/components/Main';
+import SectionHeader from '~/commons/components/SectionHeader';
+import { Card, CardContent, CardTitle } from '~/components/ui/card';
 
+// ポートフォリオデータの型
+type PortfolioProject = {
+  id: number;
+  title: string;
+  description: string;
+  details: string;
+  images: string[];
+  url: string; 
+};
 
-export default function Portfolios() {
+const portfolioProjects: PortfolioProject[] = [
+  {
+    id: 1,
+    title: '私のホームページサイト',
+    description: '私のホームページ',
+    details: '簡素なデザインのホームページ',
+    images: ['/テスト画像.webp', '/テスト画像2.webp'],
+    url: 'https://example.com/portfolio-site2',
+  },
+  {
+    id: 2,
+    title: '認証機能のサンプルサイト',
+    description: 'ログイン、ユーザー登録、パスワードリセットをメール認証を用いて実現',
+    details: 'React & Firebaseを活用し、リアルタイムデータ同期。',
+    images: ['/テスト画像.webp', '/テスト画像2.webp'],
+    url: 'https://example.com/portfolio-app1',
+  },
+];
+
+export default function Portfolio() {
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      <main className="flex-grow bg-gray-100 flex items-center justify-center">
-        <div className="w-full max-w-4xl bg-white rounded-lg shadow-md p-8">
-          <div className="flex flex-col md:flex-row items-center justify-center space-y-6 md:space-y-0 md:space-x-6">
-            <div className="w-full md:w-2/3 bg-gray-50 rounded-lg p-6 shadow-sm">
-              <h2 className="text-xl font-semibold text-gray-700 mb-4">
-                ポートフォリオ画面
-              </h2>
+    <Layout>
+      <SectionHeader title="ポートフォリオ" subtitle="個人的な制作物" />
+
+      <Main>
+        <div className="mx-auto px-4 py-12 max-w-screen-xl">
+          <section className="mb-16">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
+              {portfolioProjects.map((project) => (
+                <Card
+                  key={project.id}
+                  className="cursor-pointer hover:shadow-lg transition duration-200"
+                  onClick={() => window.location.href = project.url}
+                >
+                  <img
+                    src={project.images[0]}
+                    alt={project.title}
+                    className="w-full h-48 object-cover rounded-t-lg"
+                  />
+                  <CardContent>
+                    <CardTitle className="text-xl font-bold text-center">
+                      {project.title}
+                    </CardTitle>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
-          </div>
+          </section>
         </div>
-      </main>
-      <Footer />
-    </div>
+      </Main>
+    </Layout>
   );
 }

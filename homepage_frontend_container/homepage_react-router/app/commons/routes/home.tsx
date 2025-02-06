@@ -1,24 +1,27 @@
-import Header from '~/commons/components/Header';
-import Footer from '~/commons/components/Footer';
+import Layout from '~/commons/components/Layout';
+import Main from '~/commons/components/Main';
+import SectionHeader from '~/commons/components/SectionHeader';
 // import logger from '~/commons/utils/logger';
 
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      <main className="flex-grow bg-gray-100 flex items-center justify-center">
-        <div className="w-full max-w-4xl bg-white rounded-lg shadow-md p-8">
-          <div className="flex flex-col md:flex-row items-center justify-center space-y-6 md:space-y-0 md:space-x-6">
-            <div className="w-full md:w-2/3 bg-gray-50 rounded-lg p-6 shadow-sm">
-              <h2 className="text-xl font-semibold text-gray-700 mb-4">
-                ホーム画面
-              </h2>
-            </div>
-          </div>
+    <Layout>
+      {/* 大タイトル */}
+      <SectionHeader title="ホーム" subtitle="このサイトについて" />
+
+      {/* コンテンツ部分 */}
+      <Main>
+        <div className="mx-auto px-4 py-12 max-w-screen-xl">
+          {/* 受託開発セクション */}
+          <section className="mb-16">
+
+          </section>
+
+          {/* セクション */}
+
         </div>
-      </main>
-      <Footer />
-    </div>
+      </Main>
+    </Layout>
   );
 }
