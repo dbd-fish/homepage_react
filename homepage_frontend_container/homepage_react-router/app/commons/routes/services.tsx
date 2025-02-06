@@ -60,7 +60,7 @@ export default function Services() {
 
           {/* SESセクション */}
           <section>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-800 text-center mb-10">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-800 text-center mt-36">
               SES
             </h2>
             <div className="flex flex-col gap-8 items-center">
