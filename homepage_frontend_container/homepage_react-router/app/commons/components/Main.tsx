@@ -9,7 +9,7 @@ interface MainLayoutProps {
 export default function Main({ children, className = '' }: MainLayoutProps) {
   return (
     <main
-      className={`min-h-screen flex-grow flex items-center justify-center mt-8 ${className}`}
+      className={`flex-grow flex items-center justify-center pt-12 bg-cover bg-center ${className}`}
     >
       {children}
     </main>

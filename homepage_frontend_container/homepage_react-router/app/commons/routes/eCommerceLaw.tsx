@@ -1,48 +1,10 @@
 import Header from '~/commons/components/Header';
 import Footer from '~/commons/components/Footer';
 import { LoaderFunction, redirect, ActionFunction } from 'react-router';
-import { userDataLoader } from '~/features/feature_auth/loaders/userDataLoader';
 import { AuthenticationError } from '~/commons/utils/errors/AuthenticationError';
-import { logoutAction } from '~/features/feature_auth/actions/logoutAction';
 // import logger from '~/commons/utils/logger';
 
-/**
- * ローダー関数:
- * - サーバーサイドで実行され、ユーザー情報を取得
- * - 成功時: ユーザー情報を返す
- * - 失敗時: 401エラーをスロー
- */
-export const loader: LoaderFunction = async ({ request }) => {
-  // logger.info('[Home Loader] start');
-  try {
-    const userData = await userDataLoader(request, false);
-    const responseBody = {
-      user: userData,
-    };
-    // logger.info('[Home Loader] Successfully retrieved user data');
-    // logger.debug('[Home Loader] User data', { userData });
 
-    // 正常なレスポンスを返す
-    return new Response(JSON.stringify(responseBody), {
-      headers: { 'Content-Type': 'application/json' },
-    });
-  } catch (error) {
-    if (error instanceof AuthenticationError) {
-      // logger.warn('[Home Loader] AuthenticationError occurred');
-      return redirect('/login');
-    }
-
-    // logger.error('[Home Loader] Unexpected error occurred', {
-    //   error: error,
-    // });
-
-    throw new Response('ユーザーデータの取得に失敗しました。', {
-      status: 400,
-    });
-  } finally {
-    // logger.info('[Home Loader] end');
-  }
-};
 
 // NOTE: ログアウトが必要な画面ではこれと似たAction関数を実装する必要あり
 /**

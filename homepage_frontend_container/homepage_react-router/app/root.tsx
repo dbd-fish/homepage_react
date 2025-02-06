@@ -10,7 +10,7 @@ import {
 import type { LinksFunction } from 'react-router';
 
 import './tailwind.css';
-import Header from '~/commons/components/header/LoggedOutHeader';
+import Header from '~/commons/components/Header';
 import Footer from './commons/components/Footer';
 
 // NOTE:暫定的にここにエラー画面を記載
@@ -32,9 +32,6 @@ export function ErrorBoundary() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* NOTE: Header内で認証情報をuseLoaderDataで確認するが、
-      ErrorBoundary経由ではLoaderからのデータがないため、
-      一律でLoggedOutHeaderが表示される */}
       <Header />
       <main className="flex-grow bg-gray-100 flex items-center justify-center">
         <div className="w-full max-w-4xl bg-white rounded-lg shadow-md p-8">
