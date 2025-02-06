@@ -5,10 +5,6 @@ services:
       dockerfile: Dockerfile
     container_name: homepage_frontend_container
     image: homepage_frontend_container
-    deploy:
-      resources:
-        limits:
-          memory: 8G
     volumes:
       - ./homepage_frontend_container:/app
     ports:
