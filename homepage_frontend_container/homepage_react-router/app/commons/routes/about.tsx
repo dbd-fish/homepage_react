@@ -1,20 +1,40 @@
-import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
-import { Avatar } from "~/components/ui/avatar";
+import Layout from '~/commons/components/Layout';
+import Main from '~/commons/components/Main';
+import SectionHeader from '~/commons/components/SectionHeader';
+import { Separator } from '~/components/ui/separator';
+import Profile from '~/commons/components/about/Profile'; // 自己紹介コンポーネント
+import Skills from '~/commons/components/about/Skills'; // スキル一覧コンポーネント
+import Qualifications from '~/commons/components/about/Qualifications'; // 資格コンポーネント
+import SocialLinks from '~/commons/components/about/SocialLinks'; // SNSコンポーネント
 
-export default function AboutPage() {
+export default function About() {
   return (
-    <div className="max-w-screen-md mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold text-center mb-6">私について</h1>
-      <Card className="max-w-lg mx-auto">
-        <CardHeader className="text-center">
-          <Avatar className="w-24 h-24 mx-auto" />
-          <CardTitle className="mt-4">フルスタックエンジニア</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p>私はフルスタックエンジニアとして、Webアプリケーションの設計・開発を行っています。</p>
-          <p className="mt-2">React, Remix, FastAPI などの技術を使用し、シンプルでモダンな開発を目指しています。</p>
-        </CardContent>
-      </Card>
-    </div>
+    <Layout>
+      {/* 大タイトル */}
+      <SectionHeader title="私について" subtitle="自己紹介と経歴" />
+
+      {/* コンテンツ部分 */}
+      <Main>
+        <div className="mx-auto px-4 py-12 max-w-screen-xl">
+          {/* 自己紹介 */}
+          <Profile />
+
+          <Separator className="my-12" />
+
+          {/* スキル一覧 */}
+          <Skills />
+
+          <Separator className="my-12" />
+
+          {/* 資格・認定 */}
+          <Qualifications />
+
+          <Separator className="my-12" />
+
+          {/* SNS & 連絡先 */}
+          <SocialLinks />
+        </div>
+      </Main>
+    </Layout>
   );
 }
