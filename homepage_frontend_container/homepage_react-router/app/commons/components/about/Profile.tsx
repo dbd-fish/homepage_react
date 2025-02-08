@@ -17,9 +17,9 @@ export default function Profile() {
         <CardContent className="p-6">
           <CardTitle className="text-3xl font-extrabold text-gray-800">山田 太郎</CardTitle>
           <p className="text-gray-700 text-xl leading-loose">
-            フルスタックエンジニアとして、Webシステム開発・SES・IT講師など幅広く活動。
-            <br />
-            クライアントの課題解決に向け、技術的な知見を活かしたサポートを提供します。
+            Web系のバックエンドエンジニア。<br />
+            PythonやPHPなどのバックエンド業務を担当しつつ、画面周りの作業やAWS関連の作業をすることもある。<br />
+            新人研修向けのIT講師としてJavaやPythonなどを教えている。
           </p>
           <Button variant="outline" asChild className="mt-4">
             <Link to="/contact">お問い合わせはこちら</Link>

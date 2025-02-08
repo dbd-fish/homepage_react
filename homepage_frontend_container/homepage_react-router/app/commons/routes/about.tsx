@@ -6,6 +6,7 @@ import Profile from '~/commons/components/about/Profile'; // 自己紹介コン�
 import Skills from '~/commons/components/about/Skills'; // スキル一覧コンポーネント
 import Qualifications from '~/commons/components/about/Qualifications'; // 資格コンポーネント
 import SocialLinks from '~/commons/components/about/SocialLinks'; // SNSコンポーネント
+import Career from '~/commons/components/about/Career'; // 経歴コンポーネント
 
 export default function About() {
   return (
@@ -21,6 +22,10 @@ export default function About() {
 
           <Separator className="my-12" />
 
+          {/* 経歴 */}
+          <Career />
+
+          <Separator className="my-12" />
           {/* スキル一覧 */}
           <Skills />
 
