@@ -1,4 +1,6 @@
+import { useState, useEffect } from "react";
 import { ActionFunction, useActionData } from "react-router";
+import nodemailer from "nodemailer";
 import Layout from "~/commons/components/Layout";
 import Main from "~/commons/components/Main";
 import SectionHeader from "~/commons/components/SectionHeader";
@@ -9,36 +11,62 @@ import { Button } from "~/components/ui/button";
 import { Textarea } from "~/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 
-// Action Function
+// メール送信用の nodemailer 設定
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
+  },
+});
+
+// メール送信のアクション関数
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
-  const name = formData.get("name");
-  const email = formData.get("email");
-  const message = formData.get("message");
+  const name = formData.get("name")?.toString() || "";
+  const email = formData.get("email")?.toString() || "";
+  const message = formData.get("message")?.toString() || "";
 
-  // バリデーション
-  if (typeof name !== "string" || typeof email !== "string" || typeof message !== "string") {
-    return new Response("Invalid form submission.", { status: 400 });
+  if (!name || !email || !message) {
+    return "必須項目が未入力です";
   }
 
   try {
-    // メール送信処理をここに記述 (仮の処理)
-    console.log("Sending email...");
-    console.log(`Name: ${name}`);
-    console.log(`Email: ${email}`);
-    console.log(`Message: ${message}`);
-    console.log("Email sent successfully!");
+    await transporter.sendMail({
+      from: `"お問い合わせフォーム" <${process.env.SMTP_USER}>`,
+      to: process.env.CONTACT_RECEIVER,
+      subject: `【ホームページお問い合わせ】${name}様より`,
+      text: `以下の内容でお問い合わせを受け付けました。\n\n【お名前】 ${name}\n【メールアドレス】 ${email}\n【お問い合わせ内容】\n${message}\n\n───────────\n※本メールはシステムからの自動送信です。`,
+      html: `<div style="font-family: Arial, sans-serif; line-height: 1.6;">
+          <p>以下の内容でお問い合わせを受け付けました。</p>
+          <hr>
+          <p><strong>お名前:</strong> ${name}</p>
+          <p><strong>メールアドレス:</strong> ${email}</p>
+          <p><strong>お問い合わせ内容:</strong></p>
+          <p>${message.replace(/\n/g, "<br>")}</p>
+          <hr>
+          <p style="font-size: 12px; color: #555;">※本メールはシステムからの自動送信です。</p>
+        </div>`,
+    });
 
-    return new Response("Success", { status: 200 });
+    return "お問い合わせ内容を送信しました。ありがとうございます！";
   } catch (error) {
-    console.error("Failed to send email:", error);
-    return new Response("Failed to send email.", { status: 500 });
+    console.error("メール送信エラー:", error);
+    return "お問い合わせの送信に失敗しました。再度お試しください。";
   }
 };
 
-// Contact Page Component
+// **Contact ページ**
 export default function Contact() {
-  const actionData = useActionData<string>(); // メッセージを文字列として取得
+  const actionData = useActionData<string>(); // 送信結果メッセージ
+  const [isSubmitting, setIsSubmitting] = useState(false); // 送信中状態の管理
+
+  // 送信後にボタンを再び有効化
+  useEffect(() => {
+    if (actionData) {
+      setIsSubmitting(false);
+    }
+  }, [actionData]);
 
   return (
     <Layout>
@@ -47,8 +75,8 @@ export default function Contact() {
 
       {/* メインコンテンツ */}
       <Main>
-        <div className="max-w-3xl mx-auto">
-          {/* カードコンポーネントでフォームを囲む */}
+        <div className="max-w-3xl mx-auto py-12">
+          {/* フォームカード */}
           <Card className="shadow-lg">
             <CardHeader>
               <CardTitle className="text-4xl font-bold text-gray-800 text-center">
@@ -61,8 +89,13 @@ export default function Contact() {
                 <br />
                 お問い合わせ内容を確認後、担当者よりご連絡させていただきます。
               </p>
+
               {/* フォーム */}
-              <Form method="post" className="space-y-8">
+              <Form
+                method="post"
+                className="space-y-8"
+                onSubmit={() => setIsSubmitting(true)} // 送信開始時に状態を更新
+              >
                 {/* 名前 */}
                 <div>
                   <label htmlFor="name" className="block text-lg font-medium text-gray-800 mb-2">
@@ -90,16 +123,16 @@ export default function Contact() {
                 {/* 送信ボタン */}
                 <Separator className="my-6" />
                 <div className="text-center">
-                  <Button type="submit" className="w-full">送信する</Button>
+                  <Button type="submit" className="w-full" disabled={isSubmitting}>
+                    {isSubmitting ? "送信中..." : "送信する"}
+                  </Button>
                 </div>
               </Form>
 
-              {/* メッセージ表示 (フォームの下に配置) */}
+              {/* メッセージ表示 */}
               {actionData && (
-                <div className={`mt-6 font-medium text-center ${actionData === "Success" ? "text-green-600" : "text-red-600"}`}>
-                  {actionData === "Success"
-                    ? "お問い合わせ内容を送信しました。ありがとうございます！"
-                    : "お問い合わせの送信に失敗しました。再度お試しください。"}
+                <div className="mt-6 font-medium text-center text-green-600">
+                  {actionData}
                 </div>
               )}
             </CardContent>
