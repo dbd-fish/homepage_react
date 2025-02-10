@@ -21,9 +21,8 @@ const portfolioProjects: PortfolioProject[] = [
     details: [
       '私のホームページです。',
       'シンプルなデザインを意識しつつ、使いやすさを考慮しました。',
-      '技術スタックとしては、下記の通りです',
+      '下記を使用して作成しました。',
       'React(React Router7), TypeScript, Tailwind CSS, shadcn/ui',
-      'また、SEO対策やレスポンシブデザインにも配慮しています。'
     ],
     images: ['/テスト画像.webp', '/テスト画像2.webp'],
     url: 'https://example.com/portfolio-site2',
@@ -32,10 +31,11 @@ const portfolioProjects: PortfolioProject[] = [
     section: 'ポートフォリオ',
     title: '認証機能のサンプルサイト',
     details: [
-      'React(React Router7) を利用しています。',
-      'React をフロントエンドに用い、リアルタイムデータの同期が可能な環境を構築しました。',
-      'ユーザーの登録・ログイン・パスワードリセット機能を備え、安全性を考慮した設計になっています。',
-      'また、UI には shadcn/ui を採用し、ユーザーに優しいデザインを提供しています。'
+      'FastAPIとReact Route7の練習として認証機能を作成しました。',
+      'ユーザー登録、ログイン、ログアウト、パスワードリセットが可能です。',
+      'ユーザー登録とパスワードリセット時はメールアドレス宛に専用のURLを送ります。',
+      'また、UI には shadcn/uiとTailwind CSSを採用し、シンプルなデザインにしました。',
+      'PytestやCypressテストなどの環境も整えました。'
     ],
     images: ['/テスト画像.webp', '/テスト画像2.webp'],
     url: 'https://example.com/portfolio-app1',
@@ -96,8 +96,8 @@ export default function Portfolio() {
           <div>
             <h3 className="text-2xl font-bold mb-4">{selectedProject.title}</h3>
             <div className="text-lg text-gray-700 space-y-2">
-              {selectedProject.details.map((detail, index) => (
-                <React.Fragment key={index}>{detail}</React.Fragment>
+              {selectedProject.details.map((detail, i) => (
+                <p key={i}>{detail}</p> // 配列の各要素をリスト化
               ))}
             </div>
             <a
