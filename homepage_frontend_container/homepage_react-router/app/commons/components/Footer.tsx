@@ -1,6 +1,8 @@
 import { Button } from "~/components/ui/button";
 import { Separator } from "~/components/ui/separator";
 import SiteTitle from "~/commons/components/SiteTitle";
+import { FaGithub, FaNoteSticky } from 'react-icons/fa6'; // GitHub & Note
+import { SiZenn } from 'react-icons/si'; // Zenn アイコン
 
 export default function Footer() {
   // フッターナビゲーションリンク
@@ -13,7 +15,11 @@ export default function Footer() {
     { label: "お問い合わせ", href: "/contact" },
     { label: "プライバシーポリシー", href: "/privacy-policy" },
   ];
-
+  const socialLinks = [
+    { name: 'GitHub', url: 'https://github.com/', icon: <FaGithub /> },
+    { name: 'Note', url: 'https://note.com/', icon: <FaNoteSticky /> },
+    { name: 'Zenn', url: 'https://zenn.dev/', icon: <SiZenn /> },
+  ];
   return (
     <footer className="bg-gray-700 text-gray-100 py-8">
       <div className="container mx-auto flex flex-col items-center px-6">
@@ -33,6 +39,17 @@ export default function Footer() {
             </Button>
           ))}
         </nav>
+
+
+        <div className="flex flex-wrap justify-center gap-6">
+        {socialLinks.map((sns, index) => (
+          <Button key={index} variant="ghost" asChild>
+            <a href={sns.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+              {sns.icon} {sns.name}
+            </a>
+          </Button>
+        ))}
+      </div>
 
         {/* 仕切り線 */}
         <Separator className="my-6 w-full max-w-md" />
