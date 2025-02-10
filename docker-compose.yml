@@ -1,84 +1,15 @@
 services:
   frontend:
     build:
-      context: ./template_frontend_container
+      context: ./homepage_frontend_container
       dockerfile: Dockerfile
-    container_name: template_frontend_container
-    image: template_frontend_container
-    deploy:
-      resources:
-        limits:
-          memory: 8G
+    container_name: homepage_frontend_container
+    image: homepage_frontend_container
     volumes:
-      - ./template_frontend_container:/app
+      - ./homepage_frontend_container:/app
     ports:
       - "3000:3000" # 本番用
       - "5173:5173" # 開発用
     tty: true   # コンテナをデバッグ用に起動状態に保つ場合は設定
-    # command: ["/bin/sh", "-c", "cd /app/template_react-router && npm run dev"]
-    networks:
-      - frontend-network # フロントエンド専用のネットワーク
+    # command: ["/bin/sh", "-c", "cd /app/homepage_react-router && npm run dev"]
 
-  backend:
-    build:
-      context: ./template_backend_container
-      dockerfile: Dockerfile
-    container_name: template_backend_container
-    image: template_backend_container
-    volumes:
-      - ./template_backend_container:/app
-    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
-    working_dir: /app
-    ports:
-      - 8000:8000
-    tty: true
-    depends_on:
-      - db
-    networks:
-      - frontend-network # フロントエンドと通信するためのネットワーク
-      - backend-network  # データベースと通信するためのネットワーク
-
-  db:
-    image: postgres:13
-    container_name: postgres_db
-    environment:
-      POSTGRES_DB: template_db
-      POSTGRES_USER: template_user
-      POSTGRES_PASSWORD: template_password
-      TZ: Asia/Tokyo
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-      # テスト用のDB構築スクリプト
-      - ./init-scripts:/docker-entrypoint-initdb.d
-    ports:
-      - "5432:5432"
-    networks:
-      - backend-network # バックエンド専用のネットワーク
-
-  cypress:
-    build:
-      context: ./template_cypress_container
-      dockerfile: Dockerfile
-    container_name: template_cypress_container
-
-    image: cypress/included:13.17.0
-    # environment:
-    #   DISPLAY:  ${DISPLAY} # NOTE: GUIによるCypress起動ができないため保留とする
-    volumes:
-      - ./template_cypress_container:/e2e # テストコードをマウント
-      - /tmp/.X11-unix:/tmp/.X11-unix # Xサーバーソケットを共有
-    depends_on:
-      - frontend
-    networks:
-      - frontend-network # フロントエンドと同じネットワークを使用
-    tty: true
-    stdin_open: true
-
-networks:
-  frontend-network:
-    driver: bridge # フロントエンドとバックエンドが通信するためのネットワーク
-  backend-network:
-    driver: bridge # バックエンドとデータベースが通信するためのネットワーク
-
-volumes:
-  postgres_data:
