@@ -14,6 +14,11 @@ export default function SocialLinks() {
       <h2 className="text-4xl md:text-5xl font-bold text-gray-800 text-center mb-10">
         SNS & 連絡先
       </h2>
+      <p className="text-lg text-gray-600 mb-10">
+        このホームページを含めて公開可能なコードはGithubに格納してます。<br />
+        技術的な投稿はZenn、技術以外の内容はNoteに投稿しています。
+        Noteには趣味も投稿しています。
+      </p>
       <div className="flex flex-wrap justify-center gap-6">
         {socialLinks.map((sns, index) => (
           <Button key={index} variant="outline" asChild>
