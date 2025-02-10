@@ -2,7 +2,7 @@
 homepage_frontend_container/homepage_react-router/certs/cert.pem
 homepage_frontend_container/homepage_react-router/certs/key.pem
 homepage_frontend_container/homepage_react-router/app/logs/*
-# homepage_frontend_container/homepage_react-router/.react-router/
+homepage_frontend_container/homepage_react-router/.react-router/
 
 
 .env
