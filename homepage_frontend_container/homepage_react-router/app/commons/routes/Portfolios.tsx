@@ -42,7 +42,7 @@ const portfolioProjects: PortfolioProject[] = [
   },
 ];
 
-export default function Portfolio() {
+export default function Portfolios() {
   const [selectedProject, setSelectedProject] =
     useState<PortfolioProject | null>(null);
 
