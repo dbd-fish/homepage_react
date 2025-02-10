@@ -75,13 +75,13 @@ export default function Works() {
                   .map((project, index) => (
                     <Card
                       key={index}
-                      className="cursor-pointer"
+                      className="cursor-pointer w-full sm:w-auto lg:w-[400px] lg:h-[500px] hover:shadow-lg transition duration-200"
                       onClick={() => setSelectedProject(project)}
                     >
                       <img
                         src={project.images[0]}
                         alt={project.title}
-                        className="w-full h-48 object-cover rounded-t-lg"
+                        className="w-full h-auto object-cover rounded-t-lg"
                       />
                       <CardContent>
                         <CardTitle className="text-xl font-bold text-center">
