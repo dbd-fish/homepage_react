@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Layout from '~/commons/components/Layout';
 import Main from '~/commons/components/Main';
 import SectionHeader from '~/commons/components/SectionHeader';
@@ -35,7 +35,7 @@ const portfolioProjects: PortfolioProject[] = [
       'ユーザー登録、ログイン、ログアウト、パスワードリセットが可能です。',
       'ユーザー登録とパスワードリセット時はメールアドレス宛に専用のURLを送ります。',
       'また、UI には shadcn/uiとTailwind CSSを採用し、シンプルなデザインにしました。',
-      'PytestやCypressテストなどの環境も整えました。'
+      'PytestやCypressテストなどの環境も整えました。',
     ],
     images: ['/テスト画像.webp', '/テスト画像2.webp'],
     url: 'https://example.com/portfolio-app1',
@@ -43,10 +43,13 @@ const portfolioProjects: PortfolioProject[] = [
 ];
 
 export default function Portfolio() {
-  const [selectedProject, setSelectedProject] = useState<PortfolioProject | null>(null);
+  const [selectedProject, setSelectedProject] =
+    useState<PortfolioProject | null>(null);
 
   // projects 配列から section のユニークな値を抽出
-  const sections = Array.from(new Set(portfolioProjects.map((project) => project.section)));
+  const sections = Array.from(
+    new Set(portfolioProjects.map((project) => project.section)),
+  );
 
   return (
     <Layout>

@@ -1,7 +1,7 @@
-import Layout from "~/commons/components/Layout";
-import Main from "~/commons/components/Main";
-import SectionHeader from "~/commons/components/SectionHeader";
-import { Button } from "~/components/ui/button";
+import Layout from '~/commons/components/Layout';
+import Main from '~/commons/components/Main';
+import SectionHeader from '~/commons/components/SectionHeader';
+import { Button } from '~/components/ui/button';
 import { Link } from 'react-router';
 import { Separator } from '~/components/ui/separator';
 import Profile from '~/commons/components/about/Profile';
@@ -15,22 +15,25 @@ export default function Home() {
       {/* メインコンテンツ */}
       <Main>
         <div className="mx-auto px-4 py-12 max-w-screen-xl">
-
           {/* このサイト説明 */}
           <section className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-800 mb-6">このサイトについて</h2>
+            <h2 className="text-3xl font-bold text-gray-800 mb-6">
+              このサイトについて
+            </h2>
             <p className="text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto">
               フリーランスエンジニアとして活動する
-              <span className="font-bold">山田太郎</span> のポートフォリオ兼ホームページです。<br/>
+              <span className="font-bold">山田太郎</span>{' '}
+              のポートフォリオ兼ホームページです。
+              <br />
               私の提供するサービスや実績、技術スタックについて紹介しています。
             </p>
             <p className="text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto mt-4">
-              このサイトはReact(React Router7), TypeScript, Tailwind CSS, shadcn/uiを使って自作しました。
+              このサイトはReact(React Router7), TypeScript, Tailwind CSS,
+              shadcn/uiを使って自作しました。
             </p>
           </section>
 
           <Separator className="my-12" />
-
 
           {/* Heroセクション */}
           <Profile />

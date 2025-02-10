@@ -88,7 +88,10 @@ export default function Services() {
                       </p>
                       <p className="text-gray-700 text-xl md:text-2xl leading-loose">
                         詳細なスキルや実績については
-                        <Link to="/about" className="text-blue-500 hover:underline">
+                        <Link
+                          to="/about"
+                          className="text-blue-500 hover:underline"
+                        >
                           私について
                         </Link>
                         をご覧ください。
@@ -108,11 +111,11 @@ export default function Services() {
                         インストラクター
                       </h3>
                       <p className="text-gray-700 text-xl md:text-2xl leading-loose mb-6">
-                    大手会社様向けの研修講師やプログラミングスクールのメンターとして活躍できます。
-                  </p>
-                  <p className="text-gray-700 text-xl md:text-2xl leading-loose mb-6">
-                    ITの基礎的な内容やJavaやPythonなどプログラミングスキルだけでなく、要件定義～テストまでの作法やマネジメント方法の指導なども可能です。
-                  </p>
+                        大手会社様向けの研修講師やプログラミングスクールのメンターとして活躍できます。
+                      </p>
+                      <p className="text-gray-700 text-xl md:text-2xl leading-loose mb-6">
+                        ITの基礎的な内容やJavaやPythonなどプログラミングスキルだけでなく、要件定義～テストまでの作法やマネジメント方法の指導なども可能です。
+                      </p>
                       <p className="text-gray-700 text-xl md:text-2xl leading-loose">
                         大手企業向け研修やプログラミングスクールのメンターとして指導経験があります。
                       </p>

@@ -1,19 +1,19 @@
-import { useState, useEffect } from "react";
-import { ActionFunction, useActionData } from "react-router";
-import nodemailer from "nodemailer";
-import Layout from "~/commons/components/Layout";
-import Main from "~/commons/components/Main";
-import SectionHeader from "~/commons/components/SectionHeader";
-import { Separator } from "~/components/ui/separator";
-import { Form } from "react-router";
-import { Input } from "~/components/ui/input";
-import { Button } from "~/components/ui/button";
-import { Textarea } from "~/components/ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
+import { useState, useEffect } from 'react';
+import { ActionFunction, useActionData } from 'react-router';
+import nodemailer from 'nodemailer';
+import Layout from '~/commons/components/Layout';
+import Main from '~/commons/components/Main';
+import SectionHeader from '~/commons/components/SectionHeader';
+import { Separator } from '~/components/ui/separator';
+import { Form } from 'react-router';
+import { Input } from '~/components/ui/input';
+import { Button } from '~/components/ui/button';
+import { Textarea } from '~/components/ui/textarea';
+import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 
 // メール送信用の nodemailer 設定
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  service: 'gmail',
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS,
@@ -23,12 +23,12 @@ const transporter = nodemailer.createTransport({
 // メール送信のアクション関数
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
-  const name = formData.get("name")?.toString() || "";
-  const email = formData.get("email")?.toString() || "";
-  const message = formData.get("message")?.toString() || "";
+  const name = formData.get('name')?.toString() || '';
+  const email = formData.get('email')?.toString() || '';
+  const message = formData.get('message')?.toString() || '';
 
   if (!name || !email || !message) {
-    return "必須項目が未入力です";
+    return '必須項目が未入力です';
   }
 
   try {
@@ -43,16 +43,16 @@ export const action: ActionFunction = async ({ request }) => {
           <p><strong>お名前:</strong> ${name}</p>
           <p><strong>メールアドレス:</strong> ${email}</p>
           <p><strong>お問い合わせ内容:</strong></p>
-          <p>${message.replace(/\n/g, "<br>")}</p>
+          <p>${message.replace(/\n/g, '<br>')}</p>
           <hr>
           <p style="font-size: 12px; color: #555;">※本メールはシステムからの自動送信です。</p>
         </div>`,
     });
 
-    return "お問い合わせ内容を送信しました。ありがとうございます！";
+    return 'お問い合わせ内容を送信しました。ありがとうございます！';
   } catch (error) {
-    console.error("メール送信エラー:", error);
-    return "お問い合わせの送信に失敗しました。再度お試しください。";
+    console.error('メール送信エラー:', error);
+    return 'お問い合わせの送信に失敗しました。再度お試しください。';
   }
 };
 
@@ -71,7 +71,10 @@ export default function Contact() {
   return (
     <Layout>
       {/* 大タイトル */}
-      <SectionHeader title="お問い合わせ" subtitle="フォームからお気軽にご連絡ください" />
+      <SectionHeader
+        title="お問い合わせ"
+        subtitle="フォームからお気軽にご連絡ください"
+      />
 
       {/* メインコンテンツ */}
       <Main>
@@ -98,33 +101,64 @@ export default function Contact() {
               >
                 {/* 名前 */}
                 <div>
-                  <label htmlFor="name" className="block text-lg font-medium text-gray-800 mb-2">
+                  <label
+                    htmlFor="name"
+                    className="block text-lg font-medium text-gray-800 mb-2"
+                  >
                     お名前 <span className="text-red-500">*</span>
                   </label>
-                  <Input type="text" id="name" name="name" required placeholder="例: 山田 太郎" />
+                  <Input
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                    placeholder="例: 山田 太郎"
+                  />
                 </div>
 
                 {/* メールアドレス */}
                 <div>
-                  <label htmlFor="email" className="block text-lg font-medium text-gray-800 mb-2">
+                  <label
+                    htmlFor="email"
+                    className="block text-lg font-medium text-gray-800 mb-2"
+                  >
                     メールアドレス <span className="text-red-500">*</span>
                   </label>
-                  <Input type="email" id="email" name="email" required placeholder="例: example@example.com" />
+                  <Input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    placeholder="例: example@example.com"
+                  />
                 </div>
 
                 {/* メッセージ */}
                 <div>
-                  <label htmlFor="message" className="block text-lg font-medium text-gray-800 mb-2">
+                  <label
+                    htmlFor="message"
+                    className="block text-lg font-medium text-gray-800 mb-2"
+                  >
                     メッセージ <span className="text-red-500">*</span>
                   </label>
-                  <Textarea id="message" name="message" rows={6} required placeholder="お問い合わせ内容をご記入ください" />
+                  <Textarea
+                    id="message"
+                    name="message"
+                    rows={6}
+                    required
+                    placeholder="お問い合わせ内容をご記入ください"
+                  />
                 </div>
 
                 {/* 送信ボタン */}
                 <Separator className="my-6" />
                 <div className="text-center">
-                  <Button type="submit" className="w-full" disabled={isSubmitting}>
-                    {isSubmitting ? "送信中..." : "送信する"}
+                  <Button
+                    type="submit"
+                    className="w-full"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? '送信中...' : '送信する'}
                   </Button>
                 </div>
               </Form>

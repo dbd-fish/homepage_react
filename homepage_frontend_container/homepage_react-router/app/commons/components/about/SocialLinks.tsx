@@ -15,14 +15,20 @@ export default function SocialLinks() {
         SNS & 連絡先
       </h2>
       <p className="text-lg text-gray-600 mb-10">
-        このホームページを含めて公開可能なコードはGithubに格納してます。<br />
+        このホームページを含めて公開可能なコードはGithubに格納してます。
+        <br />
         技術的な投稿はZenn、技術以外の内容はNoteに投稿しています。
         Noteには趣味も投稿しています。
       </p>
       <div className="flex flex-wrap justify-center gap-6">
         {socialLinks.map((sns, index) => (
           <Button key={index} variant="outline" asChild>
-            <a href={sns.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+            <a
+              href={sns.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2"
+            >
               {sns.icon} {sns.name}
             </a>
           </Button>

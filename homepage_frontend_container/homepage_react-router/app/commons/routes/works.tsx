@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Layout from '~/commons/components/Layout';
 import Main from '~/commons/components/Main';
 import SectionHeader from '~/commons/components/SectionHeader';
@@ -56,7 +56,9 @@ export default function Works() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   // projects 配列から section のユニークな値を抽出
-  const sections = Array.from(new Set(projects.map((project) => project.section)));
+  const sections = Array.from(
+    new Set(projects.map((project) => project.section)),
+  );
 
   return (
     <Layout>

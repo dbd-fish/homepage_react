@@ -1,21 +1,21 @@
-import { useState } from "react";
-import { Button } from "~/components/ui/button";
-import { Sheet, SheetTrigger, SheetContent } from "~/components/ui/sheet";
-import { Separator } from "~/components/ui/separator";
-import { Menu, X } from "lucide-react";
-import SiteTitle from "~/commons/components/SiteTitle";
+import { useState } from 'react';
+import { Button } from '~/components/ui/button';
+import { Sheet, SheetTrigger, SheetContent } from '~/components/ui/sheet';
+import { Separator } from '~/components/ui/separator';
+import { Menu } from 'lucide-react';
+import SiteTitle from '~/commons/components/SiteTitle';
 
 export default function HomeHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // リンクデータ
   const navLinks = [
-    { label: "ホーム", href: "/" },
-    { label: "サービス", href: "/services" },
-    { label: "実績", href: "/works" },
-    { label: "ポートフォリオ", href: "/portfolios" },
-    { label: "私について", href: "/about" },
-    { label: "お問い合わせ", href: "/contact" },
+    { label: 'ホーム', href: '/' },
+    { label: 'サービス', href: '/services' },
+    { label: '実績', href: '/works' },
+    { label: 'ポートフォリオ', href: '/portfolios' },
+    { label: '私について', href: '/about' },
+    { label: 'お問い合わせ', href: '/contact' },
   ];
 
   return (
@@ -41,7 +41,11 @@ export default function HomeHeader() {
         {/* ハンバーガーメニュー（スマホ用） */}
         <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
           <SheetTrigger asChild>
-            <Button variant="ghost" size="icon" className="sm:hidden hover:bg-gray-500">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="sm:hidden hover:bg-gray-500"
+            >
               <Menu size={32} />
             </Button>
           </SheetTrigger>
