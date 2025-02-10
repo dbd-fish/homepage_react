@@ -21,11 +21,11 @@ export default function Home() {
             <h2 className="text-3xl font-bold text-gray-800 mb-6">このサイトについて</h2>
             <p className="text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto">
               フリーランスエンジニアとして活動する
-              <span className="font-bold">山田太郎</span> のポートフォリオ兼ホームページです。
+              <span className="font-bold">山田太郎</span> のポートフォリオ兼ホームページです。<br/>
               私の提供するサービスや実績、技術スタックについて紹介しています。
             </p>
             <p className="text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto mt-4">
-              このサイトはReact Router7, shadcn/uiを使って自作しました。
+              このサイトはReact(React Router7), TypeScript, Tailwind CSS, shadcn/uiを使って自作しました。
             </p>
           </section>
 
@@ -50,7 +50,7 @@ export default function Home() {
               <div className="p-6 bg-white shadow-md rounded-lg">
                 <h3 className="text-xl font-bold mb-2">インストラクター</h3>
                 <p className="text-gray-600">
-                  今までのエンジニアとしての経験をもとに、新入社員様やエンジニア転職をされる方向けに講師として指導します。
+                  今までのエンジニアとしての経験をもとに、新入社員やエンジニア転職をされる方向けに講師として指導します。
                 </p>
               </div>
             </div>
