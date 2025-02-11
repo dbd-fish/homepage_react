@@ -16,7 +16,7 @@ type Project = {
 const projects: Project[] = [
   {
     section: '開発支援(SES)',
-    title: 'Webエンジニアとして開発支援',
+    title: 'エンジニアとして開発支援',
     details: [
       'Python、PHPなどのバックエンドを中心にWebシステムの開発に従事。',
       'フロントエンド業務やAWS環境などの調査も兼任して、様々な面でクライアント様をサポート。',
@@ -29,26 +29,27 @@ const projects: Project[] = [
       </>,
     ],
     images: ['/テスト画像.webp'],
+
   },
   {
-    section: 'インストラクター',
+    section: '教育関連',
     title: '新人研修向けIT講師',
     details: [
       '大手企業向け新人研修講師として登壇。',
       '基本情報技術者試験レベルの基礎的な内容からWebシステム構築するために必要なプログラミングスキルを指導。',
       '具体的なスキルとしてはJava, Spring boot, HTML, JavaScript, CSS, MySQLなどを指導。',
     ],
-    images: ['/テスト画像.webp', '/テスト画像.webp'],
+    images: ['/サービス画面_IT講師.png'],
   },
   {
-    section: 'インストラクター',
+    section: '教育関連',
     title: 'プログラミングスクールのテクニカルメンター',
     details: [
       '社会人向けプログラミングスクールにおいて、メンター業務を担当。',
       '進捗管理やテクニカル面のサポートにより受講者の成長を支える。',
       '具体的なスキルとしてはPHP, Laravel, HTML, JavaScript, CSS, MySQLなどを指導。',
     ],
-    images: ['/テスト画像.webp', '/テスト画像.webp'],
+    images: ['/プログラミングスクールのテクニカルメンター.png'],
   },
 ];
 
@@ -77,16 +78,16 @@ export default function Works() {
                   .map((project, index) => (
                     <Card
                       key={index}
-                      className="cursor-pointer w-full sm:w-auto lg:w-[400px] lg:h-[500px] hover:shadow-lg transition duration-200"
+                      className="cursor-pointer w-full sm:w-auto xl:w-[400px] xl:h-[350px] hover:shadow-lg transition duration-200"
                       onClick={() => setSelectedProject(project)}
                     >
                       <img
                         src={project.images[0]}
                         alt={project.title}
-                        className="w-full h-auto object-cover rounded-t-lg"
+                        className="w-full h-64 object-contain rounded-t-lg"
                       />
-                      <CardContent>
-                        <CardTitle className="text-xl font-bold text-center">
+                      <CardContent className="h-full flex flex-col">
+                        <CardTitle className="text-xl font-bold text-center w-full break-words whitespace-normal">
                           {project.title}
                         </CardTitle>
                       </CardContent>

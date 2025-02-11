@@ -21,7 +21,7 @@ export default function Services() {
               <div className="flex flex-col md:flex-row items-center md:items-start rounded-lg overflow-hidden bg-white w-full mt-16">
                 <div className="w-full md:w-1/3 flex-shrink-0">
                   <img
-                    src="/テスト画像.webp"
+                    src="/サービス画面_Webシステム開発.png"
                     alt="Webシステム開発"
                     className="w-full h-auto object-cover rounded-lg md:rounded-none md:rounded-l-lg p-2"
                   />
@@ -42,7 +42,7 @@ export default function Services() {
               <div className="flex flex-col md:flex-row items-center md:items-start rounded-lg overflow-hidden bg-white w-full mt-24">
                 <div className="w-full md:w-1/3 flex-shrink-0">
                   <img
-                    src="/テスト画像.webp"
+                    src="/サービス画面_既存システムの改修.png"
                     alt="既存システム改修"
                     className="w-full h-auto object-cover rounded-lg md:rounded-none md:rounded-l-lg p-2"
                   />
@@ -69,7 +69,7 @@ export default function Services() {
                   <div className="flex flex-col md:flex-row items-center md:items-start rounded-lg overflow-hidden bg-white w-full mt-24">
                     <div className="w-full md:w-1/3 flex-shrink-0">
                       <img
-                        src="/テスト画像.webp"
+                        src="/サービス画面_エンジニアとして開発支援.png"
                         alt="開発支援"
                         className="w-full h-auto object-cover rounded-lg md:rounded-none md:rounded-l-lg p-2"
                       />
@@ -101,20 +101,20 @@ export default function Services() {
                   <div className="flex flex-col md:flex-row items-center md:items-start rounded-lg overflow-hidden bg-white w-full mt-24">
                     <div className="w-full md:w-1/3 flex-shrink-0">
                       <img
-                        src="/テスト画像.webp"
+                        src="/サービス画面_IT講師.png"
                         alt="IT講師"
                         className="w-full h-auto object-cover rounded-lg md:rounded-none md:rounded-l-lg p-2"
                       />
                     </div>
                     <div className="p-6 flex flex-col w-full md:w-2/3">
                       <h3 className="text-3xl md:text-4xl font-extrabold mb-6 text-gray-800">
-                        インストラクター
+                        IT講師
                       </h3>
                       <p className="text-gray-700 text-xl md:text-2xl leading-loose mb-6">
                         大手会社様向けの研修講師やプログラミングスクールのメンターとして活躍できます。
                       </p>
                       <p className="text-gray-700 text-xl md:text-2xl leading-loose mb-6">
-                        ITの基礎的な内容やJavaやPythonなどプログラミングスキルだけでなく、要件定義～テストまでの作法やマネジメント方法の指導なども可能です。
+                        ITの基礎的な内容やJavaやPythonなどプログラミングスキルだけでなく、要件定義からテストまでの作法やマネジメント面の指導なども可能です。
                       </p>
                       <p className="text-gray-700 text-xl md:text-2xl leading-loose">
                         大手企業向け研修やプログラミングスクールのメンターとして指導経験があります。

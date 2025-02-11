@@ -24,7 +24,7 @@ const portfolioProjects: PortfolioProject[] = [
       '下記を使用して作成しました。',
       'React(React Router7), TypeScript, Tailwind CSS, shadcn/ui',
     ],
-    images: ['/テスト画像.webp', '/テスト画像2.webp'],
+    images: ['/ホームページ画像_PC.png', '/ホームページ画像_スマホ.png'],
     url: 'https://example.com/portfolio-site2',
   },
   {
@@ -37,8 +37,8 @@ const portfolioProjects: PortfolioProject[] = [
       'また、UI には shadcn/uiとTailwind CSSを採用し、シンプルなデザインにしました。',
       'PytestやCypressテストなどの環境も整えました。',
     ],
-    images: ['/テスト画像.webp', '/テスト画像2.webp'],
-    url: 'https://example.com/portfolio-app1',
+    images: ['/認証機能1.png', '/認証機能2.png', '/認証機能3.png'],
+    url: 'https://github.com/dbd-fish/template_web_system',
   },
 ];
 
@@ -68,16 +68,16 @@ export default function Portfolios() {
                   .map((project, index) => (
                     <Card
                       key={index}
-                      className="cursor-pointer w-full sm:w-auto lg:w-[400px] lg:h-[450px] hover:shadow-lg transition duration-200"
+                      className="cursor-pointer w-full sm:w-auto xl:w-[400px] xl:h-[350px] hover:shadow-lg transition duration-200"
                       onClick={() => setSelectedProject(project)}
                     >
                       <img
                         src={project.images[0]}
                         alt={project.title}
-                        className="w-full h-auto object-cover rounded-t-lg"
+                        className="w-full h-64 object-contain rounded-t-lg"
                       />
-                      <CardContent>
-                        <CardTitle className="text-xl font-bold text-center">
+                      <CardContent className="h-full flex flex-col">
+                        <CardTitle className="text-xl font-bold text-center w-full break-words whitespace-normal">
                           {project.title}
                         </CardTitle>
                       </CardContent>
