@@ -51,7 +51,7 @@ export default function Home() {
                 </p>
               </div>
               <div className="p-6 bg-white shadow-md rounded-lg">
-                <h3 className="text-xl font-bold mb-2">インストラクター</h3>
+                <h3 className="text-xl font-bold mb-2">IT講師</h3>
                 <p className="text-gray-600">
                   今までのエンジニアとしての経験をもとに、新入社員やエンジニア転職をされる方向けに講師として指導します。
                 </p>
