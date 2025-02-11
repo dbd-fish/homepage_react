@@ -4,7 +4,7 @@ const experienceData = [
   {
     year: '2019年',
     description:
-      '組み込み系の中堅Sier企業に新卒入社、エンジニアとしてキャリア開始',
+      '組み込み系の中堅Sier企業に第二新卒入社、エンジニアとしてキャリア開始',
   },
   { year: '2021年', description: 'Web系のSES企業に転職' },
   {
