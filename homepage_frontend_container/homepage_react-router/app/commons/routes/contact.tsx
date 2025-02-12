@@ -28,7 +28,7 @@ export const action: ActionFunction = async ({ request }) => {
   const message = formData.get('message')?.toString() || '';
 
   if (!name || !email || !message) {
-    return '必須項目が未入力です';
+    return { success: false, message: '必須項目が未入力です' };
   }
 
   try {
@@ -49,19 +49,18 @@ export const action: ActionFunction = async ({ request }) => {
         </div>`,
     });
 
-    return 'お問い合わせ内容を送信しました。ありがとうございます！';
+    return { success: true, message: 'お問い合わせ内容を送信しました。ありがとうございます！' };
   } catch (error) {
     console.error('メール送信エラー:', error);
-    return 'お問い合わせの送信に失敗しました。再度お試しください。';
+    return { success: false, message: 'お問い合わせの送信に失敗しました。再度お試しください。' };
   }
 };
 
 // **Contact ページ**
 export default function Contact() {
-  const actionData = useActionData<string>(); // 送信結果メッセージ
-  const [isSubmitting, setIsSubmitting] = useState(false); // 送信中状態の管理
+  const actionData = useActionData<{ success: boolean; message: string }>();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // 送信後にボタンを再び有効化
   useEffect(() => {
     if (actionData) {
       setIsSubmitting(false);
@@ -70,16 +69,10 @@ export default function Contact() {
 
   return (
     <Layout>
-      {/* 大タイトル */}
-      <SectionHeader
-        title="お問い合わせ"
-        subtitle="フォームからお気軽にご連絡ください"
-      />
+      <SectionHeader title="お問い合わせ" subtitle="フォームからお気軽にご連絡ください" />
 
-      {/* メインコンテンツ */}
       <Main>
         <div className="max-w-3xl mx-auto py-12">
-          {/* フォームカード */}
           <Card className="shadow-lg">
             <CardHeader>
               <CardTitle className="text-4xl font-bold text-gray-800 text-center">
@@ -93,71 +86,31 @@ export default function Contact() {
                 お問い合わせ内容を確認後、担当者よりご連絡させていただきます。
               </p>
 
-              {/* フォーム */}
-              <Form
-                method="post"
-                className="space-y-8"
-                onSubmit={() => setIsSubmitting(true)} // 送信開始時に状態を更新
-              >
-                {/* 名前 */}
+              <Form method="post" className="space-y-8" onSubmit={() => setIsSubmitting(true)}>
                 <div>
-                  <label
-                    htmlFor="name"
-                    className="block text-lg font-medium text-gray-800 mb-2"
-                  >
+                  <label htmlFor="name" className="block text-lg font-medium text-gray-800 mb-2">
                     お名前 <span className="text-red-500">*</span>
                   </label>
-                  <Input
-                    type="text"
-                    id="name"
-                    name="name"
-                    required
-                    placeholder="例: 山田 太郎"
-                  />
+                  <Input type="text" id="name" name="name" required placeholder="例: 山田 太郎" />
                 </div>
 
-                {/* メールアドレス */}
                 <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-lg font-medium text-gray-800 mb-2"
-                  >
+                  <label htmlFor="email" className="block text-lg font-medium text-gray-800 mb-2">
                     メールアドレス <span className="text-red-500">*</span>
                   </label>
-                  <Input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                    placeholder="例: example@example.com"
-                  />
+                  <Input type="email" id="email" name="email" required placeholder="例: example@example.com" />
                 </div>
 
-                {/* メッセージ */}
                 <div>
-                  <label
-                    htmlFor="message"
-                    className="block text-lg font-medium text-gray-800 mb-2"
-                  >
+                  <label htmlFor="message" className="block text-lg font-medium text-gray-800 mb-2">
                     メッセージ <span className="text-red-500">*</span>
                   </label>
-                  <Textarea
-                    id="message"
-                    name="message"
-                    rows={6}
-                    required
-                    placeholder="お問い合わせ内容をご記入ください"
-                  />
+                  <Textarea id="message" name="message" rows={6} required placeholder="お問い合わせ内容をご記入ください" />
                 </div>
 
-                {/* 送信ボタン */}
                 <Separator className="my-6" />
                 <div className="text-center">
-                  <Button
-                    type="submit"
-                    className="w-full"
-                    disabled={isSubmitting}
-                  >
+                  <Button type="submit" className="w-full" disabled={isSubmitting}>
                     {isSubmitting ? '送信中...' : '送信する'}
                   </Button>
                 </div>
@@ -165,8 +118,12 @@ export default function Contact() {
 
               {/* メッセージ表示 */}
               {actionData && (
-                <div className="mt-6 font-medium text-center text-green-600">
-                  {actionData}
+                <div
+                  className={`mt-6 font-medium text-center ${
+                    actionData.success ? 'text-green-600' : 'text-red-600'
+                  }`}
+                >
+                  {actionData.message}
                 </div>
               )}
             </CardContent>
@@ -176,3 +133,4 @@ export default function Contact() {
     </Layout>
   );
 }
+

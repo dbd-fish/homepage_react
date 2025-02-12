@@ -28,7 +28,7 @@ const projects: Project[] = [
         を参照。
       </>,
     ],
-    images: ['/テスト画像.webp'],
+    images: ['/サービス画面_エンジニアとして開発支援.png'],
 
   },
   {
