@@ -43,6 +43,7 @@ Reactでホームページを作る
 ```
 
 # 環境構築手順
+## 開発環境
 localhostをHTTPSで起動するためにcert.pemとkey.pemを生成する。
 Windows端末でcert.pemとkey.pemを生成する方法は下記に記載。  
 https://github.com/dbd-fish/react_sample/issues/12#issuecomment-2570993736
@@ -74,6 +75,22 @@ https://localhost:5173/home
 
 
 Cypressによるテストをする場合は`https://localhost:5173`が有効な状態でCypressコンテナを起動する。
+
+## 本番環境
+下記コマンドで.envに設定した値を環境変数として登録
+```Bash
+export SMTP_USER="your-email@gmail.com"
+export SMTP_PASS="your-password"
+export CONTACT_RECEIVER="receiver@example.com"
+```
+
+
+下記コマンドで本番用のビルドファイルを作成＆起動
+```Bash
+cd homepage_react-router
+npm run build
+npm run start
+```
 
 # 各種コマンド
 コンテナ内で下記コマンドを実行可能。
