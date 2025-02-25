@@ -1,5 +1,7 @@
 # リポジトリ概要
-React(ReactRouter7)でホームページをつくる
+React(ReactRouter7)でホームページのたたき台を作成しました。
+このリポジトリをもとに作成したホームページが下記になります。
+https://kokai-dev.jp/
 
 
 
